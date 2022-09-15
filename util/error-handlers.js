@@ -30,6 +30,11 @@ class ServerError extends AppError {
 class ValidationError extends AppError {
   constructor(message) {
     super(400, message, ValidationError);
+    this.errorMessages = [];
+  }
+
+  addErrorMessage(message) {
+    this.errorMessages.push(message);
   }
 }
 

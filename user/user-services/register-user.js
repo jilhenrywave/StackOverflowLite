@@ -2,24 +2,28 @@ const User = require('../User');
 const registerToken = require('../token-services/register-token');
 const { AppError, RequestBodyError, ServerError } = require('../../util/error-handlers');
 
-//const isEntryValid = (userEntry) => userEntry.name && userEntry.email && userEntry.password;
-
 const getToken = async (userId) => registerToken(userId);
 
-const createUser = async (userEntry) => {
+/**
+ * Saves user to the database
+ * @param {object} userEntry : The data to be saved
+ * @returns {object} Saved user
+ */
+const saveUser = async (userEntry) => {
   const user = User.build(userEntry);
   if (!user) throw new ServerError(500, 'Error: Could not create user');
   await user.save();
   return user;
 };
 
+/**
+ * Registers a new user on the system
+ * @param {object} userEntry : The data to be saved
+ * @returns {object} response or error object
+ */
 const registerUser = async (userEntry) => {
   try {
-    // if (!isEntryValid(userEntry)) {
-    //   throw new RequestBodyError(400, 'Required fields are missing. Ensure name, email and password are provided');
-    // }
-
-    const user = await createUser(userEntry);
+    const user = await saveUser(userEntry);
 
     const token = await getToken(user.id);
 
