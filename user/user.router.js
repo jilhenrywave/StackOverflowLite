@@ -36,4 +36,13 @@ router.post(
   },
 );
 
+router.post(
+  '/users/logoutAll',
+  auth,
+  async (req, res) => {
+    req.body.all = true;
+    requestHandler(req, res, controller.logoutUser);
+  },
+);
+
 module.exports = router;
