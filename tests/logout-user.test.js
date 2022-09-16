@@ -1,18 +1,23 @@
-// /* eslint-disable no-unused-expressions */
-// /* eslint-disable no-undef */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-undef */
 
-// const logoutUser = require('../user/user-services/logout-user');
-// const User = require('../user/User');
-// const registerUserFormatter = require('../formatters/register-user.formatter');
-// const registerUser = require('../user/user-services/register-user');
+const { expect } = require('chai');
+const logoutUser = require('../user/user-services/logout-user');
 
-// describe('Logout User', () => {
-//   before('Register users', () => {
-//     registerUser({ name: 'Jil Henry', email: 'henry@gmail.com', password })
-//   });
-//   context('Authentication Error', () => {
-//     it('should return error if token is not valid', () => {
-//       logoutUser()
-//     });
-//   });
-// });
+describe('Logout User', () => {
+  const id = '123456789';
+  const token = 'someToken124***';
+
+  it('should return object with message if argument object has id and token', async () => {
+    const response = await logoutUser({ id, token });
+
+    expect(response).to.have.key('message');
+  });
+
+  it('should return error object if called with wrong object argument', async () => {
+    const response = await logoutUser({ userId: '' });
+
+    expect(response).to.have.keys(['code', 'errorMessage', 'type']);
+    expect(response.code).to.eql(500);
+  });
+});

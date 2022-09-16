@@ -12,6 +12,8 @@ const { ERROR_MESSAGE } = require('../../util/constants');
 
 module.exports = async (token, userId) => {
   try {
+    if (!token) throw new Error();
+
     let numOfRemovedRecords;
 
     if (userId) numOfRemovedRecords = await Token.destroy({ where: { userId } });

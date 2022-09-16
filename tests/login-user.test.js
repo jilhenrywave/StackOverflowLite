@@ -1,23 +1,30 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 const { expect } = require('chai');
+const sandbox = require('sinon').createSandbox();
 const bcrypt = require('bcrypt');
 const loginValidator = require('../validators/login-user.validator');
 const { invalidPasswordEntries, invalidEmailEntries } = require('./test-cases/login-user-test-cases');
 const loginUserService = require('../user/user-services/login-user');
 const User = require('../user/User');
 const { ERROR_MESSAGE } = require('../util/constants');
+const Token = require('../user/Token');
 
 describe('Login User', () => {
   const user = { name: 'Jil Henry', password: '1234567', email: 'henry@jil.com' };
+  const invalidEmail = 'henry@gmail.com';
 
-  before('Add User to Database', async () => {
-    const hashPassword = await bcrypt.hash(user.password, 12);
-    await User.create({ ...user, password: hashPassword });
+  before('Setup Stubs', () => {
+    const userDBStub = sandbox.stub(User, 'findOne');
+    const tokenDBStub = sandbox.stub(Token, 'create');
+
+    userDBStub.withArgs({ where: { email: invalidEmail } }).returns(undefined);
+    userDBStub.returns({ id: 'some-id', ...user, password: bcrypt.hashSync('1234567', 12) });
+    tokenDBStub.returns({ token: 'some-token' });
   });
 
-  after('Remove User to Database', async () => {
-    await User.destroy({ where: { email: user.email } });
+  after('Restore User model', () => {
+    sandbox.restore();
   });
 
   context('Request Validation', () => {
@@ -57,7 +64,7 @@ describe('Login User', () => {
 
   context('Unsuccessful Authentication', () => {
     it('should return authentication error object when email is incorrect', async () => {
-      const response = await loginUserService({ email: 'henry@gmail.com', password: user.password });
+      const response = await loginUserService({ email: invalidEmail, password: user.password });
 
       expect(response).to.have.keys(['errorMessage', 'code', 'type']);
       expect(response.code).to.eql(404);
