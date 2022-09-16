@@ -19,11 +19,11 @@ describe('Register User', () => {
   context('Bad entries', () => {
     Object.entries(invalidEntries).forEach(([title, entry]) => {
       it(`should return error if ${title} exists`, () => {
-        const value = registerUserValidator(entry);
+        const response = registerUserValidator(entry);
+        const value = { ...response };
 
         expect(value).to.have.keys(['code', 'errorMessage', 'type', 'errorMessages']);
         expect(value.code).to.be.a('number');
-        expect(value.errorMessage).not.to.be.empty;
       });
     });
   });

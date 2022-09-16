@@ -27,6 +27,12 @@ class ServerError extends AppError {
   }
 }
 
+class AuthenticationError extends AppError {
+  constructor(code, message) {
+    super(code, message, AuthenticationError);
+  }
+}
+
 class ValidationError extends AppError {
   constructor(message) {
     super(400, message, ValidationError);
@@ -42,5 +48,6 @@ module.exports = {
   AppError,
   RequestBodyError,
   ServerError,
+  AuthenticationError,
   ValidationError,
 };

@@ -1,8 +1,13 @@
 const registerUserService = require('./user-services/register-user');
+const loginUserService = require('./user-services/login-user');
 
-const registerUser = async (payload) => {
-  const serviceResponse = await registerUserService(payload);
-  return { statusCode: serviceResponse.code || 201, body: { ...serviceResponse } };
+const userServiceHandler = async (payload, service, successCode) => {
+  const serviceResponse = await service(payload);
+  return { statusCode: serviceResponse.code || successCode, body: { ...serviceResponse } };
 };
 
-module.exports = { registerUser };
+const registerUser = async (payload) => userServiceHandler(payload, registerUserService, 201);
+
+const loginUser = async (payload) => userServiceHandler(payload, loginUserService, 200);
+
+module.exports = { registerUser, loginUser };

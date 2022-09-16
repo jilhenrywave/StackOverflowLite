@@ -1,5 +1,6 @@
 const Token = require('../Token');
 const { generateToken } = require('../../util/user-tokenizer');
+const { ERROR_MESSAGE } = require('../../util/constants');
 const { ServerError } = require('../../util/error-handlers');
 
 /**
@@ -49,7 +50,7 @@ const registerToken = async (userId) => {
 
     return token;
   } catch (e) {
-    throw new ServerError(500, 'Internal Error: Could not register token');
+    throw new ServerError(500, ERROR_MESSAGE.serverError);
   }
 };
 
