@@ -32,6 +32,11 @@ class AuthenticationError extends AppError {
     super(code, message, AuthenticationError);
   }
 }
+class AuthorizationError extends AppError {
+  constructor(code, message) {
+    super(code, message, AuthorizationError);
+  }
+}
 
 class ValidationError extends AppError {
   constructor(message) {
@@ -49,5 +54,6 @@ module.exports = {
   RequestBodyError,
   ServerError,
   AuthenticationError,
+  AuthorizationError,
   ValidationError,
 };

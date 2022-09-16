@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/sequelize');
+const Token = require('./Token');
 
 const User = sequelize.define(
   'User',
@@ -29,5 +30,7 @@ const User = sequelize.define(
     updatedAt: 'modifiedAt',
   },
 );
+
+User.hasMany(Token, { foreignKey: 'userid' });
 
 module.exports = User;

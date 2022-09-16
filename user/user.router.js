@@ -1,5 +1,6 @@
 const express = require('express');
 const controller = require('./user.controller');
+const auth = require('../middlewares/auth');
 const { registerUserFormatter } = require('../middlewares/req-formatters');
 const { registerUserValidator, loginValidator } = require('../middlewares/req-validators');
 
@@ -24,6 +25,14 @@ router.post(
   loginValidator,
   async (req, res) => {
     requestHandler(req, res, controller.loginUser);
+  },
+);
+
+router.post(
+  '/users/logout',
+  auth,
+  async (req, res) => {
+    requestHandler(req, res, controller.logoutUser);
   },
 );
 

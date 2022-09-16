@@ -7,6 +7,8 @@ const ERROR_MESSAGE = {
   duplicateEmail: 'Email already exists',
   invalidName: 'Name is missing',
   serverError: 'Internal Error. Unable to process request at this time',
+  invalidToken: 'Token is not valid',
+  missingToken: 'Authorization token is missing',
 };
 
 module.exports = {
