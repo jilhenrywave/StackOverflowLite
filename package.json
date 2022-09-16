@@ -35,7 +35,6 @@
     "eslint-plugin-import": "^2.26.0",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.19",
-    "sequelize-cli": "^6.4.1",
-    "sinon": "^14.0.0"
+    "sequelize-cli": "^6.4.1"
   }
 }

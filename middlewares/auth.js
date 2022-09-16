@@ -1,8 +1,7 @@
 const { AuthenticationError, AppError, ServerError } = require('../util/error-handlers');
 const { parseToken } = require('../util/user-tokenizer');
 const { ERROR_MESSAGE } = require('../util/constants');
-const User = require('../user/User');
-const Token = require('../user/Token');
+const { getUserWithToken } = require('../user/user.controller');
 
 module.exports = async (req, res, next) => {
   try {
@@ -15,25 +14,9 @@ module.exports = async (req, res, next) => {
 
     if (!tokenPayload) throw new AuthenticationError(400, ERROR_MESSAGE.invalidToken);
 
-    const user = await User.findByPk(
-      tokenPayload.id,
-      {
-        include: {
-          model: Token,
-          where: { token },
-          required: true,
-        },
-      },
-    );
+    const userWithToken = await getUserWithToken(tokenPayload.id, token);
 
-    if (!user) throw new AuthenticationError(400, ERROR_MESSAGE.invalidToken);
-
-    req.body = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      token,
-    };
+    req.body = userWithToken;
 
     next();
   } catch (e) {
