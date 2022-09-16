@@ -2,28 +2,36 @@
 /* eslint-disable no-undef */
 
 const { expect } = require('chai');
+const sandbox = require('sinon').createSandbox();
 const bcrypt = require('bcrypt');
 const { invalidEntries, validEntry } = require('./test-cases/register-user-test-cases');
 const registerUserValidator = require('../validators/register-user.validator');
 const registerUserFormatter = require('../formatters/register-user.formatter');
 const registerUser = require('../user/user-services/register-user');
 const User = require('../user/User');
+const Token = require('../user/Token');
 
 describe('Register User', () => {
-  after('Clear Database', async () => {
-    await User.destroy({
-      where: {},
-    });
+  before('Setup Stubs', () => {
+    const userDBStub = sandbox.stub(User, 'create');
+    const tokenDBStub = sandbox.stub(Token, 'create');
+
+    userDBStub.returns({ ...validEntry, id: 'some-id' });
+    tokenDBStub.returns({ token: 'some-token' });
+  });
+
+  after('Clear Database', () => {
+    sandbox.restore();
   });
 
   context('Bad entries', () => {
     Object.entries(invalidEntries).forEach(([title, entry]) => {
       it(`should return error if ${title} exists`, () => {
-        const value = registerUserValidator(entry);
+        const response = registerUserValidator(entry);
+        const value = { ...response };
 
         expect(value).to.have.keys(['code', 'errorMessage', 'type', 'errorMessages']);
         expect(value.code).to.be.a('number');
-        expect(value.errorMessage).not.to.be.empty;
       });
     });
   });

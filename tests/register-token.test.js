@@ -2,25 +2,27 @@
 /* eslint-disable no-undef */
 
 const { expect } = require('chai');
-const { validEntry } = require('./test-cases/register-user-test-cases');
+const sandbox = require('sinon').createSandbox();
 const registerToken = require('../user/token-services/register-token');
-const User = require('../user/User');
+const Token = require('../user/Token');
 
 describe('Register Token', () => {
-  let user;
+  const userId = 'some-user-id';
+  const token = 'some-useful-token';
 
-  before('Setup User record', async () => {
-    user = await User.create(validEntry);
+  before('Setup Stub', () => {
+    const tokenDBStub = sandbox.stub(Token, 'create');
+    tokenDBStub.returns({ token });
   });
 
-  after('Remove User record', async () => {
-    await User.destroy({ where: {} });
+  after('Restore Token object', () => {
+    sandbox.restore();
   });
 
   it('should return token when user id is valid', async () => {
-    const response = await registerToken(user.id);
+    const response = await registerToken(userId);
     expect(response).to.exist;
-    expect(response).to.be.a('string');
+    expect(response).to.eql(token);
   });
 
   it('should return error when user id is not valid or empty', () => {
