@@ -1,6 +1,6 @@
 const { isTextValid, isEmailValid, isPasswordValid } = require('./field-validators');
-const { ValidationError } = require('../util/error-handlers');
-const { ERROR_MESSAGE } = require('../util/constants');
+const { ValidationError } = require('../error-handlers');
+const { ERROR_MESSAGE } = require('../constants');
 
 module.exports = ({ name = '', email = '', password = '' }) => {
   const validationError = new ValidationError();

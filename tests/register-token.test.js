@@ -4,7 +4,7 @@
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
 const registerToken = require('../user/token-services/register-token');
-const Token = require('../user/Token');
+const Token = require('../user/models/Token');
 
 describe('Register Token', () => {
   const userId = 'some-user-id';

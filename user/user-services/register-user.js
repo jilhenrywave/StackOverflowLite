@@ -1,4 +1,4 @@
-const User = require('../User');
+const User = require('../models/User');
 const registerToken = require('../token-services/register-token');
 const { ERROR_MESSAGE } = require('../../util/constants');
 const { AppError, RequestBodyError, ServerError } = require('../../util/error-handlers');

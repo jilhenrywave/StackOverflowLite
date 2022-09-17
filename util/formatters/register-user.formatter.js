@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { ServerError } = require('../util/error-handlers');
+const { ServerError } = require('../error-handlers');
 
 /**
  * Formats request body for registering user.

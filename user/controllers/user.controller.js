@@ -1,7 +1,7 @@
-const registerUserService = require('./user-services/register-user');
-const loginUserService = require('./user-services/login-user');
-const logoutUserService = require('./user-services/logout-user');
-const getUserWithToken = require('./user-services/get-user-token');
+const registerUserService = require('../user-services/register-user');
+const loginUserService = require('../user-services/login-user');
+const logoutUserService = require('../user-services/logout-user');
+const getUserWithToken = require('../user-services/get-user-token');
 
 const userServiceHandler = async (payload, service, successCode) => {
   const serviceResponse = await service(payload);

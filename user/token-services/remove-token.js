@@ -1,4 +1,4 @@
-const Token = require('../Token');
+const Token = require('../models/Token');
 const { ServerError } = require('../../util/error-handlers');
 const { ERROR_MESSAGE } = require('../../util/constants');
 

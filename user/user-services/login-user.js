@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const User = require('../User');
+const User = require('../models/User');
 const registerToken = require('../token-services/register-token');
 const { ERROR_MESSAGE } = require('../../util/constants');
 const { AppError, ServerError, AuthenticationError } = require('../../util/error-handlers');
