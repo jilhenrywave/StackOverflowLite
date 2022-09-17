@@ -5,6 +5,7 @@ const getThisUserService = require('../user-services/get-this-user');
 const getUserWithToken = require('../user-services/get-user-token');
 const getUserService = require('../user-services/get-user');
 const updateUserService = require('../user-services/update-user');
+const deleteUserService = require('../user-services/delete-user');
 
 const userServiceHandler = async (payload, service, successCode) => {
   const serviceResponse = await service(payload);
@@ -23,6 +24,8 @@ const getUser = async (payload) => userServiceHandler(payload, getUserService, 2
 
 const updateUser = async (payload) => userServiceHandler(payload, updateUserService, 200);
 
+const deleteUser = async (payload) => userServiceHandler(payload, deleteUserService, 200);
+
 module.exports = {
   registerUser,
   loginUser,
@@ -31,4 +34,5 @@ module.exports = {
   getThisUser,
   getUser,
   updateUser,
+  deleteUser,
 };

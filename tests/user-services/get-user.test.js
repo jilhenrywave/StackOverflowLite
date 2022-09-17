@@ -8,8 +8,8 @@ const { user } = require('../entities/user-test-entity');
 
 describe('Get User', () => {
   before('Setting up stubs', () => {
-    const userDBStub = sandbox.stub(User, 'findOne');
-    userDBStub.withArgs({ where: { id: user.id } }).returns(user);
+    const userDBStub = sandbox.stub(User, 'findByPk');
+    userDBStub.withArgs(user.id).returns(user);
     userDBStub.returns(undefined);
   });
 
