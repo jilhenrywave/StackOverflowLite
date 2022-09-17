@@ -1,5 +1,5 @@
 const removeToken = require('../token-services/remove-token');
-const { AppError, ServerError } = require('../../util/error-handlers');
+const serviceErrorHandler = require('../../util/services-error-handler');
 
 /**
  * Removes token from database. If all is specified, all tokens are removed
@@ -14,10 +14,7 @@ const logoutUser = async ({ id, token, all = false }) => {
 
     return { message: 'User successfully logged out' };
   } catch (e) {
-    if (e instanceof AppError) {
-      return e;
-    }
-    return new ServerError(500, e.message);
+    return serviceErrorHandler(e);
   }
 };
 

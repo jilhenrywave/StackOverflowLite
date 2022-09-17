@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
 
     const userWithToken = await getUserWithToken(tokenPayload.id, token);
 
-    req.body = userWithToken;
+    req.user = userWithToken;
 
     next();
   } catch (e) {

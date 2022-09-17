@@ -16,7 +16,7 @@ router.post(
   registerUserValidator,
   registerUserFormatter,
   async (req, res) => {
-    requestHandler(req.body, res, controller.registerUser);
+    requestHandler(req.formattedBody, res, controller.registerUser);
   },
 );
 
@@ -32,7 +32,7 @@ router.post(
   '/users/logout',
   auth,
   async (req, res) => {
-    requestHandler(req.body, res, controller.logoutUser);
+    requestHandler(req.user, res, controller.logoutUser);
   },
 );
 
@@ -40,8 +40,8 @@ router.post(
   '/users/logoutAll',
   auth,
   async (req, res) => {
-    req.body.all = true;
-    requestHandler(req.body, res, controller.logoutUser);
+    req.user.all = true;
+    requestHandler(req.user, res, controller.logoutUser);
   },
 );
 
@@ -49,7 +49,7 @@ router.get(
   '/users/me',
   auth,
   async (req, res) => {
-    requestHandler(req.body, res, controller.getThisUser);
+    requestHandler(req.user, res, controller.getThisUser);
   },
 );
 

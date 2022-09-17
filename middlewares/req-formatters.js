@@ -5,7 +5,7 @@ exports.registerUserFormatter = async (req, res, next) => {
 
   if (formattedBody.code) return res.status(formattedBody.code).send({ ...formattedBody });
 
-  req.body = formattedBody;
+  req.formattedBody = formattedBody;
 
   return next();
 };
