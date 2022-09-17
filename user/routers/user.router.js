@@ -53,6 +53,12 @@ router.get(
   },
 );
 
-
+router.get(
+  '/users',
+  auth,
+  async (req, res) => {
+    requestHandler(req.query.id, res, controller.getUser);
+  },
+);
 
 module.exports = router;

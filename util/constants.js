@@ -9,6 +9,7 @@ const ERROR_MESSAGE = {
   serverError: 'Internal Error. Unable to process request at this time',
   invalidToken: 'Token is not valid',
   missingToken: 'Authorization token is missing',
+  invalidID: 'User Id is not recognised',
 };
 
 module.exports = {
