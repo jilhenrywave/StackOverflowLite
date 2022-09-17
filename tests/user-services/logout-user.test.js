@@ -3,8 +3,8 @@
 
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
-const Token = require('../user/models/Token');
-const logoutUser = require('../user/user-services/logout-user');
+const Token = require('../../user/models/Token');
+const logoutUser = require('../../user/user-services/logout-user');
 
 describe('Logout User', () => {
   const id = '123456789';

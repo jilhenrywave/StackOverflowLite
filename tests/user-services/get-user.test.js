@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 const sandbox = require('sinon').createSandbox();
 const { expect } = require('chai');
-const User = require('../user/models/User');
-const getUser = require('../user/user-services/get-user');
-const { ERROR_MESSAGE } = require('../util/constants');
+const User = require('../../user/models/User');
+const getUser = require('../../user/user-services/get-user');
+const { ERROR_MESSAGE } = require('../../util/constants');
 
 describe('Get User', () => {
   const user = { id: 'f9107d9c-d3f3-4c91-80b7-f0299f56e941', name: 'some-name', email: 'some-email' };

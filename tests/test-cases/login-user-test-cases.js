@@ -26,6 +26,11 @@ const invalidPassword4 = {
   password: '123',
 };
 
+exports.validEntry = {
+  email: 'henry@gmail.com',
+  password: 'pass3word',
+};
+
 exports.invalidPasswordEntries = [
   invalidPassword,
   invalidPassword2,

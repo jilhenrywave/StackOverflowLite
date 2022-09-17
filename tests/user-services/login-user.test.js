@@ -3,12 +3,10 @@
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
 const bcrypt = require('bcrypt');
-const loginValidator = require('../util/validators/login-user.validator');
-const { invalidPasswordEntries, invalidEmailEntries } = require('./test-cases/login-user-test-cases');
-const loginUserService = require('../user/user-services/login-user');
-const User = require('../user/models/User');
-const { ERROR_MESSAGE } = require('../util/constants');
-const Token = require('../user/models/Token');
+const loginUserService = require('../../user/user-services/login-user');
+const { ERROR_MESSAGE } = require('../../util/constants');
+const User = require('../../user/models/User');
+const Token = require('../../user/models/Token');
 
 describe('Login User', () => {
   const user = { name: 'Jil Henry', password: '1234567', email: 'henry@jil.com' };
@@ -25,30 +23,6 @@ describe('Login User', () => {
 
   after('Restore User model', () => {
     sandbox.restore();
-  });
-
-  context('Request Validation', () => {
-    invalidEmailEntries.forEach((entry) => {
-      it('should return error when email is not valid', () => {
-        const response = loginValidator(entry);
-
-        expect(response).to.have.keys(['code', 'errorMessage', 'type', 'errorMessages']);
-        expect(response.code).to.be.a('number');
-        expect(response.errorMessages[0]).to.eql(ERROR_MESSAGE.invalidEmail);
-        expect(response.errorMessages).to.have.lengthOf(1);
-      });
-    });
-
-    invalidPasswordEntries.forEach((entry) => {
-      it('should return error when password is not valid', () => {
-        const response = loginValidator(entry);
-
-        expect(response).to.have.keys(['code', 'errorMessage', 'type', 'errorMessages']);
-        expect(response.code).to.be.a('number');
-        expect(response.errorMessages[0]).to.eql(ERROR_MESSAGE.invalidPassword);
-        expect(response.errorMessages).to.have.lengthOf(1);
-      });
-    });
   });
 
   context('Successful Authentication', () => {

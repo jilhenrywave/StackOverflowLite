@@ -1,8 +1,8 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable no-undef */
 const { expect } = require('chai');
-const getThisUser = require('../user/user-services/get-this-user');
-const { ERROR_MESSAGE } = require('../util/constants');
+const getThisUser = require('../../user/user-services/get-this-user');
+const { ERROR_MESSAGE } = require('../../util/constants');
 
 describe('Get this User', () => {
   context('Valid Arguments', () => {

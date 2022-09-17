@@ -1,5 +1,6 @@
 const registerValidator = require('../util/validators/register-user.validator');
 const loginValidator = require('../util/validators/login-user.validator');
+const updateUserValidator = require('../util/validators/update-user.validator');
 
 const validationHandler = (req, res, next, validator) => {
   const validatorResponse = validator(req.body);
@@ -18,4 +19,8 @@ exports.registerUserValidator = (req, res, next) => {
 
 exports.loginValidator = (req, res, next) => {
   validationHandler(req, res, next, loginValidator);
+};
+
+exports.updateUserValidator = (req, res, next) => {
+  validationHandler(req, res, next, updateUserValidator);
 };

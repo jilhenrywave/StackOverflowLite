@@ -16,7 +16,9 @@ const invalidPassword = {
   password: 'password',
 };
 
-const missingEntries = {
+const missingEntries = {};
+
+const missingSomeEntries = {
   email: 'henryjil3@gmail.com',
 };
 
@@ -27,8 +29,9 @@ exports.validEntry = {
 };
 
 exports.invalidEntries = {
-  'invalid name': invalidName,
-  'invalid email': invalidEmail,
-  'invalid password': invalidPassword,
-  'missing entries': missingEntries,
+  invalidName,
+  invalidEmail,
+  invalidPassword,
+  missingEntries,
+  missingSomeEntries,
 };
