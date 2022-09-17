@@ -6,8 +6,8 @@ const { registerUserValidator, loginValidator } = require('../../middlewares/req
 
 const router = express.Router();
 
-const requestHandler = async (req, res, handler) => {
-  const response = await handler(req.body);
+const requestHandler = async (arg, res, handler) => {
+  const response = await handler(arg);
   res.status(response.statusCode).send(response.body);
 };
 
@@ -16,7 +16,7 @@ router.post(
   registerUserValidator,
   registerUserFormatter,
   async (req, res) => {
-    requestHandler(req, res, controller.registerUser);
+    requestHandler(req.body, res, controller.registerUser);
   },
 );
 
@@ -24,7 +24,7 @@ router.post(
   '/users/login',
   loginValidator,
   async (req, res) => {
-    requestHandler(req, res, controller.loginUser);
+    requestHandler(req.body, res, controller.loginUser);
   },
 );
 
@@ -32,7 +32,7 @@ router.post(
   '/users/logout',
   auth,
   async (req, res) => {
-    requestHandler(req, res, controller.logoutUser);
+    requestHandler(req.body, res, controller.logoutUser);
   },
 );
 
@@ -41,8 +41,18 @@ router.post(
   auth,
   async (req, res) => {
     req.body.all = true;
-    requestHandler(req, res, controller.logoutUser);
+    requestHandler(req.body, res, controller.logoutUser);
   },
 );
+
+router.get(
+  '/users/me',
+  auth,
+  async (req, res) => {
+    requestHandler(req.body, res, controller.getThisUser);
+  },
+);
+
+
 
 module.exports = router;

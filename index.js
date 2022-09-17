@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(userRouter);
 
-app.get('/', (_req, res) => {
+app.get('*', (_req, res) => {
   res.send('StackoverflowLite Project API');
 });
 

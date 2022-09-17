@@ -15,9 +15,9 @@ class AppError extends Error {
   }
 }
 
-class RequestBodyError extends AppError {
+class RequestError extends AppError {
   constructor(code, message) {
-    super(code, message, RequestBodyError);
+    super(code, message, RequestError);
   }
 }
 
@@ -51,7 +51,7 @@ class ValidationError extends AppError {
 
 module.exports = {
   AppError,
-  RequestBodyError,
+  RequestError,
   ServerError,
   AuthenticationError,
   AuthorizationError,

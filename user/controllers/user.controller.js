@@ -1,7 +1,9 @@
 const registerUserService = require('../user-services/register-user');
 const loginUserService = require('../user-services/login-user');
 const logoutUserService = require('../user-services/logout-user');
+const getThisUserService = require('../user-services/get-this-user');
 const getUserWithToken = require('../user-services/get-user-token');
+
 
 const userServiceHandler = async (payload, service, successCode) => {
   const serviceResponse = await service(payload);
@@ -14,9 +16,14 @@ const loginUser = async (payload) => userServiceHandler(payload, loginUserServic
 
 const logoutUser = async (payload) => userServiceHandler(payload, logoutUserService, 200);
 
+const getThisUser = async (payload) => userServiceHandler(payload, getThisUserService, 200);
+
+
 module.exports = {
   registerUser,
   loginUser,
   logoutUser,
   getUserWithToken,
+  getThisUser,
+  
 };

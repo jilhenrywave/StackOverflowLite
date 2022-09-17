@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const registerToken = require('../token-services/register-token');
 const { ERROR_MESSAGE } = require('../../util/constants');
-const { AppError, RequestBodyError, ServerError } = require('../../util/error-handlers');
+const { AppError, RequestError, ServerError } = require('../../util/error-handlers');
 
 const generateToken = async (userId) => registerToken(userId);
 
@@ -33,7 +33,7 @@ const registerUser = async (userEntry) => {
       return e;
     }
     if (e.name === 'SequelizeUniqueConstraintError') {
-      return new RequestBodyError(409, ERROR_MESSAGE.duplicateEmail);
+      return new RequestError(409, ERROR_MESSAGE.duplicateEmail);
     }
     return new ServerError(500, e.message);
   }
