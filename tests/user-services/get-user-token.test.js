@@ -5,14 +5,11 @@ const getUserToken = require('../../user/user-services/get-user-token');
 const User = require('../../user/models/User');
 const { AuthenticationError } = require('../../util/error-handlers');
 const { ERROR_MESSAGE } = require('../../util/constants');
+const { user, token } = require('../entities/user-test-entity');
 
 describe('Get User with Token', () => {
-  const validUserId = 'some-id';
-  const validToken = 'some-token';
   const invalidUserId = 'some-invalid-id';
   const invalidToken = 'some-invalid-token';
-
-  const user = { id: validUserId, name: 'some-name', email: 'some-email' };
 
   before('Set up stubs', () => {
     const userDBStub = sandbox.stub(User, 'findByPk');
@@ -26,11 +23,11 @@ describe('Get User with Token', () => {
 
   context('Valid Arguments', () => {
     it('should return valid user with token when arguments are valid', async () => {
-      const userWithToken = await getUserToken(validUserId, validToken);
+      const userWithToken = await getUserToken(user.id, token);
 
       expect(userWithToken).to.have.keys(['id', 'name', 'email', 'token']);
-      expect(userWithToken.id).to.eql(validUserId);
-      expect(userWithToken.token).to.eql(validToken);
+      expect(userWithToken.id).to.eql(user.id);
+      expect(userWithToken.token).to.eql(token);
     });
   });
 

@@ -1,29 +1,39 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
+const sandbox = require('sinon').createSandbox();
 const bcrypt = require('bcrypt');
 const { expect } = require('chai');
 const { invalidEntries, validEntry } = require('../test-cases/user-profile-test-cases');
+const { hashedPassword } = require('../entities/user-test-entity');
 const profileFormatter = require('../../util/formatters/user-profile.formatter');
 
 describe('User Proile Formatter', () => {
+  before('Setting up stubs', () => {
+    const bcryptHashStub = sandbox.stub(bcrypt, 'hash');
+    const bcryptCompareStub = sandbox.stub(bcrypt, 'compare');
+
+    bcryptHashStub.withArgs(validEntry.password).returns(hashedPassword);
+    bcryptCompareStub.withArgs(validEntry.password, hashedPassword).returns(true);
+  });
+
+  after('Removing stubs', () => {
+    sandbox.restore();
+  });
+
   context('Valid Entries', () => {
     it('should return same name and email and hashed password', async () => {
       const formattedBody = await profileFormatter(validEntry);
-      const isPasswordHashed = await bcrypt.compare(validEntry.password, formattedBody.password);
 
       expect(formattedBody.name).to.eql(validEntry.name);
       expect(formattedBody.email).to.eql(validEntry.email);
-      expect(formattedBody.password).not.to.eql(validEntry.password);
-      expect(isPasswordHashed).to.be.true;
+      expect(formattedBody.password).to.eql(hashedPassword);
     });
 
     it('should return hashed password only', async () => {
       const formattedBody = await profileFormatter({ password: validEntry.password });
-      const isPasswordHashed = await bcrypt.compare(validEntry.password, formattedBody.password);
 
       expect(formattedBody).to.have.key('password');
-      expect(formattedBody.password).not.to.eql(validEntry.password);
-      expect(isPasswordHashed).to.be.true;
+      expect(formattedBody.password).to.eql(hashedPassword);
     });
 
     it('should return email only', async () => {
