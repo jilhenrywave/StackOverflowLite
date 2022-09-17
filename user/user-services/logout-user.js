@@ -7,7 +7,7 @@ const serviceErrorHandler = require('../../util/services-error-handler');
  * @returns {object} responseBody
  */
 
-const logoutUser = async ({ id, token, all = false }) => {
+const logoutUser = async ({ id = '', token = '', all = false }) => {
   try {
     if (all) await removeToken(token, id);
     else await removeToken(token);

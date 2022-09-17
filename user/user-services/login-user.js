@@ -22,7 +22,7 @@ const isPasswordValid = async (password, storedPassword) => bcrypt.compare(passw
  * @returns {object} logged-in user or error
  */
 
-const loginUser = async ({ email, password }) => {
+const loginUser = async ({ email = '', password = '' }) => {
   try {
     const user = await findUser(email);
 
