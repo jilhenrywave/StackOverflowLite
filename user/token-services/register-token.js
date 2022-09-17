@@ -1,4 +1,4 @@
-const Token = require('../Token');
+const Token = require('../models/Token');
 const { generateToken } = require('../../util/user-tokenizer');
 const { ERROR_MESSAGE } = require('../../util/constants');
 const { ServerError } = require('../../util/error-handlers');

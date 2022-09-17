@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
-const Token = require('../user/Token');
+const Token = require('../user/models/Token');
 const removeToken = require('../user/token-services/remove-token');
 
 describe('Remove Token', () => {

@@ -1,4 +1,4 @@
-const registerFormatter = require('../formatters/register-user.formatter');
+const registerFormatter = require('../util/formatters/register-user.formatter');
 
 exports.registerUserFormatter = async (req, res, next) => {
   const formattedBody = await registerFormatter(req.body);

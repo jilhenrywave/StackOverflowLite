@@ -3,12 +3,12 @@
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
 const bcrypt = require('bcrypt');
-const loginValidator = require('../validators/login-user.validator');
+const loginValidator = require('../util/validators/login-user.validator');
 const { invalidPasswordEntries, invalidEmailEntries } = require('./test-cases/login-user-test-cases');
 const loginUserService = require('../user/user-services/login-user');
-const User = require('../user/User');
+const User = require('../user/models/User');
 const { ERROR_MESSAGE } = require('../util/constants');
-const Token = require('../user/Token');
+const Token = require('../user/models/Token');
 
 describe('Login User', () => {
   const user = { name: 'Jil Henry', password: '1234567', email: 'henry@jil.com' };

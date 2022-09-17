@@ -1,5 +1,5 @@
-const registerValidator = require('../validators/register-user.validator');
-const loginValidator = require('../validators/login-user.validator');
+const registerValidator = require('../util/validators/register-user.validator');
+const loginValidator = require('../util/validators/login-user.validator');
 
 const validationHandler = (req, res, next, validator) => {
   const validatorResponse = validator(req.body);

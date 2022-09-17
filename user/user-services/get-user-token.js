@@ -1,7 +1,7 @@
 const { AuthenticationError } = require('../../util/error-handlers');
 const { ERROR_MESSAGE } = require('../../util/constants');
-const User = require('../User');
-const Token = require('../Token');
+const User = require('../models/User');
+const Token = require('../models/Token');
 
 /**
  * Returns user details with token

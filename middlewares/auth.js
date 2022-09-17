@@ -1,7 +1,7 @@
 const { AuthenticationError, AppError, ServerError } = require('../util/error-handlers');
 const { parseToken } = require('../util/user-tokenizer');
 const { ERROR_MESSAGE } = require('../util/constants');
-const { getUserWithToken } = require('../user/user.controller');
+const { getUserWithToken } = require('../user/controllers/user.controller');
 
 module.exports = async (req, res, next) => {
   try {

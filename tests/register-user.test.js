@@ -5,11 +5,11 @@ const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
 const bcrypt = require('bcrypt');
 const { invalidEntries, validEntry } = require('./test-cases/register-user-test-cases');
-const registerUserValidator = require('../validators/register-user.validator');
-const registerUserFormatter = require('../formatters/register-user.formatter');
+const registerUserValidator = require('../util/validators/register-user.validator');
+const registerUserFormatter = require('../util/formatters/register-user.formatter');
 const registerUser = require('../user/user-services/register-user');
-const User = require('../user/User');
-const Token = require('../user/Token');
+const User = require('../user/models/User');
+const Token = require('../user/models/Token');
 
 describe('Register User', () => {
   before('Setup Stubs', () => {

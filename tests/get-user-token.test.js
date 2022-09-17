@@ -2,7 +2,7 @@
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
 const getUserToken = require('../user/user-services/get-user-token');
-const User = require('../user/User');
+const User = require('../user/models/User');
 const { AuthenticationError } = require('../util/error-handlers');
 const { ERROR_MESSAGE } = require('../util/constants');
 
