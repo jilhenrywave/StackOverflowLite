@@ -1,5 +1,6 @@
 /* eslint-disable object-curly-newline */
-const { ValidationError, RequestError, AppError, ServerError } = require('../../util/error-handlers');
+const { ValidationError, RequestError } = require('../../util/error-handlers');
+const serviceErrorHandler = require('../../util/services-error-handler');
 const { isValidID } = require('../../util/validators/field-validators');
 const { ERROR_MESSAGE } = require('../../util/constants');
 const User = require('../models/User');
@@ -14,7 +15,6 @@ module.exports = async (id) => {
 
     return { id: user.id, name: user.name, email: user.email };
   } catch (e) {
-    if (e instanceof AppError) return e;
-    return new ServerError(500, ERROR_MESSAGE.serverError);
+    return serviceErrorHandler(e);
   }
 };

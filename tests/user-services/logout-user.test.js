@@ -3,12 +3,12 @@
 
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
-const Token = require('../user/models/Token');
-const logoutUser = require('../user/user-services/logout-user');
+const Token = require('../../user/models/Token');
+const logoutUser = require('../../user/user-services/logout-user');
+const { userWithToken } = require('../entities/user-test-entity');
 
 describe('Logout User', () => {
-  const id = '123456789';
-  const token = 'someToken124***';
+  const { id, token } = userWithToken;
 
   before('Setup Stubs', () => {
     const tokenDBStub = sandbox.stub(Token, 'destroy');

@@ -2,7 +2,8 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const registerToken = require('../token-services/register-token');
 const { ERROR_MESSAGE } = require('../../util/constants');
-const { AppError, ServerError, AuthenticationError } = require('../../util/error-handlers');
+const serviceErrorHandler = require('../../util/services-error-handler');
+const { AuthenticationError } = require('../../util/error-handlers');
 
 const generateToken = async (userId) => registerToken(userId);
 
@@ -21,7 +22,7 @@ const isPasswordValid = async (password, storedPassword) => bcrypt.compare(passw
  * @returns {object} logged-in user or error
  */
 
-const loginUser = async ({ email, password }) => {
+const loginUser = async ({ email = '', password = '' }) => {
   try {
     const user = await findUser(email);
 
@@ -33,10 +34,7 @@ const loginUser = async ({ email, password }) => {
 
     return ({ user: { id: user.id, name: user.name, email: user.email }, token });
   } catch (e) {
-    if (e instanceof AppError) {
-      return e;
-    }
-    return new ServerError(500, e.message);
+    return serviceErrorHandler(e);
   }
 };
 

@@ -10,6 +10,7 @@ const ERROR_MESSAGE = {
   invalidToken: 'Token is not valid',
   missingToken: 'Authorization token is missing',
   invalidID: 'User Id is not recognised',
+  emptyRequestBody: 'Request is empty',
 };
 
 module.exports = {

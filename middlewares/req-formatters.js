@@ -1,11 +1,11 @@
-const registerFormatter = require('../util/formatters/register-user.formatter');
+const profileFormatter = require('../util/formatters/user-profile.formatter');
 
-exports.registerUserFormatter = async (req, res, next) => {
-  const formattedBody = await registerFormatter(req.body);
+exports.userProfileFormatter = async (req, res, next) => {
+  const formattedBody = await profileFormatter(req.body);
 
   if (formattedBody.code) return res.status(formattedBody.code).send({ ...formattedBody });
 
-  req.body = formattedBody;
+  req.formattedBody = formattedBody;
 
   return next();
 };

@@ -1,8 +1,8 @@
 const express = require('express');
 const controller = require('../controllers/user.controller');
 const auth = require('../../middlewares/auth');
-const { registerUserFormatter } = require('../../middlewares/req-formatters');
-const { registerUserValidator, loginValidator } = require('../../middlewares/req-validators');
+const { userProfileFormatter } = require('../../middlewares/req-formatters');
+const { registerUserValidator, loginValidator, updateUserValidator } = require('../../middlewares/req-validators');
 
 const router = express.Router();
 
@@ -14,9 +14,9 @@ const requestHandler = async (arg, res, handler) => {
 router.post(
   '/users',
   registerUserValidator,
-  registerUserFormatter,
+  userProfileFormatter,
   async (req, res) => {
-    requestHandler(req.body, res, controller.registerUser);
+    requestHandler(req.formattedBody, res, controller.registerUser);
   },
 );
 
@@ -32,7 +32,7 @@ router.post(
   '/users/logout',
   auth,
   async (req, res) => {
-    requestHandler(req.body, res, controller.logoutUser);
+    requestHandler(req.user, res, controller.logoutUser);
   },
 );
 
@@ -40,8 +40,8 @@ router.post(
   '/users/logoutAll',
   auth,
   async (req, res) => {
-    req.body.all = true;
-    requestHandler(req.body, res, controller.logoutUser);
+    req.user.all = true;
+    requestHandler(req.user, res, controller.logoutUser);
   },
 );
 
@@ -49,7 +49,7 @@ router.get(
   '/users/me',
   auth,
   async (req, res) => {
-    requestHandler(req.body, res, controller.getThisUser);
+    requestHandler(req.user, res, controller.getThisUser);
   },
 );
 
@@ -58,6 +58,17 @@ router.get(
   auth,
   async (req, res) => {
     requestHandler(req.query.id, res, controller.getUser);
+  },
+);
+
+router.patch(
+  '/users/me',
+  auth,
+  updateUserValidator,
+  userProfileFormatter,
+  async (req, res) => {
+    req.formattedBody = { id: req.user.id, update: req.formattedBody };
+    requestHandler(req.formattedBody, res, controller.updateUser);
   },
 );
 
