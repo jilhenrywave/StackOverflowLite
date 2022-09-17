@@ -15,7 +15,7 @@ router.post(
   '/users',
   registerUserValidator,
   userProfileFormatter,
-  async (req, res) => {
+  (req, res) => {
     requestHandler(req.formattedBody, res, controller.registerUser);
   },
 );
@@ -23,7 +23,7 @@ router.post(
 router.post(
   '/users/login',
   loginValidator,
-  async (req, res) => {
+  (req, res) => {
     requestHandler(req.body, res, controller.loginUser);
   },
 );
@@ -31,7 +31,7 @@ router.post(
 router.post(
   '/users/logout',
   auth,
-  async (req, res) => {
+  (req, res) => {
     requestHandler(req.user, res, controller.logoutUser);
   },
 );
@@ -39,7 +39,7 @@ router.post(
 router.post(
   '/users/logoutAll',
   auth,
-  async (req, res) => {
+  (req, res) => {
     req.user.all = true;
     requestHandler(req.user, res, controller.logoutUser);
   },
@@ -48,7 +48,7 @@ router.post(
 router.get(
   '/users/me',
   auth,
-  async (req, res) => {
+  (req, res) => {
     requestHandler(req.user, res, controller.getThisUser);
   },
 );
@@ -56,7 +56,7 @@ router.get(
 router.get(
   '/users',
   auth,
-  async (req, res) => {
+  (req, res) => {
     requestHandler(req.query.id, res, controller.getUser);
   },
 );
@@ -66,9 +66,17 @@ router.patch(
   auth,
   updateUserValidator,
   userProfileFormatter,
-  async (req, res) => {
+  (req, res) => {
     req.formattedBody = { id: req.user.id, update: req.formattedBody };
     requestHandler(req.formattedBody, res, controller.updateUser);
+  },
+);
+
+router.delete(
+  '/users/me',
+  auth,
+  (req, res) => {
+    requestHandler(req.user, res, controller.deleteUser);
   },
 );
 
