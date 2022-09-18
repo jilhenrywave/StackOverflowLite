@@ -11,7 +11,7 @@ const Token = require('../models/Token');
  * @throws
  */
 
-module.exports = async (userId, token) => {
+const getUserWithToken = async (userId, token) => {
   const user = await User.findByPk(
     userId,
     {
@@ -32,3 +32,5 @@ module.exports = async (userId, token) => {
     token,
   });
 };
+
+module.exports = getUserWithToken;

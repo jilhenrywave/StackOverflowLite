@@ -1,9 +1,9 @@
 /* eslint-disable object-curly-newline */
 const { AuthenticationError, AppError, ServerError, ValidationError } = require('../util/error-handlers');
-const { parseToken } = require('../util/user-tokenizer');
+const { parseToken } = require('../user/user-tokenizer');
 const { ERROR_MESSAGE } = require('../util/constants');
 const { getUserWithToken } = require('../user/controllers/user.controller');
-const { isValidID } = require('../util/validators/field-validators');
+const { isValidID } = require('../util/field-validators');
 
 const getTokenPayload = (authHeader) => {
   const token = authHeader.replace('Bearer ', '');
@@ -29,6 +29,6 @@ module.exports = async (req, res, next) => {
     next();
   } catch (e) {
     if (e instanceof AppError) res.status(e.code).send({ ...e });
-    else res.status(500).send({ ...new ServerError(500, ERROR_MESSAGE.serverError) });
+    else res.status(500).send({ ...new ServerError() });
   }
 };

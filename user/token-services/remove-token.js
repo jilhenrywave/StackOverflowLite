@@ -1,6 +1,5 @@
 const Token = require('../models/Token');
 const { ServerError } = require('../../util/error-handlers');
-const { ERROR_MESSAGE } = require('../../util/constants');
 
 /**
  * Removes a token from the database. If @param userId is provided all tokens of user are removed
@@ -10,7 +9,7 @@ const { ERROR_MESSAGE } = require('../../util/constants');
  * @throws
  */
 
-module.exports = async (token, userId) => {
+const removeToken = async (token, userId) => {
   try {
     if (!token) throw new Error();
 
@@ -21,6 +20,8 @@ module.exports = async (token, userId) => {
 
     return numOfRemovedRecords;
   } catch (e) {
-    throw new ServerError(500, ERROR_MESSAGE.serverError);
+    throw new ServerError();
   }
 };
+
+module.exports = removeToken;

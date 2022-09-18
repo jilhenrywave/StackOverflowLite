@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const registerToken = require('../token-services/register-token');
 const { ERROR_MESSAGE } = require('../../util/constants');
-const serviceErrorHandler = require('../../util/services-error-handler');
+const serviceErrorHandler = require('../../util/service-handlers/services-error-handler');
 const { RequestError, ServerError } = require('../../util/error-handlers');
 
 const generateToken = async (userId) => registerToken(userId);
@@ -13,7 +13,7 @@ const generateToken = async (userId) => registerToken(userId);
  */
 const saveUser = async (userEntry) => {
   const user = await User.create(userEntry);
-  if (!user) throw new ServerError(500, ERROR_MESSAGE.serverError);
+  if (!user) throw new ServerError();
   return user;
 };
 

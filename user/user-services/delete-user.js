@@ -1,5 +1,5 @@
 const { ServerError } = require('../../util/error-handlers');
-const servicesErrorHandler = require('../../util/services-error-handler');
+const servicesErrorHandler = require('../../util/service-handlers/services-error-handler');
 const User = require('../models/User');
 
 /**
@@ -7,7 +7,7 @@ const User = require('../models/User');
  * @param {object} user
  * @returns {object} deleted user
  */
-module.exports = async ({ id, name, email }) => {
+const deleteUser = async ({ id, name, email }) => {
   try {
     const numberOfAffectedRow = await User.destroy({ where: { id } });
 
@@ -18,3 +18,5 @@ module.exports = async ({ id, name, email }) => {
     return servicesErrorHandler(e);
   }
 };
+
+module.exports = deleteUser;

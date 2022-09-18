@@ -1,5 +1,7 @@
 /* eslint-disable max-classes-per-file */
 
+const { ERROR_MESSAGE } = require('./constants');
+
 /**
  * Parent Error class for API
  * @property {number} code : HTTP Status Code
@@ -22,7 +24,7 @@ class RequestError extends AppError {
 }
 
 class ServerError extends AppError {
-  constructor(code, message) {
+  constructor(code = 500, message = ERROR_MESSAGE.serverError) {
     super(code, message, ServerError);
   }
 }
