@@ -9,8 +9,10 @@
   "scripts": {
     "start": "node index.js",
     "dev": "env-cmd -f './config/dev.env' nodemon index.js",
-    "migrations": "npx sequelize-cli db:migrate",
-    "test-migrations": "env-cmd -f './config/test.env' npx sequelize-cli db:migrate",
+    "create-migration": "npx sequelize-cli --migrations-path './db/migrations' migration:generate --name",
+    "create-association-migration": "npx sequelize-cli --migrations-path './db/associations-migrations' migration:generate --name",
+    "migrations": "npx sequelize-cli --migrations-path './db/migrations' db:migrate",
+    "association-migrations": "npx sequelize-cli --migrations-path './db/associations-migrations' db:migrate",
     "undo-migration": "npx sequelize-cli db:migrate:undo",
     "undo-all-migrations": "npx sequelize-cli db:migrate:undo:all",
     "undo-migration-to": "npx sequelize-cli db:migrate:undo:all --to",
