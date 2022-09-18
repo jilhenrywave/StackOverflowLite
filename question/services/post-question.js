@@ -17,8 +17,10 @@ const postQuestion = async ({ title, body, user }) => {
       id: question.id,
       title: question.title,
       body: question.body,
-      owner: user.name,
-      ownerId: question.ownerId,
+      owner: {
+        id: question.ownerId,
+        name: user.name,
+      },
     });
   } catch (e) {
     return serviceErrorHandler(e);
