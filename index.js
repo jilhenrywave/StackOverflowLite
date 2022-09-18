@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const express = require('express');
 require('./db/sequelize');
+require('./db/associations');
 const userRouter = require('./user/routers/user.router');
 const questionRouter = require('./question/routers/question.router');
 

@@ -46,6 +46,4 @@ const Question = sequelize.define(
   },
 );
 
-Question.hasMany(Answer, { foreignKey: 'answerId' });
-
 module.exports = Question;

@@ -32,7 +32,4 @@ const User = sequelize.define(
   },
 );
 
-User.hasMany(Token, { foreignKey: 'userId' });
-User.hasMany(Question, { foreignKey: 'ownerId' });
-
 module.exports = User;

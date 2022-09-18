@@ -2,6 +2,8 @@ const validator = require('validator');
 
 exports.isTextValid = (value) => !(validator.isEmpty(value.trim()));
 
+exports.isNumber = (value) => validator.isNumeric(value);
+
 exports.isValidID = (value) => validator.isUUID(value, 4);
 
 // eslint-disable-next-line arrow-body-style

@@ -1,5 +1,11 @@
 const { RequestError } = require('../../util/error-handlers');
 
+/**
+ * Formats request object to usable app object
+ * @param {object} question : Data Entry object
+ * @param {object} user : Associated User
+ * @returns {object} formatted request object
+ */
 const questionFormatter = (question, user) => {
   const formattedBody = {};
   const { title = '', body = '' } = question;

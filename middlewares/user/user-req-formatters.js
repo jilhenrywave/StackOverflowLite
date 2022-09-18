@@ -1,11 +1,8 @@
 const profileFormatter = require('../../user/fomatters/user-profile.formatter');
+const { formattedRequestHandler } = require('../../util/request-handler');
 
 exports.userProfileFormatter = async (req, res, next) => {
   const formattedBody = await profileFormatter(req.body);
 
-  if (formattedBody.code) return res.status(formattedBody.code).send({ ...formattedBody });
-
-  req.formattedBody = formattedBody;
-
-  return next();
+  return formattedRequestHandler(req, res, next, formattedBody);
 };
