@@ -1,5 +1,5 @@
 const removeToken = require('../token-services/remove-token');
-const serviceErrorHandler = require('../../util/services-error-handler');
+const serviceErrorHandler = require('../../util/service-handlers/services-error-handler');
 
 /**
  * Removes token from database. If all is specified, all tokens are removed

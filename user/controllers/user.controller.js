@@ -6,11 +6,7 @@ const getUserWithToken = require('../user-services/get-user-token');
 const getUserService = require('../user-services/get-user');
 const updateUserService = require('../user-services/update-user');
 const deleteUserService = require('../user-services/delete-user');
-
-const userServiceHandler = async (payload, service, successCode) => {
-  const serviceResponse = await service(payload);
-  return { statusCode: serviceResponse.code || successCode, body: { ...serviceResponse } };
-};
+const userServiceHandler = require('../../util/service-handlers/service-response-handler');
 
 const registerUser = async (payload) => userServiceHandler(payload, registerUserService, 201);
 

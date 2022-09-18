@@ -1,22 +1,18 @@
 const express = require('express');
 const controller = require('../controllers/user.controller');
 const auth = require('../../middlewares/auth');
-const { userProfileFormatter } = require('../../middlewares/req-formatters');
-const { registerUserValidator, loginValidator, updateUserValidator } = require('../../middlewares/req-validators');
+const { userProfileFormatter } = require('../../middlewares/user/user-req-formatters');
+const { registerUserValidator, loginValidator, updateUserValidator } = require('../../middlewares/user/user-req-validators');
+const { responseHandler } = require('../../util/request-handler');
 
 const router = express.Router();
-
-const requestHandler = async (arg, res, handler) => {
-  const response = await handler(arg);
-  res.status(response.statusCode).send(response.body);
-};
 
 router.post(
   '/users',
   registerUserValidator,
   userProfileFormatter,
   (req, res) => {
-    requestHandler(req.formattedBody, res, controller.registerUser);
+    responseHandler(req.formattedBody, res, controller.registerUser);
   },
 );
 
@@ -24,7 +20,7 @@ router.post(
   '/users/login',
   loginValidator,
   (req, res) => {
-    requestHandler(req.body, res, controller.loginUser);
+    responseHandler(req.body, res, controller.loginUser);
   },
 );
 
@@ -32,7 +28,7 @@ router.post(
   '/users/logout',
   auth,
   (req, res) => {
-    requestHandler(req.user, res, controller.logoutUser);
+    responseHandler(req.user, res, controller.logoutUser);
   },
 );
 
@@ -41,7 +37,7 @@ router.post(
   auth,
   (req, res) => {
     req.user.all = true;
-    requestHandler(req.user, res, controller.logoutUser);
+    responseHandler(req.user, res, controller.logoutUser);
   },
 );
 
@@ -49,7 +45,7 @@ router.get(
   '/users/me',
   auth,
   (req, res) => {
-    requestHandler(req.user, res, controller.getThisUser);
+    responseHandler(req.user, res, controller.getThisUser);
   },
 );
 
@@ -57,7 +53,7 @@ router.get(
   '/users',
   auth,
   (req, res) => {
-    requestHandler(req.query.id, res, controller.getUser);
+    responseHandler(req.query.id, res, controller.getUser);
   },
 );
 
@@ -68,7 +64,7 @@ router.patch(
   userProfileFormatter,
   (req, res) => {
     req.formattedBody = { id: req.user.id, update: req.formattedBody };
-    requestHandler(req.formattedBody, res, controller.updateUser);
+    responseHandler(req.formattedBody, res, controller.updateUser);
   },
 );
 
@@ -76,7 +72,7 @@ router.delete(
   '/users/me',
   auth,
   (req, res) => {
-    requestHandler(req.user, res, controller.deleteUser);
+    responseHandler(req.user, res, controller.deleteUser);
   },
 );
 

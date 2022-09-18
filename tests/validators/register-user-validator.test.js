@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
 const { invalidEntries, validEntry } = require('../test-cases/user-profile-test-cases');
-const registerUserValidator = require('../../util/validators/register-user.validator');
+const registerUserValidator = require('../../user/validators/register-user.validator');
 
 describe('Register User Validator', () => {
   context('Bad entries', () => {

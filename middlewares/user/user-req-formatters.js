@@ -1,4 +1,4 @@
-const profileFormatter = require('../util/formatters/user-profile.formatter');
+const profileFormatter = require('../../user/fomatters/user-profile.formatter');
 
 exports.userProfileFormatter = async (req, res, next) => {
   const formattedBody = await profileFormatter(req.body);

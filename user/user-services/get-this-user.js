@@ -1,11 +1,11 @@
 /* eslint-disable object-curly-newline */
-const serviceErrorHandler = require('../../util/services-error-handler');
+const serviceErrorHandler = require('../../util/service-handlers/services-error-handler');
 
 /**
  * @param {object} user
  * @returns {object}
  */
-module.exports = ({ id = '', name = '', email = '', token = '' }) => {
+const getThisUser = ({ id = '', name = '', email = '', token = '' }) => {
   try {
     if (!id || !email || !token) throw new Error();
     return ({ user: { id, name, email }, token });
@@ -13,3 +13,5 @@ module.exports = ({ id = '', name = '', email = '', token = '' }) => {
     return serviceErrorHandler(e);
   }
 };
+
+module.exports = getThisUser;

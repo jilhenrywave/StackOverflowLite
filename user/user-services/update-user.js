@@ -1,4 +1,4 @@
-const servicesErrorHandler = require('../../util/services-error-handler');
+const servicesErrorHandler = require('../../util/service-handlers/services-error-handler');
 const { RequestError, ServerError } = require('../../util/error-handlers');
 const { ERROR_MESSAGE } = require('../../util/constants');
 const User = require('../models/User');
@@ -9,7 +9,7 @@ const getUser = require('./get-user');
  * @param {object} update
  * @returns {object} updated user or error
  */
-module.exports = async (update) => {
+const updateUser = async (update) => {
   try {
     const response = await User.update(update.update, { where: { id: update.id } });
 
@@ -27,3 +27,5 @@ module.exports = async (update) => {
     return servicesErrorHandler(e);
   }
 };
+
+module.exports = updateUser;

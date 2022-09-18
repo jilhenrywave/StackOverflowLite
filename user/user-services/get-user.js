@@ -1,7 +1,7 @@
 /* eslint-disable object-curly-newline */
 const { ValidationError, RequestError } = require('../../util/error-handlers');
-const serviceErrorHandler = require('../../util/services-error-handler');
-const { isValidID } = require('../../util/validators/field-validators');
+const serviceErrorHandler = require('../../util/service-handlers/services-error-handler');
+const { isValidID } = require('../../util/field-validators');
 const { ERROR_MESSAGE } = require('../../util/constants');
 const User = require('../models/User');
 
@@ -10,7 +10,7 @@ const User = require('../models/User');
  * @param {string} id
  * @returns {object} stored user object
  */
-module.exports = async (id) => {
+const getUser = async (id) => {
   try {
     if (!isValidID(id)) throw new ValidationError(ERROR_MESSAGE.invalidID);
 
@@ -23,3 +23,5 @@ module.exports = async (id) => {
     return serviceErrorHandler(e);
   }
 };
+
+module.exports = getUser;

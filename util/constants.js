@@ -11,6 +11,8 @@ const ERROR_MESSAGE = {
   missingToken: 'Authorization token is missing',
   invalidID: 'User Id is not recognised',
   emptyRequestBody: 'Request is empty',
+  invalidQuestionTitle: 'Question title is missing',
+  invalidQuestionBody: 'Question body is missing',
 };
 
 module.exports = {
