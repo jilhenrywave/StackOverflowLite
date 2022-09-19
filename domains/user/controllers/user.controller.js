@@ -20,7 +20,7 @@ const getUser = async (payload) => userServiceHandler(payload, getUserService, 2
 
 const updateUser = async (payload) => userServiceHandler(payload, updateUserService, 200);
 
-const deleteUser = async (payload) => userServiceHandler(payload, deleteUserService, 200);
+const deleteUser = async (payload) => userServiceHandler(payload, deleteUserService, 204);
 
 module.exports = {
   registerUser,

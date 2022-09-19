@@ -33,7 +33,7 @@ router.post(
 );
 
 router.post(
-  '/users/logoutAll',
+  '/users/logout/all',
   auth,
   (req, res) => {
     req.user.all = true;

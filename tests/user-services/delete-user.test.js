@@ -10,7 +10,7 @@ describe('Delete User', () => {
     const deleteStub = sandbox.stub(User, 'destroy');
 
     deleteStub.withArgs({ where: { id: user.id } }).returns([1]);
-    deleteStub.returns([]);
+    deleteStub.returns([0]);
   });
 
   after('Removing stubs', () => {
@@ -20,19 +20,16 @@ describe('Delete User', () => {
     it('should return response object if id is valid', async () => {
       const response = await deleteUser(user);
 
-      expect(response).to.have.keys(['id', 'name', 'email']);
-      expect(response.id).to.eql(user.id);
-      expect(response.name).to.eql(user.name);
-      expect(response.email).to.eql(user.email);
+      expect(response).to.eql({});
     });
   });
 
   context('Invalid Entries', () => {
     it('should return error object if id is not valid', async () => {
-      const response = await deleteUser({ ...user, id: 'some-invalid-id' });
+      const response = await deleteUser({ id: 'some-invalid-id' });
 
       expect(response).to.have.keys(['code', 'errorMessage', 'type']);
-      expect(response.code).to.eql(500);
+      expect(response.code).to.eql(422);
     });
   });
 });

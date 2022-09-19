@@ -1,6 +1,6 @@
 const postQuestionValidator = require('../../domains/question/validators/post-question.validator');
 const getQuestionsValidator = require('../../domains/question/validators/get-questions.validator');
-const getQuestionValidator = require('../../domains/question/validators/get-question.validator');
+const getDelQuestionValidator = require('../../domains/question/validators/get-del-question.validator');
 const updateQuestionValidator = require('../../domains/question/validators/update-question.validator');
 const { validationHandler } = require('../../util/request-handler');
 
@@ -12,8 +12,8 @@ exports.getQuestionsValidator = (req, res, next) => {
   validationHandler(req.query, res, next, getQuestionsValidator);
 };
 
-exports.getQuestionValidator = (req, res, next) => {
-  validationHandler(req.params.id, res, next, getQuestionValidator);
+exports.getDelQuestionValidator = (req, res, next) => {
+  validationHandler(req.params.id, res, next, getDelQuestionValidator);
 };
 
 exports.updateQuestionValidator = (req, res, next) => {

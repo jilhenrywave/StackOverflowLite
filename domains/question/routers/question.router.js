@@ -6,12 +6,13 @@ const {
   postQuestionFormatter,
   getQuestionsFormatter,
   getUserQuestionsFormatter,
+  deleteQuestionFormatter,
 } = require('../../../middlewares/question/question-req-formatter');
 
 const {
   postQuestionValidator,
   getQuestionsValidator,
-  getQuestionValidator,
+  getDelQuestionValidator,
   updateQuestionValidator,
 } = require('../../../middlewares/question/question-req-validators');
 
@@ -50,7 +51,7 @@ router.get(
 router.get(
   '/questions/:id',
   auth,
-  getQuestionValidator,
+  getDelQuestionValidator,
   (req, res) => {
     responseHandler(req.params.id, res, controller.getQuestion);
   },
@@ -63,6 +64,26 @@ router.patch(
   postQuestionFormatter,
   (req, res) => {
     responseHandler(req.formattedBody, res, controller.updateQuestion);
+  },
+);
+
+router.delete(
+  '/questions/:id',
+  auth,
+  getDelQuestionValidator,
+  deleteQuestionFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.deleteQuestion);
+  },
+);
+
+router.delete(
+  '/questions/delete/all',
+  auth,
+  deleteQuestionFormatter,
+  (req, res) => {
+    req.formattedBody.all = true;
+    responseHandler(req.formattedBody, res, controller.deleteQuestion);
   },
 );
 
