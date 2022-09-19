@@ -1,7 +1,7 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable no-undef */
 const { expect } = require('chai');
-const getThisUser = require('../../user/user-services/get-this-user');
+const getThisUser = require('../../domains/user/user-services/get-this-user');
 const { ERROR_MESSAGE } = require('../../util/constants');
 const { userWithToken } = require('../entities/user-test-entity');
 

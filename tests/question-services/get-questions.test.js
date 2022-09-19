@@ -3,8 +3,8 @@ const sandbox = require('sinon').createSandbox();
 const { expect } = require('chai');
 const { validEntry, serviceArgs, serviceArgsEOP } = require('../test-cases/get-questions-test-cases');
 const { questions } = require('../entities/question-test-entity');
-const Question = require('../../question/models/Question');
-const getPaginatedQuestions = require('../../question/services/get-questions');
+const Question = require('../../domains/question/models/Question');
+const getPaginatedQuestions = require('../../domains/question/services/get-questions');
 
 describe('Get Question Service', () => {
   const count = 10;

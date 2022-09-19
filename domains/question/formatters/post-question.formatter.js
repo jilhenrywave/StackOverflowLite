@@ -6,7 +6,7 @@ const { RequestError } = require('../../../util/error-handlers');
  * @param {object} user : Associated User
  * @returns {object} formatted request object
  */
-const questionFormatter = (question, user) => {
+const postQuestionFormatter = (question, user) => {
   const formattedBody = {};
   const { title = '', body = '' } = question;
 
@@ -19,4 +19,4 @@ const questionFormatter = (question, user) => {
   return formattedBody;
 };
 
-module.exports = questionFormatter;
+module.exports = postQuestionFormatter;

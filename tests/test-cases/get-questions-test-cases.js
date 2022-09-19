@@ -1,4 +1,4 @@
-const User = require('../../user/models/User');
+const User = require('../../domains/user/models/User');
 const { user } = require('../entities/user-test-entity');
 
 const invalidID = {

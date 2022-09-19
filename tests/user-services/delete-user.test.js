@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 const sandbox = require('sinon').createSandbox();
 const { expect } = require('chai');
-const User = require('../../user/models/User');
+const User = require('../../domains/user/models/User');
 const { user } = require('../entities/user-test-entity');
-const deleteUser = require('../../user/user-services/delete-user');
+const deleteUser = require('../../domains/user/user-services/delete-user');
 
 describe('Delete User', () => {
   before('Setting up stubs', () => {

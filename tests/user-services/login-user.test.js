@@ -4,10 +4,10 @@
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
 const bcrypt = require('bcrypt');
-const loginUserService = require('../../user/user-services/login-user');
+const loginUserService = require('../../domains/user/user-services/login-user');
 const { ERROR_MESSAGE } = require('../../util/constants');
-const User = require('../../user/models/User');
-const Token = require('../../user/models/Token');
+const User = require('../../domains/user/models/User');
+const Token = require('../../domains/user/models/Token');
 const { userEntry, hashedPassword, token, user } = require('../entities/user-test-entity');
 
 describe('Login User', () => {

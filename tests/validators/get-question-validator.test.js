@@ -1,28 +1,20 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
-const getQuestionValidator = require('../../question/validators/get-question.validator');
-const { invalidEntries, validEntries } = require('../test-cases/get-questions-test-cases');
+const getQuestionValidator = require('../../domains/question/validators/get-question.validator');
+const { user } = require('../entities/user-test-entity');
 
 describe('Get Question Validator', () => {
-  context('Invalid Entries', () => {
-    Object.entries(invalidEntries).forEach(([key, entry]) => {
-      it(`should return error if there is ${key}`, () => {
-        const response = getQuestionValidator(entry);
+  it('should return error if id is not valid', () => {
+    const response = getQuestionValidator('some-id');
 
-        expect(response).to.have.keys(['code', 'type', 'errorMessages', 'errorMessage']);
-        expect(response.code).to.eql(400);
-        expect(response.errorMessages).to.have.lengthOf(1);
-      });
-    });
+    expect(response).to.have.keys(['code', 'errorMessages', 'errorMessage', 'type']);
+    expect(response.code).to.eql(400);
   });
 
-  context('Valid Entries', () => {
-    Object.entries(validEntries).forEach(([key, entry]) => {
-      it(`should not return error if  ${key} obey rules`, () => {
-        const response = getQuestionValidator(entry);
+  it('should not return error if id is valid', () => {
+    const response = getQuestionValidator(user.id);
 
-        expect(response.errorMessages).to.have.lengthOf(0);
-      });
-    });
+    expect(response).to.have.keys(['code', 'errorMessages', 'errorMessage', 'type']);
+    expect(response.errorMessages).to.have.lengthOf(0);
   });
 });

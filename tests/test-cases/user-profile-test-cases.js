@@ -18,9 +18,7 @@ const invalidPassword = {
 
 const missingEntries = {};
 
-const missingSomeEntries = {
-  email: 'henryjil3@gmail.com',
-};
+const missingSomeEntries = { email: 'henryjil3@gmail.com' };
 
 exports.validEntry = {
   name: 'Jil Henry',

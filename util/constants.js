@@ -13,8 +13,7 @@ const ERROR_MESSAGE = {
   emptyRequestBody: 'Request is empty',
   invalidQuestionTitle: 'Question title is missing',
   invalidQuestionBody: 'Question body is missing',
+  invalidQuestionID: 'Question Id is not recognised or is missing',
 };
 
-module.exports = {
-  ERROR_MESSAGE,
-};
+module.exports = { ERROR_MESSAGE };

@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
-const loginValidator = require('../../user/validators/login-user.validator');
+const loginValidator = require('../../domains/user/validators/login-user.validator');
 const { invalidPasswordEntries, invalidEmailEntries, validEntry } = require('../test-cases/login-user-test-cases');
 const { ERROR_MESSAGE } = require('../../util/constants');
 

@@ -1,9 +1,9 @@
 const { expect } = require('chai');
-const questionFormatter = require('../../question/formatters/question.formatter');
+const questionFormatter = require('../../domains/question/formatters/post-question.formatter');
 const { questionEntry, user } = require('../entities/question-test-entity');
 
 /* eslint-disable no-undef */
-describe('Question Formatter', () => {
+describe('Post Question Formatter', () => {
   context('Valid Entries', () => {
     it('should return formatted body when arguments are valid', () => {
       const response = questionFormatter(questionEntry, user);
