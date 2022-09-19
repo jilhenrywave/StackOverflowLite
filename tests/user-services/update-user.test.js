@@ -38,8 +38,8 @@ describe('Update User Service', () => {
     it('should return error if user is not found', async () => {
       const response = await updateUser({ id: 'unknown-id', update });
 
-      expect(response).to.have.keys(['code', 'errorMessage', 'type']);
-      expect(response.code).to.eql(500);
+      expect(response).to.have.keys(['code', 'errorMessage', 'errorMessages', 'type']);
+      expect(response.code).to.eql(400);
     });
 
     it('should return error if email already exist', async () => {

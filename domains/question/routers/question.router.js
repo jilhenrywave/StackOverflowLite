@@ -12,6 +12,7 @@ const {
   postQuestionValidator,
   getQuestionsValidator,
   getQuestionValidator,
+  updateQuestionValidator,
 } = require('../../../middlewares/question/question-req-validators');
 
 const router = express.Router();
@@ -52,6 +53,16 @@ router.get(
   getQuestionValidator,
   (req, res) => {
     responseHandler(req.params.id, res, controller.getQuestion);
+  },
+);
+
+router.patch(
+  '/questions/:id/edit',
+  auth,
+  updateQuestionValidator,
+  postQuestionFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.updateQuestion);
   },
 );
 

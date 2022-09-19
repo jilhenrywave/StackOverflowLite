@@ -14,6 +14,7 @@ const ERROR_MESSAGE = {
   invalidQuestionTitle: 'Question title is missing',
   invalidQuestionBody: 'Question body is missing',
   invalidQuestionID: 'Question Id is not recognised or is missing',
+  updateError: 'No records updated. User may not be authorised. Please check request and try again later',
 };
 
 module.exports = { ERROR_MESSAGE };

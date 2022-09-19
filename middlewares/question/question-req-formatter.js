@@ -5,7 +5,8 @@ const getUserQuestionsFormatter = require('../../domains/question/formatters/get
 const { formattedRequestHandler } = require('../../util/request-handler');
 
 exports.postQuestionFormatter = (req, res, next) => {
-  const formattedBody = postQuestionFormatter(req.body, req.user);
+  const body = { id: req.params.id, title: req.body.title, body: req.body.body };
+  const formattedBody = postQuestionFormatter(body, req.user);
 
   return formattedRequestHandler(req, res, next, formattedBody);
 };
