@@ -21,6 +21,8 @@ exports.user = user;
 
 exports.questionEntry = { title, body, ownerId: user.id };
 
+exports.updateQuestionEntry = { id, title, body };
+
 exports.question = { id, title, body, ownerId: user.id, answerId };
 
 exports.questionResponse = questionResponse;

@@ -58,7 +58,7 @@ router.get(
 );
 
 router.patch(
-  '/users/me',
+  '/users/me/edit',
   auth,
   updateUserValidator,
   userProfileFormatter,

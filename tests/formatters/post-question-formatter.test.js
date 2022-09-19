@@ -1,25 +1,18 @@
 const { expect } = require('chai');
 const questionFormatter = require('../../domains/question/formatters/post-question.formatter');
-const { questionEntry, user } = require('../entities/question-test-entity');
+const { updateQuestionEntry, user } = require('../entities/question-test-entity');
 
 /* eslint-disable no-undef */
 describe('Post Question Formatter', () => {
   context('Valid Entries', () => {
     it('should return formatted body when arguments are valid', () => {
-      const response = questionFormatter(questionEntry, user);
+      const response = questionFormatter(updateQuestionEntry, user);
 
-      expect(response).to.have.keys(['title', 'body', 'user']);
-      expect(response.title).to.eql(questionEntry.title);
-      expect(response.body).to.eql(questionEntry.body);
-    });
-  });
-
-  context('Invalid Entries', () => {
-    it('should return error if any arguments are missing', () => {
-      const response = questionFormatter(user);
-
-      expect(response).to.have.keys(['errorMessage', 'code', 'type']);
-      expect(response.code).to.eql(400);
+      expect(response).to.have.keys(['id', 'title', 'body', 'user']);
+      expect(response.title).to.eql(updateQuestionEntry.title);
+      expect(response.body).to.eql(updateQuestionEntry.body);
+      expect(response.id).to.eql(updateQuestionEntry.id);
+      expect(response.user).to.eql(user);
     });
   });
 });

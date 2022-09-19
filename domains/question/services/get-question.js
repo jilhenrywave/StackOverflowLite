@@ -3,6 +3,11 @@ const serviceErrorHandler = require('../../../util/service-handlers/services-err
 const User = require('../../user/models/User');
 const Question = require('../models/Question');
 
+/**
+ * Retrives a question from the database using id
+ * @param {UUID} id : Question id
+ * @returns {object}
+ */
 const getQuestion = async (id) => {
   try {
     const question = await Question.findByPk(id, {
