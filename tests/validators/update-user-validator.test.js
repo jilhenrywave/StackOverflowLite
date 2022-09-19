@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
 const { ERROR_MESSAGE } = require('../../util/constants');
-const updateUserValidator = require('../../user/validators/update-user.validator');
+const updateUserValidator = require('../../domains/user/validators/update-user.validator');
 const { invalidEntries, validEntry } = require('../test-cases/user-profile-test-cases');
 
 describe('Update User Validator', () => {

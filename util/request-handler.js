@@ -3,8 +3,16 @@ const responseHandler = async (arg, res, handler) => {
   res.status(response.statusCode).send(response.body);
 };
 
-const validationHandler = (req, res, next, validator) => {
-  const validatorResponse = validator(req.body);
+const formattedRequestHandler = (req, res, next, formattedBody) => {
+  if (formattedBody.code) return res.status(formattedBody.code).send({ ...formattedBody });
+
+  req.formattedBody = formattedBody;
+
+  return next();
+};
+
+const validationHandler = (arg, res, next, validator) => {
+  const validatorResponse = validator(arg);
 
   if (validatorResponse.errorMessages.length > 0) {
     validatorResponse.errorMessage = 'Invalid Request Body Fields';
@@ -17,4 +25,5 @@ const validationHandler = (req, res, next, validator) => {
 module.exports = {
   responseHandler,
   validationHandler,
+  formattedRequestHandler,
 };

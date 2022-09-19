@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 const { expect } = require('chai');
-const tokenizer = require('../user/user-tokenizer');
+const tokenizer = require('../domains/user/user-tokenizer');
 
 describe('Tokenizer', () => {
   const payload = { id: '123456' };

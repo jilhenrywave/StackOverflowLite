@@ -1,12 +1,23 @@
 /* eslint-disable max-len */
-const questionFormatter = require('../../question/formatters/question.formatter');
+const postQuestionFormatter = require('../../domains/question/formatters/post-question.formatter');
+const getQuestionsFormatter = require('../../domains/question/formatters/get-questions.formatter');
+const getUserQuestionsFormatter = require('../../domains/question/formatters/get-user-questions.formatter');
+const { formattedRequestHandler } = require('../../util/request-handler');
 
-exports.questionFormatter = (req, res, next) => {
-  const formattedBody = questionFormatter(req.body, req.user);
+exports.postQuestionFormatter = (req, res, next) => {
+  const formattedBody = postQuestionFormatter(req.body, req.user);
 
-  if (formattedBody.code) return res.status(formattedBody.code).send({ ...formattedBody });
+  return formattedRequestHandler(req, res, next, formattedBody);
+};
 
-  req.formattedBody = formattedBody;
+exports.getQuestionsFormatter = (req, res, next) => {
+  const formattedQuery = getQuestionsFormatter(req.query);
 
-  return next();
+  return formattedRequestHandler(req, res, next, formattedQuery);
+};
+
+exports.getUserQuestionsFormatter = (req, res, next) => {
+  const formattedQuery = getUserQuestionsFormatter(req.user, req.query);
+
+  return formattedRequestHandler(req, res, next, formattedQuery);
 };

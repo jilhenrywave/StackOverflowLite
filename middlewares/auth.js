@@ -1,8 +1,8 @@
 /* eslint-disable object-curly-newline */
 const { AuthenticationError, AppError, ServerError, ValidationError } = require('../util/error-handlers');
-const { parseToken } = require('../user/user-tokenizer');
+const { parseToken } = require('../domains/user/user-tokenizer');
 const { ERROR_MESSAGE } = require('../util/constants');
-const { getUserWithToken } = require('../user/controllers/user.controller');
+const { getUserWithToken } = require('../domains/user/controllers/user.controller');
 const { isValidID } = require('../util/field-validators');
 
 const getTokenPayload = (authHeader) => {

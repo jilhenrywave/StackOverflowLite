@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
-const postQuestionValidator = require('../../question/validators/post-question.validator');
+const postQuestionValidator = require('../../domains/question/validators/post-question.validator');
 const { questionEntry } = require('../entities/question-test-entity');
 
 describe('Post Question Validator', () => {

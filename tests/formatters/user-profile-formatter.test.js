@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const { expect } = require('chai');
 const { invalidEntries, validEntry } = require('../test-cases/user-profile-test-cases');
 const { hashedPassword } = require('../entities/user-test-entity');
-const profileFormatter = require('../../user/fomatters/user-profile.formatter');
+const profileFormatter = require('../../domains/user/fomatters/user-profile.formatter');
 
 describe('User Proile Formatter', () => {
   before('Setting up stubs', () => {
