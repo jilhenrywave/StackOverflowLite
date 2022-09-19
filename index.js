@@ -2,8 +2,8 @@
 const express = require('express');
 require('./db/sequelize');
 require('./db/associations');
-const userRouter = require('./user/routers/user.router');
-const questionRouter = require('./question/routers/question.router');
+const userRouter = require('./domains/user/routers/user.router');
+const questionRouter = require('./domains/question/routers/question.router');
 
 const app = express();
 

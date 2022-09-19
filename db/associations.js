@@ -1,6 +1,6 @@
-const Question = require('../question/models/Question');
-const Token = require('../user/models/Token');
-const User = require('../user/models/User');
+const Question = require('../domains/question/models/Question');
+const Token = require('../domains/user/models/Token');
+const User = require('../domains/user/models/User');
 
 User.hasMany(Token, { foreignKey: 'userId' });
 Token.belongsTo(User, { foreignKey: 'userId' });

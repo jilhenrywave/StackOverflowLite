@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-const questionFormatter = require('../../question/formatters/question.formatter');
-const getQuestionFormatter = require('../../question/formatters/get-question.formatter');
+const questionFormatter = require('../../domains/question/formatters/question.formatter');
+const getQuestionFormatter = require('../../domains/question/formatters/get-question.formatter');
 const { formattedRequestHandler } = require('../../util/request-handler');
 
 exports.questionFormatter = (req, res, next) => {
