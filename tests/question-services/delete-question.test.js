@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-undef */
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
@@ -12,6 +13,9 @@ describe('Delete Question Service', () => {
     questionStub.withArgs(
       { where: { id: question.id, ownerId: question.ownerId } },
     ).returns(1);
+    questionStub.withArgs(
+      { where: { ownerId: question.ownerId } },
+    ).returns(3);
     questionStub.returns(0);
   });
 
@@ -33,11 +37,30 @@ describe('Delete Question Service', () => {
       expect(response).to.have.keys(['code', 'type', 'errorMessage']);
       expect(response.code).to.eql(422);
     });
+
+    it('should return error if deleting all records with invalid ownerId', async () => {
+      const response = await deleteQuestion({ id: question.id, ownerId: 'some-other_user', all: true });
+
+      expect(response).to.have.keys(['code', 'type', 'errorMessage']);
+      expect(response.code).to.eql(422);
+    });
   });
 
   context('Valid Queries', () => {
     it('should return nothing if question is owned by user', async () => {
       const response = await deleteQuestion({ id: question.id, ownerId: question.ownerId });
+
+      expect(response).to.eql({});
+    });
+
+    it('should return nothing if deleting all records with valid owner id', async () => {
+      const response = await deleteQuestion({ id: question.id, ownerId: question.ownerId, all: true });
+
+      expect(response).to.eql({});
+    });
+
+    it('should return nothing if deleting all records with valid owner id and no question id', async () => {
+      const response = await deleteQuestion({ id: '', ownerId: question.ownerId, all: true });
 
       expect(response).to.eql({});
     });

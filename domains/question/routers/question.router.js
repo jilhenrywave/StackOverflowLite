@@ -77,4 +77,14 @@ router.delete(
   },
 );
 
+router.delete(
+  '/questions/delete/all',
+  auth,
+  deleteQuestionFormatter,
+  (req, res) => {
+    req.formattedBody.all = true;
+    responseHandler(req.formattedBody, res, controller.deleteQuestion);
+  },
+);
+
 module.exports = router;

@@ -3,7 +3,7 @@ const { RequestError } = require('../../../util/error-handlers');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const Question = require('../models/Question');
 
-const deleteQuestion = async ({ id, ownerId, all = false }) => {
+const deleteQuestion = async ({ id = '', ownerId = '', all = false }) => {
   try {
     const where = {};
 
