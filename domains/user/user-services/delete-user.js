@@ -7,13 +7,13 @@ const User = require('../models/User');
  * @param {object} user
  * @returns {object} deleted user
  */
-const deleteUser = async ({ id, name, email }) => {
+const deleteUser = async ({ id }) => {
   try {
     const numberOfAffectedRow = await User.destroy({ where: { id } });
 
     if (numberOfAffectedRow.length < 1) throw new ServerError(500, 'Cannot delete user at this time. Please try again later');
 
-    return { id, name, email };
+    return {};
   } catch (e) {
     return servicesErrorHandler(e);
   }

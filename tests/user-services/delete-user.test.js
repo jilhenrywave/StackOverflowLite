@@ -20,10 +20,7 @@ describe('Delete User', () => {
     it('should return response object if id is valid', async () => {
       const response = await deleteUser(user);
 
-      expect(response).to.have.keys(['id', 'name', 'email']);
-      expect(response.id).to.eql(user.id);
-      expect(response.name).to.eql(user.name);
-      expect(response.email).to.eql(user.email);
+      expect(response).to.eql({});
     });
   });
 
