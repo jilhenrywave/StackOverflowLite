@@ -1,8 +1,8 @@
+const { Op } = require('sequelize');
 const User = require('../../user/models/User');
 const { RequestError } = require('../../../util/error-handlers');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const Question = require('../models/Question');
-
 /**
  * Determines the next start and limit for subsequent query
  * @param {number} recordCount : total number of records matching query
@@ -30,10 +30,11 @@ const calculateNextPage = (recordCount, start, limit) => {
  * @param {object} query : Parameters include ownerId, start, limit and sort
  * @returns {object} paginated result
  */
-const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort = '' }) => {
+const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort = '', search = '' }) => {
   try {
     const where = {};
     if (ownerId) where.ownerId = ownerId;
+    if (search) where.title = { [Op.like]: `%${search}%` };
 
     const { count, rows } = await Question.findAndCountAll({
       where,
@@ -55,6 +56,7 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
 
     return { previous: pageInfo.previous, next: pageInfo.next, questions: rows };
   } catch (e) {
+    console.log(e);
     return serviceErrorHandler(e);
   }
 };

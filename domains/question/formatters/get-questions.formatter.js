@@ -4,11 +4,12 @@
  * @returns {object} formatted query object
  */
 
-const getQuestionsFormatter = ({ ownerId = '', start = 0, limit = 50, sort = 'asc' }) => ({
+const getQuestionsFormatter = ({ ownerId = '', start = 0, limit = 50, sort = 'asc', search = '' }) => ({
   ownerId,
   start: Number(start),
   limit: Number(limit),
   sort: sort.toUpperCase(),
+  search,
 });
 
 module.exports = getQuestionsFormatter;

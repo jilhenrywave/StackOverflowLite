@@ -1,9 +1,9 @@
 /* eslint-disable object-curly-newline */
 const { ERROR_MESSAGE } = require('../../../util/constants');
 const { ValidationError } = require('../../../util/error-handlers');
-const { isValidID, isNumber } = require('../../../util/field-validators');
+const { isValidID, isNumber, isTextValid } = require('../../../util/field-validators');
 
-const getQuestionsValidator = ({ ownerId = '', start = 0, limit = 0, sort = '' }) => {
+const getQuestionsValidator = ({ ownerId = '', start = 0, limit = 0, sort = '', search = '' }) => {
   const validatorError = new ValidationError();
   const qSort = sort.toUpperCase();
   if (ownerId && !isValidID(ownerId)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidID);
@@ -12,6 +12,7 @@ const getQuestionsValidator = ({ ownerId = '', start = 0, limit = 0, sort = '' }
   if (sort && (qSort !== 'DESC' && qSort !== 'ASC')) {
     validatorError.addErrorMessage('Invalid value for query field - sort. Accepted values are ASC or DESC');
   }
+  if (search && !isTextValid(search)) validatorError.addErrorMessage('Query field, search, is not valid');
 
   return validatorError;
 };
