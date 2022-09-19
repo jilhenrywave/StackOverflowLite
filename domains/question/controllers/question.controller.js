@@ -4,6 +4,7 @@ const postQuestionService = require('../services/post-question');
 const getPaginatedQuestions = require('../services/get-questions');
 const getQuestionService = require('../services/get-question');
 const updateQuestionService = require('../services/update-question');
+const deleteQuestionService = require('../services/delete-question');
 
 const postQuestion = async (payload) => serviceResponseHandler(payload, postQuestionService, 201);
 
@@ -13,9 +14,12 @@ const getQuestion = async (id) => serviceResponseHandler(id, getQuestionService,
 
 const updateQuestion = async (payload) => serviceResponseHandler(payload, updateQuestionService, 200);
 
+const deleteQuestion = async (payload) => serviceResponseHandler(payload, deleteQuestionService, 204);
+
 module.exports = {
   postQuestion,
   getQuestions,
   getQuestion,
   updateQuestion,
+  deleteQuestion,
 };

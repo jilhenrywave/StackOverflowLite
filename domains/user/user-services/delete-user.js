@@ -1,4 +1,5 @@
-const { ServerError } = require('../../../util/error-handlers');
+const { ERROR_MESSAGE } = require('../../../util/constants');
+const { RequestError } = require('../../../util/error-handlers');
 const servicesErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const User = require('../models/User');
 
@@ -11,7 +12,7 @@ const deleteUser = async ({ id }) => {
   try {
     const numberOfAffectedRow = await User.destroy({ where: { id } });
 
-    if (numberOfAffectedRow.length < 1) throw new ServerError(500, 'Cannot delete user at this time. Please try again later');
+    if (numberOfAffectedRow[0] < 1) throw new RequestError(422, ERROR_MESSAGE.deleteError);
 
     return {};
   } catch (e) {
