@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const User = require('../../domains/user/models/User');
 const { user } = require('../entities/user-test-entity');
 
@@ -27,6 +28,15 @@ const invalidStart = {
   sort: 'asc',
   limit: '2',
   start: 'start',
+  search: 'man',
+};
+
+const invalidSearch = {
+  ownerId: user.id,
+  sort: 'asc',
+  limit: '2',
+  start: 'start',
+  search: '',
 };
 
 const validID = {
@@ -50,19 +60,28 @@ const validStart = {
   sort: 'desc',
   limit: '2',
 };
+
+const validSearch = {
+  sort: 'desc',
+  limit: '2',
+  search: 'title',
+};
 const validEntry = {
   ownerId: user.id,
   sort: 'asc',
   limit: 3,
   start: 3,
+  search: 'some-search',
 };
 
 exports.validEntry = validEntry;
+
 exports.invalidEntries = {
   invalidID,
   invalidLimit,
   invalidSort,
   invalidStart,
+  invalidSearch,
 };
 
 exports.validEntries = {
@@ -70,10 +89,11 @@ exports.validEntries = {
   validLimit,
   validSort,
   validStart,
+  validSearch,
 };
 
 exports.serviceArgsEOP = {
-  where: { ownerId: validEntry.ownerId },
+  where: { ownerId: validEntry.ownerId, title: { [Op.like]: `%${validEntry.search}%` } },
   attributes: ['id', 'title', 'body'],
   include: {
     model: User,
@@ -85,8 +105,9 @@ exports.serviceArgsEOP = {
   offset: validEntry.start,
   limit: validEntry.limit,
 };
+
 exports.serviceArgs = {
-  where: { ownerId: validEntry.ownerId },
+  where: { ownerId: validEntry.ownerId, title: { [Op.like]: `%${validEntry.search}%` } },
   attributes: ['id', 'title', 'body'],
   include: {
     model: User,
@@ -97,4 +118,16 @@ exports.serviceArgs = {
   order: [['title', validEntry.sort]],
   offset: 7,
   limit: validEntry.limit,
+};
+
+exports.getQuestionServiceArgs = {
+  attributes: ['id', 'title', 'body'],
+  include: {
+    model: User,
+    as: 'owner',
+    required: true,
+    attributes: ['id', 'name'],
+  },
+  raw: true,
+  nest: true,
 };

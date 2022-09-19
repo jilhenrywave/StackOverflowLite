@@ -6,7 +6,7 @@ const { questions } = require('../entities/question-test-entity');
 const Question = require('../../domains/question/models/Question');
 const getPaginatedQuestions = require('../../domains/question/services/get-questions');
 
-describe('Get Question Service', () => {
+describe('Get Questions Service', () => {
   const count = 10;
   before('Setting up stubs', () => {
     const questionStub = sandbox.stub(Question, 'findAndCountAll');

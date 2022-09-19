@@ -32,7 +32,7 @@ router.get(
   getQuestionsValidator,
   getQuestionsFormatter,
   (req, res) => {
-    responseHandler(req.formattedBody, res, controller.getQuestion);
+    responseHandler(req.formattedBody, res, controller.getQuestions);
   },
 );
 
@@ -42,7 +42,7 @@ router.get(
   getQuestionsValidator,
   getUserQuestionsFormatter,
   (req, res) => {
-    responseHandler(req.formattedBody, res, controller.getQuestion);
+    responseHandler(req.formattedBody, res, controller.getQuestions);
   },
 );
 
