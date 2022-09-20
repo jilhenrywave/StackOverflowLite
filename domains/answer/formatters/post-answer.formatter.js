@@ -1,4 +1,4 @@
-const postQuestionFormatter = ({ answer = '', questionId = '' }, user) => {
+const postAnswerFormatter = ({ answer = '', questionId = '' }, user) => {
   const formattedBody = {};
   if (answer) formattedBody.answerBody = answer;
   if (questionId) formattedBody.questId = questionId;
@@ -7,4 +7,4 @@ const postQuestionFormatter = ({ answer = '', questionId = '' }, user) => {
   return formattedBody;
 };
 
-module.exports = postQuestionFormatter;
+module.exports = postAnswerFormatter;

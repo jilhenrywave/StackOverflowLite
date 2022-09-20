@@ -3,10 +3,10 @@
 
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
-const registerUser = require('../../domains/user/user-services/register-user');
-const { validEntry } = require('../test-cases/user-profile-test-cases');
-const User = require('../../domains/user/models/User');
-const Token = require('../../domains/user/models/Token');
+const registerUser = require('../../../domains/user/user-services/register-user');
+const { validEntry } = require('../../test-cases/user-profile-test-cases');
+const User = require('../../../domains/user/models/User');
+const Token = require('../../../domains/user/models/Token');
 
 describe('Register User', () => {
   before('Setup Stubs', () => {

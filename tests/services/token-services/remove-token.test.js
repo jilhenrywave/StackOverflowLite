@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
-const Token = require('../../domains/user/models/Token');
-const removeToken = require('../../domains/user/token-services/remove-token');
+const Token = require('../../../domains/user/models/Token');
+const removeToken = require('../../../domains/user/token-services/remove-token');
 
 describe('Remove Token', () => {
   const userId = '123456789';

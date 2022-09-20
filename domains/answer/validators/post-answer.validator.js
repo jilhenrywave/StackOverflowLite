@@ -2,7 +2,7 @@ const { ERROR_MESSAGE } = require('../../../util/constants');
 const { ValidationError } = require('../../../util/error-handlers');
 const { isTextValid, isValidID } = require('../../../util/field-validators');
 
-const postQuestionValidator = ({ answer = '', questionId = '' }) => {
+const postAnswerValidator = ({ answer = '', questionId = '' }) => {
   const validatorError = new ValidationError();
 
   if (!isTextValid(answer)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidAnswerBody);
@@ -12,4 +12,4 @@ const postQuestionValidator = ({ answer = '', questionId = '' }) => {
   return validatorError;
 };
 
-module.exports = postQuestionValidator;
+module.exports = postAnswerValidator;

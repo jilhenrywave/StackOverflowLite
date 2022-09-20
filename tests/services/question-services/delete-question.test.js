@@ -2,9 +2,9 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
-const { question } = require('../entities/question-test-entity');
-const Question = require('../../domains/question/models/Question');
-const deleteQuestion = require('../../domains/question/services/delete-question');
+const { question } = require('../../entities/question-test-entity');
+const Question = require('../../../domains/question/models/Question');
+const deleteQuestion = require('../../../domains/question/services/delete-question');
 
 describe('Delete Question Service', () => {
   before('Setting up stubs', () => {
