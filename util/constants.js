@@ -17,6 +17,9 @@ const ERROR_MESSAGE = {
   updateError: 'No records updated. User may not be authorised. Please check request and try again later',
   deleteError: 'No records deleted. User may not be authorised. Please check request and try again later',
   invalidAnswerBody: 'Answer body is missing.',
+  invalidQuerySort: 'Invalid value for query field - sort. Accepted values are ASC or DESC',
+  invalidQueryStart: 'Query field, start, is not a number',
+  invalidQueryLimit: 'Query field, limit, is not a number',
 };
 
 module.exports = { ERROR_MESSAGE };

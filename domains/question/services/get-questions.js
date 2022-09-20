@@ -3,27 +3,7 @@ const User = require('../../user/models/User');
 const { RequestError } = require('../../../util/error-handlers');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const Question = require('../models/Question');
-/**
- * Determines the next start and limit for subsequent query
- * @param {number} recordCount : total number of records matching query
- * @param {number} start : offset of current query
- * @param {number} limit : number of records to be returned of current query
- * @returns {object} pageInfo{ previous , next }
- */
-const calculateNextPage = (recordCount, start, limit) => {
-  const pageInfo = { previous: { start, limit } };
-  const nextRecord = start + limit;
-
-  if (nextRecord >= recordCount) return pageInfo;
-
-  if ((nextRecord + limit) > recordCount) {
-    pageInfo.next = { start: nextRecord, limit: recordCount - nextRecord };
-  } else {
-    pageInfo.next = { start: nextRecord, limit };
-  }
-
-  return pageInfo;
-};
+const pageInfoHelper = require('../../../util/page-info-helper');
 
 /**
  * Retrieves questions from database in pages
@@ -52,7 +32,7 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
 
     if (!rows) throw new RequestError(404, 'No questions found');
 
-    const pageInfo = calculateNextPage(count, start, limit);
+    const pageInfo = pageInfoHelper.createPageInfo(count, start, limit);
 
     return { previous: pageInfo.previous, next: pageInfo.next, questions: rows };
   } catch (e) {
