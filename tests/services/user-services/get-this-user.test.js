@@ -1,9 +1,9 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable no-undef */
 const { expect } = require('chai');
-const getThisUser = require('../../domains/user/user-services/get-this-user');
-const { ERROR_MESSAGE } = require('../../util/constants');
-const { userWithToken } = require('../entities/user-test-entity');
+const getThisUser = require('../../../domains/user/user-services/get-this-user');
+const { ERROR_MESSAGE } = require('../../../util/constants');
+const { userWithToken } = require('../../entities/user-test-entity');
 
 describe('Get this User', () => {
   context('Valid Arguments', () => {

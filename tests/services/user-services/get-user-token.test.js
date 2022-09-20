@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
-const getUserToken = require('../../domains/user/user-services/get-user-token');
-const User = require('../../domains/user/models/User');
-const { AuthenticationError } = require('../../util/error-handlers');
-const { ERROR_MESSAGE } = require('../../util/constants');
-const { user, token } = require('../entities/user-test-entity');
+const getUserToken = require('../../../domains/user/user-services/get-user-token');
+const User = require('../../../domains/user/models/User');
+const { AuthenticationError } = require('../../../util/error-handlers');
+const { ERROR_MESSAGE } = require('../../../util/constants');
+const { user, token } = require('../../entities/user-test-entity');
 
 describe('Get User with Token', () => {
   const invalidUserId = 'some-invalid-id';

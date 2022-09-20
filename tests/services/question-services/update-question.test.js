@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
-const updateQuestion = require('../../domains/question/services/update-question');
-const { questionResponse } = require('../entities/question-test-entity');
-const { updateStubArgValues, updateStubArgOptions, validEntry, invalidEntries } = require('../test-cases/update-question-test-cases');
-const { user } = require('../entities/user-test-entity');
-const Question = require('../../domains/question/models/Question');
+const updateQuestion = require('../../../domains/question/services/update-question');
+const { questionResponse } = require('../../entities/question-test-entity');
+const { updateStubArgValues, updateStubArgOptions, validEntry, invalidEntries } = require('../../test-cases/update-question-test-cases');
+const { user } = require('../../entities/user-test-entity');
+const Question = require('../../../domains/question/models/Question');
 
 describe('Update Question Service', () => {
   before('Setting up stubs', () => {

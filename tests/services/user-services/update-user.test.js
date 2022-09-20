@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
 const sandbox = require('sinon').createSandbox();
 const { expect } = require('chai');
-const User = require('../../domains/user/models/User');
-const updateUser = require('../../domains/user/user-services/update-user');
-const { ERROR_MESSAGE } = require('../../util/constants');
-const { user } = require('../entities/user-test-entity');
+const User = require('../../../domains/user/models/User');
+const updateUser = require('../../../domains/user/user-services/update-user');
+const { ERROR_MESSAGE } = require('../../../util/constants');
+const { user } = require('../../entities/user-test-entity');
 
 describe('Update User Service', () => {
   const update = { name: user.name, email: user.email };
