@@ -8,7 +8,7 @@ const { answers } = require('../../entities/answer-test-entity');
 const getAnswers = require('../../../domains/answer/services/get-answers');
 
 describe('Get Answers Service', () => {
-  const count = 10;
+  const count = Array(10).fill(10);
   before('Setting up stubs', () => {
     const answerStub = sandbox.stub(Answer, 'findAndCountAll');
 
@@ -42,7 +42,7 @@ describe('Get Answers Service', () => {
 
     const { start, limit } = testCase.validQuestionParams;
     expect(response).to.have.keys(['count', 'next', 'previous', 'answers']);
-    expect(response.count).to.eql(count);
+    expect(response.count).to.eql(count.length);
     expect(response.previous).to.eql({ start, limit });
     expect(response.next).to.eql({ start: start + limit, limit });
     expect(response.answers).to.have.lengthOf(answers.length);
@@ -53,7 +53,7 @@ describe('Get Answers Service', () => {
 
     const { start, limit } = testCase.validOwnerParams;
     expect(response).to.have.keys(['count', 'next', 'previous', 'answers']);
-    expect(response.count).to.eql(count);
+    expect(response.count).to.eql(count.length);
     expect(response.previous).to.eql({ start, limit });
     expect(response.next).to.eql({ start: start + limit, limit });
     expect(response.answers).to.have.lengthOf(1);

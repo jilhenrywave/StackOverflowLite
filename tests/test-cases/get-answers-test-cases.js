@@ -1,3 +1,5 @@
+const QueryBuilder = require('../../db/query-helper/QueryBuilder');
+const Question = require('../../domains/question/models/Question');
 const User = require('../../domains/user/models/User');
 const { answerModel } = require('../entities/answer-test-entity');
 
@@ -9,18 +11,29 @@ const someOwnerId = 'some-id';
 const whereOwner = { ownerId: answerModel.ownerId };
 const whereQuestion = { questionId: answerModel.questionId };
 
-const serviceArgs = (where, startAt = 6) => ({
-  where,
-  attributes: ['id', 'body', 'votes', 'questionId'],
-  include: {
+const serviceArgs = (where, startAt = 6) => new QueryBuilder()
+  .setWhere(where)
+  .setAttributes(['id', 'body', 'votes', 'questionId'])
+  .setInclude([{
     model: User,
     as: 'owner',
+    required: false,
     attributes: ['id', 'name'],
   },
-  offset: startAt,
-  limit,
-  order: [['votes', sort]],
-});
+  {
+    model: Question,
+    as: 'question',
+    required: false,
+    attributes: ['answerId'],
+  },
+  ])
+  .setOffset(startAt)
+  .setLimit(limit)
+  .setGroup('id')
+  .setOrder([])
+  .build()
+  .options;
+
 exports.validQuestionParams = {
   questionId: answerModel.questionId,
   ownerId: answerModel.ownerId,

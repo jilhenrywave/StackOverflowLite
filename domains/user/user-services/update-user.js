@@ -17,9 +17,6 @@ const updateUser = async (update) => {
 
     return await getUser(update.id);
   } catch (e) {
-    if (e.name === 'SequelizeUniqueConstraintError') {
-      return new RequestError(409, ERROR_MESSAGE.duplicateEmail);
-    }
     return servicesErrorHandler(e);
   }
 };

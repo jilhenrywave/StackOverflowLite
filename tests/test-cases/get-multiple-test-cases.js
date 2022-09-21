@@ -1,10 +1,10 @@
-const { Op } = require('sequelize');
+const QueryBuilder = require('../../db/query-helper/QueryBuilder');
 const User = require('../../domains/user/models/User');
 const { user } = require('../entities/user-test-entity');
 
 const invalidID = {
   id: 'some-id',
-  sort: 'desc',
+  sort: 'title_desc',
   limit: '2',
   start: '4',
 };
@@ -18,14 +18,14 @@ const invalidSort = {
 
 const invalidLimit = {
   id: user.id,
-  sort: 'desc',
+  sort: 'title_desc',
   limit: 'limit',
   start: '4',
 };
 
 const invalidStart = {
   id: user.id,
-  sort: 'asc',
+  sort: 'answer_asc',
   limit: '2',
   start: 'start',
   search: 'man',
@@ -33,14 +33,14 @@ const invalidStart = {
 
 const invalidSearch = {
   id: user.id,
-  sort: 'asc',
+  sort: 'title_asc',
   limit: '2',
   start: 'start',
   search: '',
 };
 
 const validID = {
-  sort: 'desc',
+  sort: 'title_desc',
   limit: '2',
   start: '4',
 };
@@ -52,27 +52,47 @@ const validSort = {
 
 const validLimit = {
   id: user.id,
-  sort: 'asc',
+  sort: 'answer_asc',
   start: '4',
 };
 
 const validStart = {
-  sort: 'desc',
+  sort: 'answer_desc',
   limit: '2',
 };
 
 const validSearch = {
-  sort: 'desc',
+  sort: 'title_desc',
   limit: '2',
   search: 'title',
 };
 const validEntry = {
   id: user.id,
-  sort: 'asc',
+  sort: 'title_asc',
   limit: 3,
   start: 3,
   search: 'some-search',
 };
+
+const serviceArgs = (offset) => new QueryBuilder()
+  .setWhere({ ownerId: validEntry.id })
+  .setAttributes(['id', 'title', 'body'])
+  .setInclude([{
+    model: User,
+    as: 'owner',
+    required: true,
+    attributes: ['id', 'name'],
+  },
+  ])
+  .setRaw(true)
+  .setNest(true)
+  .setOffset(offset)
+  .setLimit(validEntry.limit)
+  .setGroup('Question.id')
+  .setSubQuery(false)
+  .setOrder(validEntry.sort)
+  .build()
+  .options;
 
 exports.validEntry = validEntry;
 
@@ -92,33 +112,9 @@ exports.validEntries = {
   validSearch,
 };
 
-exports.serviceArgsEOP = {
-  where: { ownerId: validEntry.id, title: { [Op.like]: `%${validEntry.search}%` } },
-  attributes: ['id', 'title', 'body'],
-  include: {
-    model: User,
-    as: 'owner',
-    required: true,
-    attributes: ['id', 'name'],
-  },
-  order: [['title', validEntry.sort]],
-  offset: validEntry.start,
-  limit: validEntry.limit,
-};
+exports.serviceArgsEOP = serviceArgs(validEntry.start);
 
-exports.serviceArgs = {
-  where: { ownerId: validEntry.id, title: { [Op.like]: `%${validEntry.search}%` } },
-  attributes: ['id', 'title', 'body'],
-  include: {
-    model: User,
-    as: 'owner',
-    required: true,
-    attributes: ['id', 'name'],
-  },
-  order: [['title', validEntry.sort]],
-  offset: 7,
-  limit: validEntry.limit,
-};
+exports.serviceArgs = serviceArgs(7);
 
 exports.getQuestionServiceArgs = {
   attributes: ['id', 'title', 'body'],

@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../../db/sequelize');
 
 const Question = sequelize.define(
-  'Question',
+  'question',
   {
     id: {
       allowNull: false,

@@ -1,4 +1,5 @@
 const validator = require('validator');
+const { SORT_TYPES } = require('./constants');
 
 exports.isTextValid = (value) => !(validator.isEmpty(value.trim()));
 
@@ -12,3 +13,5 @@ exports.isPasswordValid = (value) => {
 };
 
 exports.isEmailValid = (value) => (validator.isEmail(value));
+
+exports.isValidSort = (value) => (validator.isIn(value, SORT_TYPES));

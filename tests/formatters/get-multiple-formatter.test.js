@@ -8,7 +8,7 @@ describe('Get Multiple Formatter', () => {
     const response = getMulitpleFormatter({ ...validEntry, ownerId: validEntry.id, questionId: 'some-q-id' });
 
     expect(response.ownerId).to.eql(validEntry.id);
-    expect(response.sort).to.eql(validEntry.sort.toUpperCase());
+    expect(response.sort).to.eql(validEntry.sort.toUpperCase().split('_'));
     expect(response.limit).to.be.a('number');
     expect(response.start).to.be.a('number');
   });
