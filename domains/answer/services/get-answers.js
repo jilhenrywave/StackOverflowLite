@@ -6,7 +6,7 @@ const pageInfoHelper = require('../../../util/page-info-helper');
 const { RequestError } = require('../../../util/error-handlers');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 
-const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50, sort = 'asc' }) => {
+const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50, sort = [] }) => {
   try {
     if (!questionId && !ownerId) throw new Error();
 
@@ -25,7 +25,7 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
       .setOffset(start)
       .setGroup('id')
       .setLimit(limit)
-      .setOrder(['votes', sort])
+      .setOrder(sort)
       .build();
 
     const { count, rows } = await query.execFindAndCountAll(Answer);

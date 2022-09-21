@@ -4,7 +4,7 @@ const { user } = require('../entities/user-test-entity');
 
 const invalidID = {
   id: 'some-id',
-  sort: 'desc',
+  sort: 'title_desc',
   limit: '2',
   start: '4',
 };
@@ -18,14 +18,14 @@ const invalidSort = {
 
 const invalidLimit = {
   id: user.id,
-  sort: 'desc',
+  sort: 'title_desc',
   limit: 'limit',
   start: '4',
 };
 
 const invalidStart = {
   id: user.id,
-  sort: 'asc',
+  sort: 'answer_asc',
   limit: '2',
   start: 'start',
   search: 'man',
@@ -33,14 +33,14 @@ const invalidStart = {
 
 const invalidSearch = {
   id: user.id,
-  sort: 'asc',
+  sort: 'title_asc',
   limit: '2',
   start: 'start',
   search: '',
 };
 
 const validID = {
-  sort: 'desc',
+  sort: 'title_desc',
   limit: '2',
   start: '4',
 };
@@ -52,23 +52,23 @@ const validSort = {
 
 const validLimit = {
   id: user.id,
-  sort: 'asc',
+  sort: 'answer_asc',
   start: '4',
 };
 
 const validStart = {
-  sort: 'desc',
+  sort: 'answer_desc',
   limit: '2',
 };
 
 const validSearch = {
-  sort: 'desc',
+  sort: 'title_desc',
   limit: '2',
   search: 'title',
 };
 const validEntry = {
   id: user.id,
-  sort: 'asc',
+  sort: 'title_asc',
   limit: 3,
   start: 3,
   search: 'some-search',
@@ -90,7 +90,7 @@ const serviceArgs = (offset) => new QueryBuilder()
   .setLimit(validEntry.limit)
   .setGroup('Question.id')
   .setSubQuery(false)
-  .setOrder(['title', validEntry.sort])
+  .setOrder(validEntry.sort)
   .build()
   .options;
 

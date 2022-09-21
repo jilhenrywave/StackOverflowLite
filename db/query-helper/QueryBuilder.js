@@ -37,7 +37,7 @@ class QueryBuilder {
   setGroup(value) { this.group.push(value); return this; }
 
   /** @param {array | string} value */
-  setOrder(value) { this.order.push(value); return this; }
+  setOrder(value) { if (value.length > 0) this.order.push(value); return this; }
 
   /** @param {int} value */
   setOffset(value) { this.offset = value; return this; }
@@ -51,6 +51,10 @@ class QueryBuilder {
 
   static createFn(sqlFunc, col, alias) {
     return [sequelize.fn(sqlFunc, sequelize.col(col)), alias];
+  }
+
+  static createFnOnly(sqlFunc, col) {
+    return sequelize.fn(sqlFunc, sequelize.col(col));
   }
 
   static createIncludeObject(

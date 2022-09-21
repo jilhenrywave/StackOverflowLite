@@ -30,7 +30,7 @@ const serviceArgs = (where, startAt = 6) => new QueryBuilder()
   .setOffset(startAt)
   .setLimit(limit)
   .setGroup('id')
-  .setOrder(['votes', sort])
+  .setOrder([])
   .build()
   .options;
 

@@ -1,5 +1,3 @@
-const { ERROR_MESSAGE } = require('../../../util/constants');
-const { RequestError } = require('../../../util/error-handlers');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const Answer = require('../models/Answer');
 
@@ -15,7 +13,6 @@ const postAnswer = async ({ answerBody = '', questId = '', user }) => {
 
     return ({ id, body, votes, questionId, user: { id: user.id, name: user.name } });
   } catch (e) {
-    if (e.name === 'SequelizeForeignKeyConstraintError') return new RequestError(400, ERROR_MESSAGE.invalidQuestionID);
     return serviceErrorHandler(e);
   }
 };
