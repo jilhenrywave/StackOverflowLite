@@ -60,7 +60,7 @@ router.delete(
   '/questions/:id',
   auth,
   validator.idParamValidator,
-  formatter.deleteQuestionFormatter,
+  formatter.idParamAuthUserFormatter,
   (req, res) => {
     responseHandler(req.formattedBody, res, controller.deleteQuestion);
   },
@@ -69,7 +69,7 @@ router.delete(
 router.delete(
   '/questions/delete/all',
   auth,
-  formatter.deleteQuestionFormatter,
+  formatter.idParamAuthUserFormatter,
   (req, res) => {
     req.formattedBody.all = true;
     responseHandler(req.formattedBody, res, controller.deleteQuestion);

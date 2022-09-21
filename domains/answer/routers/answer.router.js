@@ -37,4 +37,14 @@ router.get(
   },
 );
 
+router.post(
+  '/answers/:id/accept',
+  auth,
+  validator.idParamValidator,
+  formatter.idParamAuthUserFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.acceptAnswer);
+  },
+);
+
 module.exports = router;

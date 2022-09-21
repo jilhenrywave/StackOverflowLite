@@ -1,5 +1,5 @@
 const postQuestionValidator = require('../../domains/question/validators/post-question.validator');
-const idParamValidator = require('../get-delete-single.validator');
+const idParamValidator = require('../idParam.validator');
 const updateQuestionValidator = require('../../domains/question/validators/update-question.validator');
 const getMultipleValidator = require('../get-multiple.validator');
 const { validationHandler } = require('../../util/request-handler');

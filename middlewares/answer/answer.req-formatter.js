@@ -2,6 +2,7 @@
 const getMulitpleFormatter = require('../get-multiple.formatter');
 const postAnswerFormatter = require('../../domains/answer/formatters/post-answer.formatter');
 const { formattedRequestHandler } = require('../../util/request-handler');
+const idParamAuthUserFormatter = require('../idParamAuthUser.formatter');
 
 exports.postAnswerFormatter = (req, res, next) => {
   const request = { answer: req.body.answer, questionId: req.params.id };
@@ -22,3 +23,5 @@ exports.getUserAnswersFormatter = (req, res, next) => {
 
   return formattedRequestHandler(req, res, next, formattedBody);
 };
+
+exports.idParamAuthUserFormatter = idParamAuthUserFormatter;

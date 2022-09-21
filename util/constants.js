@@ -21,6 +21,7 @@ const ERROR_MESSAGE = {
   invalidQueryStart: 'Query field, start, is not a number',
   invalidQueryLimit: 'Query field, limit, is not a number',
   incorrectID: 'Encountered an unrecognized ID.',
+  invalidAnswerID: 'Answer does not exist.',
 };
 
 const SORT_TYPE = {
