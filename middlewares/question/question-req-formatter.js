@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 const postQuestionFormatter = require('../../domains/question/formatters/post-question.formatter');
-const deleteQuestionFormatter = require('../../domains/question/formatters/delete-question.formatter');
+const idParamAuthUserFormatter = require('../idParamAuthUser.formatter');
 const getMulitpleFormatter = require('../get-multiple.formatter');
 const { formattedRequestHandler } = require('../../util/request-handler');
 
@@ -23,8 +23,4 @@ exports.getUserQuestionsFormatter = (req, res, next) => {
   return formattedRequestHandler(req, res, next, formattedQuery);
 };
 
-exports.deleteQuestionFormatter = (req, res, next) => {
-  const formattedQuery = deleteQuestionFormatter(req.params.id, req.user);
-
-  return formattedRequestHandler(req, res, next, formattedQuery);
-};
+exports.idParamAuthUserFormatter = idParamAuthUserFormatter;

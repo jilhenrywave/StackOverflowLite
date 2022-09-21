@@ -5,12 +5,21 @@ const serviceErrorHandler = require('../../../util/service-handlers/services-err
 const pageInfoHelper = require('../../../util/page-info-helper');
 const { RequestError } = require('../../../util/error-handlers');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
+const { SORT_TYPE } = require('../../../util/constants');
+
+const configSort = (sort) => {
+  let sortBy = sort;
+  if (sort[0] !== SORT_TYPE.votes.toUpperCase()) sortBy = [];
+
+  return sortBy;
+};
 
 const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50, sort = [] }) => {
   try {
     if (!questionId && !ownerId) throw new Error();
 
     const where = {};
+    const sortBy = configSort(sort);
 
     if (questionId) where.questionId = questionId;
     else where.ownerId = ownerId;
@@ -25,7 +34,7 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
       .setOffset(start)
       .setGroup('id')
       .setLimit(limit)
-      .setOrder(sort)
+      .setOrder(sortBy)
       .build();
 
     const { count, rows } = await query.execFindAndCountAll(Answer);

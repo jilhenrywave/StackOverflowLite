@@ -21,11 +21,13 @@ const ERROR_MESSAGE = {
   invalidQueryStart: 'Query field, start, is not a number',
   invalidQueryLimit: 'Query field, limit, is not a number',
   incorrectID: 'Encountered an unrecognized ID.',
+  invalidAnswerID: 'Answer does not exist.',
 };
 
 const SORT_TYPE = {
   title: 'title',
   answer: 'answer',
+  votes: 'votes',
 };
 
 const SORT_TYPES = [
@@ -33,6 +35,8 @@ const SORT_TYPES = [
   `${SORT_TYPE.title}_desc`,
   `${SORT_TYPE.answer}_asc`,
   `${SORT_TYPE.answer}_desc`,
+  `${SORT_TYPE.votes}_asc`,
+  `${SORT_TYPE.votes}_desc`,
 ];
 
 module.exports = { ERROR_MESSAGE, SORT_TYPE, SORT_TYPES };
