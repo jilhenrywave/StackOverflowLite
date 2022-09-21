@@ -1,6 +1,7 @@
 const postAnswerValidator = require('../../domains/answer/validators/post-answer.validator');
 const getMultipleValidator = require('../get-multiple.validator');
 const { validationHandler } = require('../../util/request-handler');
+const { idParamValidator } = require('../get-delete-single.validator');
 
 exports.postAnswerValidator = (req, res, next) => {
   const request = { answer: req.body.answer, questionId: req.params.id };
@@ -10,8 +11,11 @@ exports.postAnswerValidator = (req, res, next) => {
 
 exports.getQuestionAnswersValidator = (req, res, next) => {
   const request = { id: req.params.id, ...req.query };
+
   validationHandler(request, res, next, getMultipleValidator);
 };
+
+exports.idParamValidator = idParamValidator;
 
 exports.getUserAnswersValidator = (req, res, next) => {
   validationHandler(req.query, res, next, getMultipleValidator);

@@ -14,6 +14,7 @@ const getMultipleFormatter = ({ ownerId, questionId = '', start = 0, limit = 50,
     search,
   };
   if (sort) format.sort = sort.toUpperCase().split('_');
+
   return format;
 };
 
