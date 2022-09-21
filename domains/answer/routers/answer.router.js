@@ -47,4 +47,15 @@ router.post(
   },
 );
 
+router.post(
+  '/answers/:id/reject',
+  auth,
+  validator.idParamValidator,
+  formatter.idParamAuthUserFormatter,
+  (req, res) => {
+    req.formattedBody.reject = true;
+    responseHandler(req.formattedBody, res, controller.acceptAnswer);
+  },
+);
+
 module.exports = router;

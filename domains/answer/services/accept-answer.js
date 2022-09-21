@@ -29,12 +29,16 @@ const getAnswer = async (answerId) => {
  * @param {string} questionId
  * @returns {int} number of records updated
  */
-const updateQuestion = async (id, answerId, ownerId) => {
+const updateQuestion = async (id, answerId, ownerId, reject) => {
+  const updateValue = { answerId };
+
   const updateQuestionQuery = new QueryBuilder()
     .setWhere({ id, ownerId })
     .build();
 
-  const update = await updateQuestionQuery.execUpdate(Question, { answerId });
+  if (reject) updateValue.answerId = null;
+
+  const update = await updateQuestionQuery.execUpdate(Question, updateValue);
 
   if (update[0] < 1) throw new RequestError(422, ERROR_MESSAGE.updateError);
 
@@ -46,11 +50,11 @@ const updateQuestion = async (id, answerId, ownerId) => {
  * @param {string} id
  * @returns
  */
-const acceptAnswer = async ({ id, ownerId }) => {
+const acceptAnswer = async ({ id, ownerId, reject = false }) => {
   try {
     const answer = await getAnswer(id);
 
-    await updateQuestion(answer.questionId, answer.id, ownerId);
+    await updateQuestion(answer.questionId, answer.id, ownerId, reject);
 
     return {};
   } catch (e) {

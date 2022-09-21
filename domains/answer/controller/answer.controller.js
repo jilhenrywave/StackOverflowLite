@@ -7,7 +7,7 @@ const postAnswer = async (payload) => serviceResponseHandler(payload, postAnswer
 
 const getAnswers = async (payload) => serviceResponseHandler(payload, getAnswersService, 200);
 
-const acceptAnswer = async (payload) => serviceResponseHandler(payload, acceptAnswerService, 200);
+const acceptAnswer = async (payload) => serviceResponseHandler(payload, acceptAnswerService, 204);
 
 module.exports = {
   postAnswer,
