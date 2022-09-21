@@ -42,6 +42,7 @@ const Answer = sequelize.define(
   },
   {
     updatedAt: 'modifiedAt',
+    underscored: true,
   },
 );
 

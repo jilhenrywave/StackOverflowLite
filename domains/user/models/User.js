@@ -25,7 +25,7 @@ const User = sequelize.define(
       allowNull: false,
     },
   },
-  { updatedAt: 'modifiedAt' },
+  { updatedAt: 'modifiedAt', underscored: true },
 );
 
 module.exports = User;

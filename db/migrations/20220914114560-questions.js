@@ -1,6 +1,6 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('answers', {
+    await queryInterface.createTable('questions', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -8,26 +8,26 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       body: {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      votes: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      modifiedAt: {
+      modified_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    });
+    }, { underscored: true });
   },
+
   async down(queryInterface) {
-    await queryInterface.dropTable('answers');
+    await queryInterface.dropTable('questions');
   },
 };

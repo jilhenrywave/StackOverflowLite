@@ -21,7 +21,7 @@ const Token = sequelize.define(
       onDelete: 'CASCADE',
     },
   },
-  { updatedAt: 'modifiedAt' },
+  { updatedAt: 'modifiedAt', underscored: true },
 );
 
 module.exports = Token;

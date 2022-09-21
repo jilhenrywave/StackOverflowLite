@@ -10,4 +10,10 @@ const questionId = question.id;
 const answerModel = { id, body, votes, ownerId, questionId };
 const responseObject = { id, body, votes, questionId, user: { id: user.id, name: user.name } };
 
-module.exports = { answerModel, responseObject, user };
+const answers = [
+  answerModel,
+  answerModel,
+  answerModel,
+];
+
+module.exports = { answerModel, responseObject, user, answers };

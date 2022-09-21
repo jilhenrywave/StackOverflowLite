@@ -1,6 +1,6 @@
 const express = require('express');
-const { postAnswerValidator } = require('../../../middlewares/answer/answer-req-validators');
-const { postAnswerFormatter } = require('../../../middlewares/answer/answer.req-formatter');
+const { postAnswerValidator, getQuestionAnswersValidator, getUserAnswersValidator } = require('../../../middlewares/answer/answer-req-validators');
+const { postAnswerFormatter, getQuestionAnswersFormatter, getUserAnswersFormatter } = require('../../../middlewares/answer/answer.req-formatter');
 const auth = require('../../../middlewares/auth');
 const { responseHandler } = require('../../../util/request-handler');
 const controller = require('../controller/answer.controller');
@@ -14,6 +14,26 @@ router.post(
   postAnswerFormatter,
   (req, res) => {
     responseHandler(req.formattedBody, res, controller.postAnswer);
+  },
+);
+
+router.get(
+  '/questions/:id/answers',
+  auth,
+  getQuestionAnswersValidator,
+  getQuestionAnswersFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.getAnswers);
+  },
+);
+
+router.get(
+  '/answers',
+  auth,
+  getUserAnswersValidator,
+  getUserAnswersFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.getAnswers);
   },
 );
 

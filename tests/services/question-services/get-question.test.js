@@ -5,7 +5,7 @@ const Question = require('../../../domains/question/models/Question');
 const getQuestion = require('../../../domains/question/services/get-question');
 const { RequestError } = require('../../../util/error-handlers');
 const { question, questionResponse } = require('../../entities/question-test-entity');
-const { getQuestionServiceArgs } = require('../../test-cases/get-questions-test-cases');
+const { getQuestionServiceArgs } = require('../../test-cases/get-multiple-test-cases');
 
 describe('Get Question Service', () => {
   before('Setting up stubs', () => {
