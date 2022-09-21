@@ -17,10 +17,22 @@ const ERROR_MESSAGE = {
   updateError: 'No records updated. User may not be authorised. Please check request and try again later',
   deleteError: 'No records deleted. User may not be authorised. Please check request and try again later',
   invalidAnswerBody: 'Answer body is missing.',
-  invalidQuerySort: 'Invalid value for query field - sort. Accepted values are ASC or DESC',
+  invalidQuerySort: 'Invalid value for query field - sort. Accepted values are TITLE_ASC, TITLE_DESC, ANSWERS_ASC or ANSWERS_DESC',
   invalidQueryStart: 'Query field, start, is not a number',
   invalidQueryLimit: 'Query field, limit, is not a number',
   incorrectID: 'Encountered an unrecognized ID.',
 };
 
-module.exports = { ERROR_MESSAGE };
+const SORT_TYPE = {
+  title: 'title',
+  answer: 'answer',
+};
+
+const SORT_TYPES = [
+  `${SORT_TYPE.title}_asc`,
+  `${SORT_TYPE.title}_desc`,
+  `${SORT_TYPE.answer}_asc`,
+  `${SORT_TYPE.answer}_desc`,
+];
+
+module.exports = { ERROR_MESSAGE, SORT_TYPE, SORT_TYPES };

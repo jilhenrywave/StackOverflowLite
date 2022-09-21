@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const QueryBuilder = require('../../db/query-helper/QueryBuilder');
 const User = require('../../domains/user/models/User');
 const { user } = require('../entities/user-test-entity');
 
@@ -74,6 +74,26 @@ const validEntry = {
   search: 'some-search',
 };
 
+const serviceArgs = (offset) => new QueryBuilder()
+  .setWhere({ ownerId: validEntry.id })
+  .setAttributes(['id', 'title', 'body'])
+  .setInclude([{
+    model: User,
+    as: 'owner',
+    required: true,
+    attributes: ['id', 'name'],
+  },
+  ])
+  .setRaw(true)
+  .setNest(true)
+  .setOffset(offset)
+  .setLimit(validEntry.limit)
+  .setGroup('Question.id')
+  .setSubQuery(false)
+  .setOrder(['title', validEntry.sort])
+  .build()
+  .options;
+
 exports.validEntry = validEntry;
 
 exports.invalidEntries = {
@@ -92,33 +112,9 @@ exports.validEntries = {
   validSearch,
 };
 
-exports.serviceArgsEOP = {
-  where: { ownerId: validEntry.id, title: { [Op.like]: `%${validEntry.search}%` } },
-  attributes: ['id', 'title', 'body'],
-  include: {
-    model: User,
-    as: 'owner',
-    required: true,
-    attributes: ['id', 'name'],
-  },
-  order: [['title', validEntry.sort]],
-  offset: validEntry.start,
-  limit: validEntry.limit,
-};
+exports.serviceArgsEOP = serviceArgs(validEntry.start);
 
-exports.serviceArgs = {
-  where: { ownerId: validEntry.id, title: { [Op.like]: `%${validEntry.search}%` } },
-  attributes: ['id', 'title', 'body'],
-  include: {
-    model: User,
-    as: 'owner',
-    required: true,
-    attributes: ['id', 'name'],
-  },
-  order: [['title', validEntry.sort]],
-  offset: 7,
-  limit: validEntry.limit,
-};
+exports.serviceArgs = serviceArgs(7);
 
 exports.getQuestionServiceArgs = {
   attributes: ['id', 'title', 'body'],

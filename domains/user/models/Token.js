@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../../db/sequelize');
 
 const Token = sequelize.define(
-  'Token',
+  'token',
   {
     token: {
       allowNull: false,
