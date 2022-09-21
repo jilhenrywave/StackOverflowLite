@@ -6,7 +6,7 @@
  * @returns {object} pageInfo{ previous , next }
  */
 exports.createPageInfo = (recordCount, start, limit) => {
-  const pageInfo = { previous: { start, limit } };
+  const pageInfo = { count: recordCount, previous: { start, limit } };
   const nextRecord = start + limit;
 
   if (nextRecord >= recordCount) return pageInfo;

@@ -1,5 +1,5 @@
 const postAnswerValidator = require('../../domains/answer/validators/post-answer.validator');
-const getAnswersValidator = require('../../domains/answer/validators/get-answers.validator');
+const getMultipleValidator = require('../get-multiple.validator');
 const { validationHandler } = require('../../util/request-handler');
 
 exports.postAnswerValidator = (req, res, next) => {
@@ -10,9 +10,9 @@ exports.postAnswerValidator = (req, res, next) => {
 
 exports.getQuestionAnswersValidator = (req, res, next) => {
   const request = { id: req.params.id, ...req.query };
-  validationHandler(request, res, next, getAnswersValidator);
+  validationHandler(request, res, next, getMultipleValidator);
 };
 
 exports.getUserAnswersValidator = (req, res, next) => {
-  validationHandler(req.query, res, next, getAnswersValidator);
+  validationHandler(req.query, res, next, getMultipleValidator);
 };

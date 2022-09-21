@@ -26,11 +26,11 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
       order: [['votes', sort]],
     });
 
-    if (!rows) throw new RequestError(404, 'No questions found');
+    if (!rows) throw new RequestError(404, 'No answers found');
 
     const pageInfo = pageInfoHelper.createPageInfo(count, start, limit);
 
-    return { previous: pageInfo.previous, next: pageInfo.next, answers: rows };
+    return { ...pageInfo, answers: rows };
   } catch (e) {
     return serviceErrorHandler(e);
   }

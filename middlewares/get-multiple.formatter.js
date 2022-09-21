@@ -1,16 +1,17 @@
+/* eslint-disable object-curly-newline */
 /**
  * Formats request query to usable app object
- * @param {object} user
  * @param {object} query
  * @returns {object} formatted query object
  */
 
-const getAnswersFormatter = (user, { questionId = '', start = 0, limit = 50, sort = 'asc' }) => ({
-  ownerId: user.id,
+const getMultipleFormatter = ({ ownerId, questionId = '', start = 0, limit = 50, sort = 'asc', search = '' }) => ({
+  ownerId,
   questionId,
   start: Number(start),
   limit: Number(limit),
   sort: sort.toUpperCase(),
+  search,
 });
 
-module.exports = getAnswersFormatter;
+module.exports = getMultipleFormatter;

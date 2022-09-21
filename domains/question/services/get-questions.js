@@ -34,7 +34,7 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
 
     const pageInfo = pageInfoHelper.createPageInfo(count, start, limit);
 
-    return { previous: pageInfo.previous, next: pageInfo.next, questions: rows };
+    return { ...pageInfo, questions: rows };
   } catch (e) {
     return serviceErrorHandler(e);
   }

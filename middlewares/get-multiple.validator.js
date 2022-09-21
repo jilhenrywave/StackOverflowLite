@@ -1,14 +1,14 @@
 /* eslint-disable object-curly-newline */
-const { ERROR_MESSAGE } = require('../../../util/constants');
-const { ValidationError } = require('../../../util/error-handlers');
-const { isValidID, isNumber } = require('../../../util/field-validators');
+const { ERROR_MESSAGE } = require('../util/constants');
+const { ValidationError } = require('../util/error-handlers');
+const { isValidID, isNumber } = require('../util/field-validators');
 
-const getAnswersValidator = ({ id = '', start = 0, limit = 0, sort = '' }) => {
+const getMultipleValidator = ({ id = '', start = 0, limit = 0, sort = '' }) => {
   const validatorError = new ValidationError();
 
   const qSort = sort.toUpperCase();
 
-  if (id && !isValidID(id)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidID);
+  if (id && !isValidID(id)) validatorError.addErrorMessage(ERROR_MESSAGE.incorrectID);
 
   if (start && !isNumber(start)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidQueryStart);
 
@@ -21,4 +21,4 @@ const getAnswersValidator = ({ id = '', start = 0, limit = 0, sort = '' }) => {
   return validatorError;
 };
 
-module.exports = getAnswersValidator;
+module.exports = getMultipleValidator;

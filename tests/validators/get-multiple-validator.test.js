@@ -1,13 +1,13 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
-const getQuestionsValidator = require('../../domains/question/validators/get-questions.validator');
-const { invalidEntries, validEntries } = require('../test-cases/get-questions-test-cases');
+const getMultipleValidator = require('../../middlewares/get-multiple.validator');
+const { invalidEntries, validEntries } = require('../test-cases/get-multiple-test-cases');
 
-describe('Get Questions Validator', () => {
+describe('Get Multiple Validator', () => {
   context('Invalid Entries', () => {
     Object.entries(invalidEntries).forEach(([key, entry]) => {
       it(`should return error if there is ${key}`, () => {
-        const response = getQuestionsValidator(entry);
+        const response = getMultipleValidator(entry);
 
         expect(response).to.have.keys(['code', 'type', 'errorMessages', 'errorMessage']);
         expect(response.code).to.eql(400);
@@ -19,7 +19,7 @@ describe('Get Questions Validator', () => {
   context('Valid Entries', () => {
     Object.entries(validEntries).forEach(([key, entry]) => {
       it(`should not return error if  ${key} obey rules`, () => {
-        const response = getQuestionsValidator(entry);
+        const response = getMultipleValidator(entry);
 
         expect(response.errorMessages).to.have.lengthOf(0);
       });

@@ -1,6 +1,6 @@
 /* eslint-disable object-curly-newline */
 const { user } = require('./user-test-entity');
-const { validEntry } = require('../test-cases/get-questions-test-cases');
+const { validEntry } = require('../test-cases/get-multiple-test-cases');
 
 const id = 'ac9c4590-ce71-416f-99bd-687d7060d437';
 const title = 'some-title';

@@ -3,28 +3,28 @@ const User = require('../../domains/user/models/User');
 const { user } = require('../entities/user-test-entity');
 
 const invalidID = {
-  ownerId: 'some-id',
+  id: 'some-id',
   sort: 'desc',
   limit: '2',
   start: '4',
 };
 
 const invalidSort = {
-  ownerId: user.id,
+  id: user.id,
   sort: 'asca',
   limit: '2',
   start: '4',
 };
 
 const invalidLimit = {
-  ownerId: user.id,
+  id: user.id,
   sort: 'desc',
   limit: 'limit',
   start: '4',
 };
 
 const invalidStart = {
-  ownerId: user.id,
+  id: user.id,
   sort: 'asc',
   limit: '2',
   start: 'start',
@@ -32,7 +32,7 @@ const invalidStart = {
 };
 
 const invalidSearch = {
-  ownerId: user.id,
+  id: user.id,
   sort: 'asc',
   limit: '2',
   start: 'start',
@@ -46,12 +46,12 @@ const validID = {
 };
 
 const validSort = {
-  ownerId: user.id,
+  id: user.id,
   start: '4',
 };
 
 const validLimit = {
-  ownerId: user.id,
+  id: user.id,
   sort: 'asc',
   start: '4',
 };
@@ -67,7 +67,7 @@ const validSearch = {
   search: 'title',
 };
 const validEntry = {
-  ownerId: user.id,
+  id: user.id,
   sort: 'asc',
   limit: 3,
   start: 3,
@@ -93,7 +93,7 @@ exports.validEntries = {
 };
 
 exports.serviceArgsEOP = {
-  where: { ownerId: validEntry.ownerId, title: { [Op.like]: `%${validEntry.search}%` } },
+  where: { ownerId: validEntry.id, title: { [Op.like]: `%${validEntry.search}%` } },
   attributes: ['id', 'title', 'body'],
   include: {
     model: User,
@@ -107,7 +107,7 @@ exports.serviceArgsEOP = {
 };
 
 exports.serviceArgs = {
-  where: { ownerId: validEntry.ownerId, title: { [Op.like]: `%${validEntry.search}%` } },
+  where: { ownerId: validEntry.id, title: { [Op.like]: `%${validEntry.search}%` } },
   attributes: ['id', 'title', 'body'],
   include: {
     model: User,

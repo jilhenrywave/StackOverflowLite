@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-const getAnswersFormatter = require('../../domains/answer/formatters/get-answers.formatter');
+const getMulitpleFormatter = require('../get-multiple.formatter');
 const postAnswerFormatter = require('../../domains/answer/formatters/post-answer.formatter');
 const { formattedRequestHandler } = require('../../util/request-handler');
 
@@ -12,13 +12,13 @@ exports.postAnswerFormatter = (req, res, next) => {
 
 exports.getQuestionAnswersFormatter = (req, res, next) => {
   const request = { ...req.query, questionId: req.params.id };
-  const formattedBody = getAnswersFormatter(req.user, request);
+  const formattedBody = getMulitpleFormatter(request);
 
   return formattedRequestHandler(req, res, next, formattedBody);
 };
 
 exports.getUserAnswersFormatter = (req, res, next) => {
-  const formattedBody = getAnswersFormatter(req.user, req.query);
+  const formattedBody = getMulitpleFormatter({ ...req.query, ownerId: req.user.id });
 
   return formattedRequestHandler(req, res, next, formattedBody);
 };

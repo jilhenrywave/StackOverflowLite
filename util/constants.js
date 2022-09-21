@@ -20,6 +20,7 @@ const ERROR_MESSAGE = {
   invalidQuerySort: 'Invalid value for query field - sort. Accepted values are ASC or DESC',
   invalidQueryStart: 'Query field, start, is not a number',
   invalidQueryLimit: 'Query field, limit, is not a number',
+  incorrectID: 'Encountered an unrecognized ID.',
 };
 
 module.exports = { ERROR_MESSAGE };
