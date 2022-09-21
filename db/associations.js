@@ -11,3 +11,6 @@ Question.belongsTo(User, { foreignKey: 'ownerId', as: 'owner' });
 
 User.hasMany(Answer, { foreignKey: 'ownerId' });
 Answer.belongsTo(User, { foreignKey: 'ownerId', as: 'owner' });
+
+Question.hasMany(Answer, { foreignKey: 'questionId' });
+Answer.belongsTo(Question, { foreignKey: 'questionId', as: 'question' });

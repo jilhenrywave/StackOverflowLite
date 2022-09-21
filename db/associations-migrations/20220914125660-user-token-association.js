@@ -2,7 +2,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn(
       'tokens', // name of Source model
-      'userId', // name of the key we're adding
+      'user_id', // name of the key we're adding
       {
         type: Sequelize.UUID,
         allowNull: false,
@@ -19,7 +19,7 @@ module.exports = {
   async down(queryInterface, _Sequelize) {
     await queryInterface.removeColumn(
       'tokens',
-      'userId',
+      'user_id',
     );
   },
 };

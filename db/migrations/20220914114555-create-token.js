@@ -7,15 +7,15 @@ module.exports = {
         autoIncrement: false,
         type: Sequelize.STRING,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      modifiedAt: {
+      modified_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    });
+    }, { underscored: true });
   },
   async down(queryInterface) {
     await queryInterface.dropTable('tokens');

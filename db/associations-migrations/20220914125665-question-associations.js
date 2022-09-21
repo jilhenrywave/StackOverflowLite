@@ -2,7 +2,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn(
       'questions',
-      'ownerId',
+      'owner_id',
       {
         type: Sequelize.UUID,
         allowNull: false,
@@ -17,7 +17,7 @@ module.exports = {
 
     await queryInterface.addColumn(
       'questions',
-      'answerId',
+      'answer_id',
       {
         type: Sequelize.UUID,
         allowNull: true,
@@ -35,12 +35,12 @@ module.exports = {
   async down(queryInterface) {
     await queryInterface.removeColumn(
       'questions',
-      'ownerId',
+      'owner_id',
     );
 
     await queryInterface.removeColumn(
       'questions',
-      'answerId',
+      'answer_id',
     );
   },
 };

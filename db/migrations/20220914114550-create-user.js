@@ -21,15 +21,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      modifiedAt: {
+      modified_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    });
+    }, { underscored: true });
   },
   async down(queryInterface) {
     await queryInterface.dropTable('users');

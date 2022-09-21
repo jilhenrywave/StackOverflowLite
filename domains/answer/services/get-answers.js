@@ -1,5 +1,6 @@
 const Answer = require('../models/Answer');
 const User = require('../../user/models/User');
+const Question = require('../../question/models/Question');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const pageInfoHelper = require('../../../util/page-info-helper');
 const { RequestError } = require('../../../util/error-handlers');
@@ -16,11 +17,17 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
     const { count, rows } = await Answer.findAndCountAll({
       where,
       attributes: ['id', 'body', 'votes', 'questionId'],
-      include: {
+      include: [{
         model: User,
         as: 'owner',
         attributes: ['id', 'name'],
       },
+      {
+        model: Question,
+        as: 'question',
+        attributes: ['answerId'],
+      },
+      ],
       offset: start,
       limit,
       order: [['votes', sort]],
@@ -32,6 +39,7 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
 
     return { ...pageInfo, answers: rows };
   } catch (e) {
+    console.log(e);
     return serviceErrorHandler(e);
   }
 };
