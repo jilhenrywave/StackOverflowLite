@@ -3,7 +3,7 @@ const { AppError, ServerError, RequestError } = require('../error-handlers');
 
 const serviceErrorHandler = (error) => {
   if (error.name === 'SequelizeUniqueConstraintError') {
-    return new RequestError(409, ERROR_MESSAGE.duplicateEmail);
+    return new RequestError(409, ERROR_MESSAGE.duplicateEntry);
   }
 
   if (error.name === 'SequelizeForeignKeyConstraintError') return new RequestError(400, ERROR_MESSAGE.incorrectID);

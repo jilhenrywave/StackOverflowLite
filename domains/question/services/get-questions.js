@@ -70,7 +70,6 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
 
     return { ...pageInfo, questions: rows };
   } catch (e) {
-    console.log(e);
     return serviceErrorHandler(e);
   }
 };

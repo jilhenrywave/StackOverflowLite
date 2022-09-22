@@ -58,4 +58,14 @@ router.post(
   },
 );
 
+router.post(
+  '/answers/:id/vote',
+  auth,
+  validator.voteAnswerValidator,
+  formatter.voteAnswerFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.voteAnswer);
+  },
+);
+
 module.exports = router;
