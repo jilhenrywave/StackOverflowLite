@@ -21,21 +21,34 @@ const configWhere = (ownerId, search) => {
 };
 
 /**
- * Creates include and sort query parameters depending on the sort parameter
+ * Creates include query parameters
+ * @returns include array
+ */
+const configInclude = () => {
+  const include = [QueryBuilder.createIncludeObject(User, ['id', 'name'], 'owner', true)];
+
+  const answerCount = QueryBuilder.createFn('COUNT', 'answers.question_id', 'ans_count');
+
+  const includeAnswer = QueryBuilder.createIncludeObject(Answer, [answerCount], 'answers');
+
+  include.push(includeAnswer);
+
+  return include;
+};
+
+/**
+ * Creates sort query parameter depending on the sort parameter
  * @param {array} sort
  * @returns {object} : include and sort query parameters
  */
-const configIncludeAndSort = (sort) => {
-  const include = [QueryBuilder.createIncludeObject(User, ['id', 'name'], 'owner', true)];
+const configSort = (sort) => {
   const sortBy = sort;
 
   if ((sort[0] === SORT_TYPE.answer.toUpperCase())) {
-    const answerCount = QueryBuilder.createFn('COUNT', 'answers.question_id', 'ans_count');
-    const includeAnswer = QueryBuilder.createIncludeObject(Answer, [answerCount], 'answers');
-    include.push(includeAnswer);
     sortBy[0] = QueryBuilder.createFnOnly('count', 'answers.question_id');
   }
-  return { include, sortBy };
+
+  return sortBy;
 };
 
 /**
@@ -47,17 +60,18 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
   try {
     const where = configWhere(ownerId, search);
     const attributes = ['id', 'title', 'body'];
-    const includeAndSort = configIncludeAndSort(sort);
+    const include = configInclude();
+    const sortBy = configSort(sort);
 
     const query = new QueryBuilder()
       .setWhere(where)
       .setAttributes(attributes)
-      .setInclude(includeAndSort.include)
+      .setInclude(include)
       .setRaw(true)
       .setNest(true)
       .setSubQuery(false)
-      .setGroup('Question.id')
-      .setOrder(includeAndSort.sortBy)
+      .setGroup(['Question.id'])
+      .setOrder(sortBy)
       .setOffset(start)
       .setLimit(limit)
       .build();

@@ -4,15 +4,16 @@ const Query = require('./Query');
 class QueryBuilder {
   constructor() {
     this.where = {};
-    this.attributes = [];
+    this.attributes = null;
     this.include = [];
     this.raw = false;
-    this.nest = false;
+    this.nest = true;
     this.subQuery = true;
-    this.group = [];
+    this.group = ['id'];
     this.order = [];
     this.offset = 0;
     this.limit = 50;
+    this.transaction = null;
   }
 
   /** @param {object} value */
@@ -34,7 +35,7 @@ class QueryBuilder {
   setSubQuery(value) { this.subQuery = value; return this; }
 
   /** @param {String} value */
-  setGroup(value) { this.group.push(value); return this; }
+  setGroup(value) { this.group = value; return this; }
 
   /** @param {array | string} value */
   setOrder(value) { if (value.length > 0) this.order.push(value); return this; }
@@ -44,6 +45,9 @@ class QueryBuilder {
 
   /** @param {int} value */
   setLimit(value) { this.limit = value; return this; }
+
+  /** @param {object} value */
+  setTransaction(value) { this.transaction = value; return this; }
 
   build() {
     return new Query({ ...this });

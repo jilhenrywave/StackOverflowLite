@@ -3,8 +3,8 @@ class Query {
     this.options = builderOptions;
   }
 
-  async execFindOne(model, args) {
-    const response = await model.findOne(args, this.options);
+  async execFindOne(model) {
+    const response = await model.findOne(this.options);
 
     return response;
   }

@@ -15,6 +15,11 @@ const Answer = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    votes: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
     ownerId: {
       type: DataTypes.UUID,
       allowNull: false,

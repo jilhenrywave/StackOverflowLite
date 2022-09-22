@@ -1,11 +1,11 @@
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const Answer = require('../models/Answer');
 
-const postAnswer = async ({ answerBody = '', questId = '', user }) => {
+const postAnswer = async ({ answerBody = '', paramId = '', user }) => {
   try {
-    if (!answerBody || !questId) throw new Error();
+    if (!answerBody || !paramId) throw new Error();
 
-    const answer = await Answer.create({ body: answerBody, questionId: questId, ownerId: user.id });
+    const answer = await Answer.create({ body: answerBody, questionId: paramId, ownerId: user.id });
 
     if (!answer) throw new Error();
 

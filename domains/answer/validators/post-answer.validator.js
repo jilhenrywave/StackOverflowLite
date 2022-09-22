@@ -2,12 +2,12 @@ const { ERROR_MESSAGE } = require('../../../util/constants');
 const { ValidationError } = require('../../../util/error-handlers');
 const { isTextValid, isValidID } = require('../../../util/field-validators');
 
-const postAnswerValidator = ({ answer = '', questionId = '' }) => {
+const postAnswerValidator = ({ answer = '', paramId = '' }) => {
   const validatorError = new ValidationError();
 
   if (!isTextValid(answer)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidAnswerBody);
 
-  if (!isValidID(questionId)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidQuestionID);
+  if (!isValidID(paramId)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidIDParam);
 
   return validatorError;
 };

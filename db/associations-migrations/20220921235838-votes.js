@@ -26,6 +26,10 @@ module.exports = {
             key: 'id',
           },
         },
+        type: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
         created_at: {
           allowNull: false,
           type: Sequelize.DATE,
@@ -37,7 +41,7 @@ module.exports = {
       },
       {
         underscored: true,
-        uniqueKeys: { vote_entry: { fields: ['user_id', 'answer_id'] } },
+        uniqueKeys: { vote_entry: { fields: ['user_id', 'answer_id', 'type'] } },
       },
     );
   },

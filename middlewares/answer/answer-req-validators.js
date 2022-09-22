@@ -5,7 +5,7 @@ const idParamValidator = require('../idParam.validator');
 const voteAnswerValidator = require('../../domains/answer/validators/vote-answer.validator');
 
 exports.postAnswerValidator = (req, res, next) => {
-  const request = { answer: req.body.answer, questionId: req.params.id };
+  const request = { answer: req.body.answer, paramId: req.params.id };
 
   validationHandler(request, res, next, postAnswerValidator);
 };

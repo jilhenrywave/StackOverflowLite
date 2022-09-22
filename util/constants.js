@@ -4,7 +4,7 @@ const ERROR_MESSAGE = {
   incorrectPassword: 'Password is not correct',
   invalidEmail: 'Email is invalid or missing',
   incorrectEmail: 'User does not exist',
-  duplicateEntry: 'User record already exists',
+  duplicateEntry: 'Record already exists',
   invalidName: 'Name is missing',
   serverError: 'Internal Error. Unable to process request at this time',
   invalidToken: 'Token is not valid',
@@ -21,8 +21,10 @@ const ERROR_MESSAGE = {
   invalidQueryStart: 'Query field, start, is not a number',
   invalidQueryLimit: 'Query field, limit, is not a number',
   incorrectID: 'Encountered an unrecognized ID.',
-  invalidAnswerID: 'Answer does not exist.',
+  invalidAnswerID: 'Answer ID is not recognised or is missing',
   invalidVoteType: 'Invalid query field - type. Accepted values are UP_VOTE or DOWN_VOTE',
+  invalidIDParam: 'The parameter field - ID, is not recognised',
+  invalidDownVote: 'User already down',
 };
 
 const SORT_TYPE = {
