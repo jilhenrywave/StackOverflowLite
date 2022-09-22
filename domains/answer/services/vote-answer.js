@@ -1,22 +1,73 @@
+/* eslint-disable max-len */
 const Vote = require('../models/Vote');
 const { VOTE_TYPE, ERROR_MESSAGE } = require('../../../util/constants');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const { ServerError, RequestError } = require('../../../util/error-handlers');
+const { RequestError, ServerError } = require('../../../util/error-handlers');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
+const Answer = require('../models/Answer');
+const sequelize = require('../../../db/sequelize');
 
+/**
+ * Publishes vote by an increase vote count in answer table
+ * @param {string} id
+ * @param {object} transaction
+ * @param {int} votes
+ */
+const vote = async (id, transaction, votes) => {
+  const query = new QueryBuilder()
+    .setWhere({ id })
+    .setTransaction(transaction)
+    .build();
+
+  const affectedRows = await query.execIncrement(Answer, { votes });
+
+  if (affectedRows[1] < 1) throw new ServerError();
+};
+
+/**
+ * Registers vote entry in votes table to prevent duplication
+ * @param {string} id
+ * @param {string} userId
+ * @param {object} transaction
+ * @param {strng} type
+ */
+const registerVoteEntry = async (id, userId, transaction, type) => {
+  const query = new QueryBuilder()
+    .setWhere({ answerId: id, userId })
+    .setTransaction(transaction)
+    .build();
+
+  const foundVote = await query.execFindOne(Vote);
+
+  if (foundVote && foundVote.type === type) throw new RequestError(403, ERROR_MESSAGE.duplicateEntry);
+  else if (foundVote) await query.execUpdate(Vote, { type });
+  else await Vote.create({ answerId: id, userId, type });
+};
+
+/**
+ * Saves user vote and updates answer
+ * @param {object} voteEntry : {id, userId, type}
+ * @returns empty object or error
+ */
 const voteAnswer = async ({ id = '', userId = '', type = VOTE_TYPE.up }) => {
+  const transaction = await sequelize.transaction();
   try {
+    await registerVoteEntry(id, userId, transaction, type);
+
     if (type === VOTE_TYPE.up) {
-      const vote = await Vote.create({ answerId: id, userId });
-
-      if (!vote) throw new ServerError();
+      await vote(id, transaction, 1);
+    } else if (type === VOTE_TYPE.down) {
+      await vote(id, transaction, -1);
     } else {
-      const affectedRecord = await Vote.destroy({ where: { answerId: id, userId } });
-
-      if (affectedRecord < 1) throw new RequestError(406, ERROR_MESSAGE.deleteError);
+      throw new ServerError();
     }
+
+    await transaction.commit();
+
     return {};
   } catch (e) {
-    console.log(e);
+    await transaction.rollback();
+
     return serviceErrorHandler(e);
   }
 };

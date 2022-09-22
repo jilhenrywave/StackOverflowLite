@@ -6,7 +6,7 @@ const idParamAuthUserFormatter = require('../idParamAuthUser.formatter');
 const voteAnswerFormatter = require('../../domains/answer/formatters/vote-answer.formatter');
 
 exports.postAnswerFormatter = (req, res, next) => {
-  const request = { answer: req.body.answer, questionId: req.params.id };
+  const request = { answer: req.body.answer, paramId: req.params.id };
   const formattedBody = postAnswerFormatter(request, req.user);
 
   return formattedRequestHandler(req, res, next, formattedBody);

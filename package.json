@@ -14,8 +14,8 @@
     "migrations": "npx sequelize-cli --migrations-path './db/migrations' db:migrate",
     "association-migrations": "npx sequelize-cli --migrations-path './db/associations-migrations' db:migrate",
     "undo-migration": "npx sequelize-cli --migrations-path './db/associations-migrations' db:migrate:undo",
-    "undo-all-migrations": "npx sequelize-cli db:migrate:undo:all",
-    "undo-migration-to": "npx sequelize-cli --migrations-path './db/migrations' db:migrate:undo:all --to",
+    "undo-all-migrations": "npx sequelize-cli --migrations-path './db/migrations' db:migrate:undo:all",
+    "undo-migration-to": "npx sequelize-cli --migrations-path './db/associations-migrations' db:migrate:undo:all --to",
     "test": "env-cmd -f './config/test.env' mocha"
   },
   "keywords": [],

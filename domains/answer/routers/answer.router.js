@@ -68,4 +68,14 @@ router.post(
   },
 );
 
+router.patch(
+  '/answers/:id/edit',
+  auth,
+  validator.postAnswerValidator,
+  formatter.postAnswerFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.updateAnswer);
+  },
+);
+
 module.exports = router;

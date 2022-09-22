@@ -6,7 +6,7 @@ const { validationHandler } = require('../util/request-handler');
 const validator = (id) => {
   const validatorError = new ValidationError();
 
-  if (!isValidID(id)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidQuestionID);
+  if (!isValidID(id)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidIDParam);
 
   return validatorError;
 };

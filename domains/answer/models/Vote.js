@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../../db/sequelize');
+const { VOTE_TYPE } = require('../../../util/constants');
 
 const Vote = sequelize.define(
   'vote',
@@ -27,11 +28,16 @@ const Vote = sequelize.define(
         key: 'id',
       },
     },
+    type: {
+      type: DataTypes.ENUM,
+      allowNull: false,
+      values: Object.values(VOTE_TYPE),
+    },
   },
   {
     updatedAt: 'modifiedAt',
     underscored: true,
-    indexes: [{ unique: true, fields: ['user_id', 'answer_id'] }],
+    indexes: [{ unique: true, fields: ['user_id', 'answer_id', 'type'] }],
   },
 );
 

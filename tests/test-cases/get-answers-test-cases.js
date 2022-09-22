@@ -5,7 +5,6 @@ const { answerModel } = require('../entities/answer-test-entity');
 
 const start = 2;
 const limit = 4;
-const sort = 'asc';
 
 const someOwnerId = 'some-id';
 const whereOwner = { ownerId: answerModel.ownerId };
