@@ -17,4 +17,4 @@ Question.hasMany(Answer, { foreignKey: 'questionId' });
 Answer.belongsTo(Question, { foreignKey: 'questionId' });
 
 Answer.hasMany(Vote, { foreignKey: 'answerId' });
-Vote.belongsTo(Answer, { foreignKey: 'answerid' });
+Vote.belongsTo(Answer, { foreignKey: 'answerId' });

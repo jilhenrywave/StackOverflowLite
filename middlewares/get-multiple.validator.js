@@ -1,7 +1,7 @@
 /* eslint-disable object-curly-newline */
-const { ERROR_MESSAGE } = require('../util/constants');
+const { ERROR_MESSAGE, SORT_TYPES } = require('../util/constants');
 const { ValidationError } = require('../util/error-handlers');
-const { isValidID, isNumber, isValidSort } = require('../util/field-validators');
+const { isValidID, isNumber, isValidValue } = require('../util/field-validators');
 
 const getMultipleValidator = ({ id = '', start = 0, limit = 0, sort = '' }) => {
   const validatorError = new ValidationError();
@@ -12,7 +12,7 @@ const getMultipleValidator = ({ id = '', start = 0, limit = 0, sort = '' }) => {
 
   if (limit && !isNumber(limit)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidQueryLimit);
 
-  if (sort && !isValidSort(sort)) {
+  if (sort && !isValidValue(sort, SORT_TYPES)) {
     validatorError.addErrorMessage(ERROR_MESSAGE.invalidQuerySort);
   }
 

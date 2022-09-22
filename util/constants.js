@@ -4,7 +4,7 @@ const ERROR_MESSAGE = {
   incorrectPassword: 'Password is not correct',
   invalidEmail: 'Email is invalid or missing',
   incorrectEmail: 'User does not exist',
-  duplicateEmail: 'Email already exists',
+  duplicateEntry: 'User record already exists',
   invalidName: 'Name is missing',
   serverError: 'Internal Error. Unable to process request at this time',
   invalidToken: 'Token is not valid',
@@ -22,6 +22,7 @@ const ERROR_MESSAGE = {
   invalidQueryLimit: 'Query field, limit, is not a number',
   incorrectID: 'Encountered an unrecognized ID.',
   invalidAnswerID: 'Answer does not exist.',
+  invalidVoteType: 'Invalid query field - type. Accepted values are UP_VOTE or DOWN_VOTE',
 };
 
 const SORT_TYPE = {
@@ -39,4 +40,9 @@ const SORT_TYPES = [
   `${SORT_TYPE.votes}_desc`,
 ];
 
-module.exports = { ERROR_MESSAGE, SORT_TYPE, SORT_TYPES };
+const VOTE_TYPE = {
+  up: 'up_vote',
+  down: 'down_vote',
+};
+
+module.exports = { ERROR_MESSAGE, SORT_TYPE, SORT_TYPES, VOTE_TYPE };

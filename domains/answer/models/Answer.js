@@ -35,10 +35,6 @@ const Answer = sequelize.define(
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     },
-    votes: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
   },
   {
     updatedAt: 'modifiedAt',

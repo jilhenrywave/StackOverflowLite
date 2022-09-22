@@ -31,6 +31,7 @@ const Vote = sequelize.define(
   {
     updatedAt: 'modifiedAt',
     underscored: true,
+    indexes: [{ unique: true, fields: ['user_id', 'answer_id'] }],
   },
 );
 

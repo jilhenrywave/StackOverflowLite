@@ -26,10 +26,18 @@ module.exports = {
             key: 'id',
           },
         },
+        created_at: {
+          allowNull: false,
+          type: Sequelize.DATE,
+        },
+        modified_at: {
+          allowNull: false,
+          type: Sequelize.DATE,
+        },
       },
       {
         underscored: true,
-        indexes: [{ unique: true, fields: ['user_id', 'answer_id'] }],
+        uniqueKeys: { vote_entry: { fields: ['user_id', 'answer_id'] } },
       },
     );
   },
