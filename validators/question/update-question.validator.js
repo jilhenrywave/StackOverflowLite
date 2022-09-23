@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
-const { ValidationError } = require('../../../util/error-handlers');
-const { ERROR_MESSAGE } = require('../../../util/constants');
-const { isTextValid, isValidID } = require('../../../util/field-validators');
+const { ValidationError } = require('../../util/error-handlers');
+const { ERROR_MESSAGE } = require('../../util/constants');
+const { isTextValid, isValidID } = require('../../util/field-validators');
 
 const updateQuestionValidator = ({ id = '', title = '', body = '' }) => {
   const validationError = new ValidationError();

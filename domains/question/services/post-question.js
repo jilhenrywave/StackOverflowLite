@@ -1,4 +1,5 @@
-const Question = require('../models/Question');
+const { Question } = require('../../../db/model-handler');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 
 /**
@@ -9,11 +10,12 @@ const serviceErrorHandler = require('../../../util/service-handlers/services-err
 const postQuestion = async ({ title = '', body = '', user }) => {
   try {
     if (!title || !body || !user.id) throw new Error();
-    const question = await Question.create({
-      title,
-      body,
-      ownerId: user.id,
-    });
+
+    const entry = { title, body, ownerId: user.id };
+
+    const query = new QueryBuilder().setModel(Question).build();
+
+    const question = await query.execCreate(entry);
 
     if (!question) throw new Error();
 

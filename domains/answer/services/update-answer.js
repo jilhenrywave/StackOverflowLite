@@ -1,10 +1,9 @@
-const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const { ERROR_MESSAGE } = require('../../../util/constants');
 const { RequestError, ServerError } = require('../../../util/error-handlers');
+const { Answer } = require('../../../db/model-handler');
+const { includeUser, includeQuestion } = require('../../../db/query-helper/include-query-constants');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const Answer = require('../models/Answer');
-const { includeUser, includeQuestion } = require('./get-answer-constants');
-
 /**
  * Retrieves an answer record from the database
  * @param {string} id
@@ -13,6 +12,7 @@ const { includeUser, includeQuestion } = require('./get-answer-constants');
  */
 const getAnswer = async (id) => {
   const query = new QueryBuilder()
+    .setModel(Answer)
     .setAttributes(['id', 'body', 'votes', 'questionId'])
     .setInclude([includeUser, includeQuestion])
     .setRaw(true)
@@ -20,7 +20,7 @@ const getAnswer = async (id) => {
     .setSubQuery(false)
     .build();
 
-  const answer = await query.execFindByPk(Answer, id);
+  const answer = await query.execFindByPk(id);
 
   if (!answer) throw new ServerError();
 
@@ -38,10 +38,11 @@ const updateAnswer = async ({ paramId = '', answerBody = '', user }) => {
     if (!paramId || !answerBody) throw new ServerError();
 
     const query = new QueryBuilder()
+      .setModel(Answer)
       .setWhere({ id: paramId, ownerId: user.id })
       .build();
 
-    const affectedRecords = await query.execUpdate(Answer, { body: answerBody });
+    const affectedRecords = await query.execUpdate({ body: answerBody });
 
     if (affectedRecords[0] < 1) throw new RequestError(422, ERROR_MESSAGE.updateError);
 

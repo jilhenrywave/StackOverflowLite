@@ -24,7 +24,9 @@ module.exports = async (req, res, next) => {
 
     const userWithToken = await getUserWithToken(payload.id, token);
 
-    req.user = userWithToken;
+    const { id, name, email } = userWithToken;
+
+    req.user = { id, name, email, token: userWithToken.tokens.token };
 
     next();
   } catch (e) {

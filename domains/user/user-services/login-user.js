@@ -1,15 +1,25 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/User');
-const registerToken = require('../token-services/register-token');
 const { ERROR_MESSAGE } = require('../../../util/constants');
-const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const { AuthenticationError } = require('../../../util/error-handlers');
+const { User } = require('../../../db/model-handler');
+const registerToken = require('../token-services/register-token');
+const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 
 const generateToken = async (userId) => registerToken(userId);
 
 const findUser = async (email) => {
-  const user = await User.findOne({ where: { email } });
+  const query = new QueryBuilder()
+    .setModel(User)
+    .setAttributes(['id', 'name', 'email', 'password'])
+    .setWhere({ email })
+    .setRaw(true)
+    .build();
+
+  const user = await query.execFindOne();
+
   if (!user) throw new AuthenticationError(404, ERROR_MESSAGE.incorrectEmail);
+
   return user;
 };
 
@@ -32,7 +42,9 @@ const loginUser = async ({ email = '', password = '' }) => {
 
     const token = await generateToken(user.id);
 
-    return ({ user: { id: user.id, name: user.name, email: user.email }, token });
+    delete user.password;
+
+    return ({ user, token });
   } catch (e) {
     return serviceErrorHandler(e);
   }

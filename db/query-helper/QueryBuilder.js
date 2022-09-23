@@ -1,20 +1,14 @@
+const { QueryError } = require('../../util/error-handlers');
 const sequelize = require('../sequelize');
 const Query = require('./Query');
 
 class QueryBuilder {
   constructor() {
-    this.where = {};
-    this.attributes = null;
-    this.include = [];
-    this.raw = false;
-    this.nest = true;
-    this.subQuery = true;
-    this.group = ['id'];
     this.order = [];
-    this.offset = 0;
-    this.limit = 50;
-    this.transaction = null;
   }
+
+  /** @param {object} value: sequelize model */
+  setModel(value) { this.model = value; return this; }
 
   /** @param {object} value */
   setWhere(value) { this.where = value; return this; }
@@ -50,6 +44,7 @@ class QueryBuilder {
   setTransaction(value) { this.transaction = value; return this; }
 
   build() {
+    if (!this.model) throw new QueryError('Model is missing');
     return new Query({ ...this });
   }
 

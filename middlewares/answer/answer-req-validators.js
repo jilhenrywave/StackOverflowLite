@@ -1,8 +1,8 @@
-const postAnswerValidator = require('../../domains/answer/validators/post-answer.validator');
-const getMultipleValidator = require('../get-multiple.validator');
 const { validationHandler } = require('../../util/request-handler');
+const postAnswerValidator = require('../../validators/answer/post-answer.validator');
+const getMultipleValidator = require('../get-multiple.validator');
 const idParamValidator = require('../idParam.validator');
-const voteAnswerValidator = require('../../domains/answer/validators/vote-answer.validator');
+const voteAnswerValidator = require('../../validators/answer/vote-answer.validator');
 
 exports.postAnswerValidator = (req, res, next) => {
   const request = { answer: req.body.answer, paramId: req.params.id };

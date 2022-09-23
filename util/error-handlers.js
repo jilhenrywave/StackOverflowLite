@@ -34,9 +34,16 @@ class AuthenticationError extends AppError {
     super(code, message, AuthenticationError);
   }
 }
+
 class AuthorizationError extends AppError {
   constructor(code, message) {
     super(code, message, AuthorizationError);
+  }
+}
+
+class QueryError extends AppError {
+  constructor(message) {
+    super(500, message, QueryError);
   }
 }
 
@@ -57,5 +64,6 @@ module.exports = {
   ServerError,
   AuthenticationError,
   AuthorizationError,
+  QueryError,
   ValidationError,
 };

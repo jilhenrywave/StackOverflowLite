@@ -2,6 +2,7 @@
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 
 /**
+ * This returns the user properties provided from auth middleware
  * @param {object} user
  * @returns {object}
  */

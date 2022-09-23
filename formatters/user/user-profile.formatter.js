@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { ServerError } = require('../../../util/error-handlers');
+const { ServerError } = require('../../util/error-handlers');
 
 /**
  * Converts a password string to a hash

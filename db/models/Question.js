@@ -1,9 +1,8 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../../db/sequelize');
-const { VOTE_TYPE } = require('../../../util/constants');
+const sequelize = require('../sequelize');
 
-const Vote = sequelize.define(
-  'vote',
+const Question = sequelize.define(
+  'question',
   {
     id: {
       allowNull: false,
@@ -12,33 +11,36 @@ const Vote = sequelize.define(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
-    userId: {
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    body: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    ownerId: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'users',
         key: 'id',
       },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     },
     answerId: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'answers',
         key: 'id',
       },
-    },
-    type: {
-      type: DataTypes.ENUM,
-      allowNull: false,
-      values: Object.values(VOTE_TYPE),
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     },
   },
-  {
-    updatedAt: 'modifiedAt',
-    underscored: true,
-    indexes: [{ unique: true, fields: ['user_id', 'answer_id', 'type'] }],
-  },
+  { updatedAt: 'modifiedAt', underscored: true },
 );
 
-module.exports = Vote;
+module.exports = Question;

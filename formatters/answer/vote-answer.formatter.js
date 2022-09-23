@@ -3,4 +3,5 @@ const voteAnswerFormatter = ({ id = '', user, voteType = '' }) => ({
   userId: user.id,
   type: voteType,
 });
+
 module.exports = voteAnswerFormatter;

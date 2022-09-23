@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
-const getMulitpleFormatter = require('../get-multiple.formatter');
-const postAnswerFormatter = require('../../domains/answer/formatters/post-answer.formatter');
 const { formattedRequestHandler } = require('../../util/request-handler');
+const getMulitpleFormatter = require('../get-multiple.formatter');
+const postAnswerFormatter = require('../../formatters/answer/post-answer.formatter');
 const idParamAuthUserFormatter = require('../idParamAuthUser.formatter');
-const voteAnswerFormatter = require('../../domains/answer/formatters/vote-answer.formatter');
+const voteAnswerFormatter = require('../../formatters/answer/vote-answer.formatter');
 
 exports.postAnswerFormatter = (req, res, next) => {
   const request = { answer: req.body.answer, paramId: req.params.id };

@@ -1,4 +1,4 @@
-const profileFormatter = require('../../domains/user/fomatters/user-profile.formatter');
+const profileFormatter = require('../../formatters/user/user-profile.formatter');
 const { formattedRequestHandler } = require('../../util/request-handler');
 
 exports.userProfileFormatter = async (req, res, next) => {

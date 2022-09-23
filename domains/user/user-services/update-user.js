@@ -1,8 +1,9 @@
-const servicesErrorHandler = require('../../../util/service-handlers/services-error-handler');
+const { User } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
 const { ERROR_MESSAGE } = require('../../../util/constants');
-const User = require('../models/User');
 const getUser = require('./get-user');
+const servicesErrorHandler = require('../../../util/service-handlers/services-error-handler');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 
 /**
  * Updates user record
@@ -11,7 +12,12 @@ const getUser = require('./get-user');
  */
 const updateUser = async (update) => {
   try {
-    const response = await User.update(update.update, { where: { id: update.id } });
+    const query = new QueryBuilder()
+      .setModel(User)
+      .setWhere({ id: update.id })
+      .build();
+
+    const response = await query.execUpdate(update.update);
 
     if (response[0] < 1) throw new RequestError(422, ERROR_MESSAGE.updateError);
 

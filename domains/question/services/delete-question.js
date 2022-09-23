@@ -1,7 +1,8 @@
 const { ERROR_MESSAGE } = require('../../../util/constants');
 const { RequestError } = require('../../../util/error-handlers');
+const { Question } = require('../../../db/model-handler');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const Question = require('../models/Question');
 
 const deleteQuestion = async ({ id = '', ownerId = '', all = false }) => {
   try {
@@ -13,7 +14,12 @@ const deleteQuestion = async ({ id = '', ownerId = '', all = false }) => {
       where.ownerId = ownerId;
     }
 
-    const response = await Question.destroy({ where });
+    const query = new QueryBuilder()
+      .setModel(Question)
+      .setWhere(where)
+      .build();
+
+    const response = await query.execDestroy();
 
     if (response < 1) throw new RequestError(422, ERROR_MESSAGE.deleteError);
 

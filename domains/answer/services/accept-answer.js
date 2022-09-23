@@ -1,8 +1,8 @@
-const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
-const Answer = require('../models/Answer');
-const Question = require('../../question/models/Question');
+const { Answer, Question } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
 const { ERROR_MESSAGE } = require('../../../util/constants');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
+
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 
 /**
@@ -13,10 +13,11 @@ const serviceErrorHandler = require('../../../util/service-handlers/services-err
  */
 const getAnswer = async (answerId) => {
   const findAnswerQuery = new QueryBuilder()
+    .setModel(Answer)
     .setAttributes(['id', 'questionId'])
     .build();
 
-  const answer = await findAnswerQuery.execFindByPk(Answer, answerId);
+  const answer = await findAnswerQuery.execFindByPk(answerId);
 
   if (!answer) throw new RequestError(400, ERROR_MESSAGE.invalidAnswerID);
 
@@ -33,12 +34,13 @@ const updateQuestion = async (id, answerId, ownerId, reject) => {
   const updateValue = { answerId };
 
   const updateQuestionQuery = new QueryBuilder()
+    .setModel(Question)
     .setWhere({ id, ownerId })
     .build();
 
   if (reject) updateValue.answerId = null;
 
-  const update = await updateQuestionQuery.execUpdate(Question, updateValue);
+  const update = await updateQuestionQuery.execUpdate(updateValue);
 
   if (update[0] < 1) throw new RequestError(422, ERROR_MESSAGE.updateError);
 
