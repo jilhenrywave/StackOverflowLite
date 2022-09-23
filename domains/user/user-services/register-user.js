@@ -1,7 +1,8 @@
-const User = require('../models/User');
+const { User } = require('../../../db/model-handler');
+const { ServerError } = require('../../../util/error-handlers');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const registerToken = require('../token-services/register-token');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const { ServerError } = require('../../../util/error-handlers');
 
 const generateToken = async (userId) => registerToken(userId);
 
@@ -11,8 +12,14 @@ const generateToken = async (userId) => registerToken(userId);
  * @returns {object} Saved user
  */
 const saveUser = async (userEntry) => {
-  const user = await User.create(userEntry);
+  const query = new QueryBuilder()
+    .setModel(User)
+    .build();
+
+  const user = await query.execCreate(userEntry);
+
   if (!user) throw new ServerError();
+
   return user;
 };
 

@@ -1,7 +1,8 @@
+const { User } = require('../../../db/model-handler');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const { ERROR_MESSAGE } = require('../../../util/constants');
 const { RequestError } = require('../../../util/error-handlers');
 const servicesErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const User = require('../models/User');
 
 /**
  * Removes user record from database
@@ -10,7 +11,12 @@ const User = require('../models/User');
  */
 const deleteUser = async ({ id }) => {
   try {
-    const numberOfAffectedRow = await User.destroy({ where: { id } });
+    const query = new QueryBuilder()
+      .setModel(User)
+      .setWhere({ id })
+      .build();
+
+    const numberOfAffectedRow = await query.execDestroy();
 
     if (numberOfAffectedRow[0] < 1) throw new RequestError(422, ERROR_MESSAGE.deleteError);
 
