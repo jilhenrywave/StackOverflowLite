@@ -1,7 +1,7 @@
 const { Answer } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
 const { SORT_TYPE } = require('../../../util/constants');
-const { includeUser, includeQuestion } = require('./get-answer-constants');
+const { includeUser, includeQuestion } = require('../../../db/query-helper/include-query-constants');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const pageInfoHelper = require('../../../util/page-info-helper');
@@ -42,7 +42,7 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
 
     const { count, rows } = await query.execFindAndCountAll(Answer);
 
-    if (!rows) throw new RequestError(404, 'No answers found');
+    if (!count) throw new RequestError(404, 'No answers found');
 
     const pageInfo = pageInfoHelper.createPageInfo(count, start, limit);
 

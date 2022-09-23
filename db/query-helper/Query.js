@@ -14,6 +14,8 @@ class Query {
   async execIncrement(model, value) { return model.increment(value, this.options); }
 
   async execCreate(model, value) { return model.create(value, this.options); }
+
+  async execDestroy(model) { return model.destroy(this.options); }
 }
 
 module.exports = Query;

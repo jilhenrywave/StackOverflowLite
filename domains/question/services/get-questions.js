@@ -4,6 +4,7 @@ const { Answer } = require('../../../db/model-handler');
 const { Question } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
 const { SORT_TYPE } = require('../../../util/constants');
+const { includeUser, includeAnswer } = require('../../../db/query-helper/include-query-constants');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const pageInfoHelper = require('../../../util/page-info-helper');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
@@ -18,22 +19,6 @@ const configWhere = (ownerId, search) => {
   if (ownerId) return { ownerId };
   if (search) return { title: { [sequelize.Op.like]: `%${search}%` } };
   return {};
-};
-
-/**
- * Creates include query parameters
- * @returns include array
- */
-const configInclude = () => {
-  const include = [QueryBuilder.createIncludeObject(User, ['id', 'name'], 'owner', true)];
-
-  const answerCount = QueryBuilder.createFn('COUNT', 'answers.question_id', 'ans_count');
-
-  const includeAnswer = QueryBuilder.createIncludeObject(Answer, [answerCount], 'answers');
-
-  include.push(includeAnswer);
-
-  return include;
 };
 
 /**
@@ -60,13 +45,12 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
   try {
     const where = configWhere(ownerId, search);
     const attributes = ['id', 'title', 'body'];
-    const include = configInclude();
     const sortBy = configSort(sort);
 
     const query = new QueryBuilder()
       .setWhere(where)
       .setAttributes(attributes)
-      .setInclude(include)
+      .setInclude([includeUser, includeAnswer])
       .setRaw(true)
       .setNest(true)
       .setSubQuery(false)
@@ -78,7 +62,7 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
 
     const { count, rows } = await query.execFindAndCountAll(Question);
 
-    if (!rows) throw new RequestError(404, 'No questions found');
+    if (count && count.length < 1) throw new RequestError(404, 'No questions found');
 
     const pageInfo = pageInfoHelper.createPageInfo(count.length, start, limit);
 

@@ -1,7 +1,8 @@
 const { RequestError } = require('../../../util/error-handlers');
 const { Question } = require('../../../db/model-handler');
+const { includeUser, includeAnswer } = require('../../../db/query-helper/include-query-constants');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const User = require('../../user/models/User');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 
 /**
  * Retrives a question from the database using id
@@ -10,19 +11,16 @@ const User = require('../../user/models/User');
  */
 const getQuestion = async (id) => {
   try {
-    const question = await Question.findByPk(id, {
-      attributes: ['id', 'title', 'body'],
-      include: {
-        model: User,
-        as: 'owner',
-        required: true,
-        attributes: ['id', 'name'],
-      },
-      raw: true,
-      nest: true,
-    });
+    const query = new QueryBuilder()
+      .setAttributes(['id', 'title', 'body'])
+      .setInclude([includeUser, includeAnswer])
+      .setRaw(true)
+      .setNest(true)
+      .build();
 
-    if (!question) throw new RequestError(404, 'No question found');
+    const question = await query.execFindByPk(Question, id);
+
+    if (question && !question.id) throw new RequestError(404, 'No question found');
 
     return question;
   } catch (e) {
