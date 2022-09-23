@@ -68,6 +68,17 @@ router.post(
   },
 );
 
+router.post(
+  '/answers/:id/vote/cancel',
+  auth,
+  validator.voteAnswerValidator,
+  formatter.voteAnswerFormatter,
+  (req, res) => {
+    req.formattedBody.remove = true;
+    responseHandler(req.formattedBody, res, controller.voteAnswer);
+  },
+);
+
 router.patch(
   '/answers/:id/edit',
   auth,

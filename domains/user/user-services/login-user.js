@@ -13,7 +13,6 @@ const findUser = async (email) => {
     .setModel(User)
     .setAttributes(['id', 'name', 'email', 'password'])
     .setWhere({ email })
-    .setRaw(true)
     .build();
 
   const user = await query.execFindOne();

@@ -18,7 +18,6 @@ const getUserWithToken = async (userId, token) => {
     .setAttributes(['id', 'name', 'email'])
     .setWhere({ token })
     .setInclude([includeToken])
-    .setRaw(true)
     .setNest(true)
     .build();
 

@@ -5,6 +5,7 @@ const Query = require('./Query');
 class QueryBuilder {
   constructor() {
     this.order = [];
+    this.raw = true;
   }
 
   /** @param {object} value: sequelize model */

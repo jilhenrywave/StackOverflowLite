@@ -84,7 +84,6 @@ const serviceArgs = (offset) => new QueryBuilder()
     attributes: ['id', 'name'],
   },
   ])
-  .setRaw(true)
   .setNest(true)
   .setOffset(offset)
   .setLimit(validEntry.limit)
