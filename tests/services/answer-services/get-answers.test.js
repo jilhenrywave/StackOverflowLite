@@ -2,10 +2,10 @@
 /* eslint-disable no-undef */
 const sandbox = require('sinon').createSandbox();
 const { expect } = require('chai');
-const Answer = require('../../../domains/answer/models/Answer');
-const testCase = require('../../test-cases/get-answers-test-cases');
+const { Answer } = require('../../../db/model-handler');
 const { answers } = require('../../entities/answer-test-entity');
 const getAnswers = require('../../../domains/answer/services/get-answers');
+const testCase = require('../../test-cases/get-answers-test-cases');
 
 describe('Get Answers Service', () => {
   const count = Array(10).fill(10);

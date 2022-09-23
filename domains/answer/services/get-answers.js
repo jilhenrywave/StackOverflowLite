@@ -1,10 +1,10 @@
-const Answer = require('../models/Answer');
-const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const pageInfoHelper = require('../../../util/page-info-helper');
+const { Answer } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
-const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const { SORT_TYPE } = require('../../../util/constants');
 const { includeUser, includeQuestion } = require('./get-answer-constants');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
+const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
+const pageInfoHelper = require('../../../util/page-info-helper');
 
 const configSort = (sort) => {
   let sortBy = [];
@@ -16,6 +16,11 @@ const configSort = (sort) => {
   return sortBy;
 };
 
+/**
+ * Retrieves answers from the database
+ * @param {object} query
+ * @returns {object}
+ */
 const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50, sort = [] }) => {
   try {
     if (!questionId && !ownerId) throw new Error();

@@ -1,11 +1,26 @@
+const { Answer } = require('../../../db/model-handler');
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const Answer = require('../models/Answer');
 
+/**
+ * Stores a new answer in the database
+ * @param {object} postEntry
+ * @returns {object}
+ */
 const postAnswer = async ({ answerBody = '', paramId = '', user }) => {
   try {
     if (!answerBody || !paramId) throw new Error();
 
-    const answer = await Answer.create({ body: answerBody, questionId: paramId, ownerId: user.id });
+    const query = new QueryBuilder().build();
+
+    const answer = await query.execCreate(
+      Answer,
+      {
+        body: answerBody,
+        questionId: paramId,
+        ownerId: user.id,
+      },
+    );
 
     if (!answer) throw new Error();
 

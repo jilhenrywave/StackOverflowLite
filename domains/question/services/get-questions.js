@@ -1,6 +1,6 @@
 const sequelize = require('sequelize');
 const User = require('../../user/models/User');
-const Answer = require('../../answer/models/Answer');
+const { Answer } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const Question = require('../models/Question');

@@ -1,10 +1,9 @@
-const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const { ERROR_MESSAGE } = require('../../../util/constants');
 const { RequestError, ServerError } = require('../../../util/error-handlers');
-const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const Answer = require('../models/Answer');
+const { Answer } = require('../../../db/model-handler');
 const { includeUser, includeQuestion } = require('./get-answer-constants');
-
+const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
+const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 /**
  * Retrieves an answer record from the database
  * @param {string} id

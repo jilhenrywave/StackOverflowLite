@@ -1,12 +1,10 @@
 /* eslint-disable max-len */
-const Vote = require('../models/Vote');
+const { Answer, Vote } = require('../../../db/model-handler');
 const { VOTE_TYPE, ERROR_MESSAGE } = require('../../../util/constants');
-const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const { RequestError, ServerError } = require('../../../util/error-handlers');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
-const Answer = require('../models/Answer');
 const sequelize = require('../../../db/sequelize');
-
+const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 /**
  * Publishes vote by an increase vote count in answer table
  * @param {string} id
