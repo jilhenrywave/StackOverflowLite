@@ -1,6 +1,6 @@
-const { ERROR_MESSAGE } = require('../../../util/constants');
-const { ValidationError } = require('../../../util/error-handlers');
-const { isTextValid, isValidID } = require('../../../util/field-validators');
+const { ERROR_MESSAGE } = require('../../util/constants');
+const { ValidationError } = require('../../util/error-handlers');
+const { isTextValid, isValidID } = require('../../util/field-validators');
 
 const postAnswerValidator = ({ answer = '', paramId = '' }) => {
   const validatorError = new ValidationError();

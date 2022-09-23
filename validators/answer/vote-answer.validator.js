@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
-const { ERROR_MESSAGE, VOTE_TYPE } = require('../../../util/constants');
-const { ValidationError } = require('../../../util/error-handlers');
-const { isValidID, isValidValue } = require('../../../util/field-validators');
+const { ERROR_MESSAGE, VOTE_TYPE } = require('../../util/constants');
+const { ValidationError } = require('../../util/error-handlers');
+const { isValidID, isValidValue } = require('../../util/field-validators');
 
 const voteAnswerValidator = ({ id = '', voteType = '' }) => {
   const validatorError = new ValidationError();
