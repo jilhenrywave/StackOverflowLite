@@ -1,7 +1,7 @@
 const { expect } = require('chai');
-const deleteQuestionFormatter = require('../../domains/question/formatters/delete-question.formatter');
 const { question } = require('../entities/question-test-entity');
 const { user } = require('../entities/user-test-entity');
+const deleteQuestionFormatter = require('../../middlewares/idParamAuthUser.formatter');
 
 /* eslint-disable no-undef */
 describe('Delete Question Formatter', () => {

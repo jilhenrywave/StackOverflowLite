@@ -1,8 +1,9 @@
 const { Answer } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
 const { ERROR_MESSAGE } = require('../../../util/constants');
+const { Question } = require('../../../db/model-handler');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
-const Question = require('../../question/models/Question');
+
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 
 /**

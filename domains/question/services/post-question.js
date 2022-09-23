@@ -1,4 +1,4 @@
-const Question = require('../models/Question');
+const { Question } = require('../../../db/model-handler');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 
 /**

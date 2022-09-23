@@ -1,6 +1,6 @@
 const { expect } = require('chai');
-const questionFormatter = require('../../domains/question/formatters/post-question.formatter');
 const { updateQuestionEntry, user } = require('../entities/question-test-entity');
+const questionFormatter = require('../../formatters/question/post-question.formatter');
 
 /* eslint-disable no-undef */
 describe('Post Question Formatter', () => {

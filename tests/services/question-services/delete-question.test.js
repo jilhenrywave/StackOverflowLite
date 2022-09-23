@@ -3,7 +3,7 @@
 const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
 const { question } = require('../../entities/question-test-entity');
-const Question = require('../../../domains/question/models/Question');
+const { Question } = require('../../../db/model-handler');
 const deleteQuestion = require('../../../domains/question/services/delete-question');
 
 describe('Delete Question Service', () => {

@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 const sandbox = require('sinon').createSandbox();
 const { expect } = require('chai');
-const Question = require('../../../domains/question/models/Question');
-const getQuestion = require('../../../domains/question/services/get-question');
+const { Question } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
 const { question, questionResponse } = require('../../entities/question-test-entity');
 const { getQuestionServiceArgs } = require('../../test-cases/get-multiple-test-cases');
+const getQuestion = require('../../../domains/question/services/get-question');
 
 describe('Get Question Service', () => {
   before('Setting up stubs', () => {

@@ -2,9 +2,9 @@
 /* eslint-disable no-undef */
 const sandbox = require('sinon').createSandbox();
 const { expect } = require('chai');
-const Question = require('../../../domains/question/models/Question');
-const postQuestion = require('../../../domains/question/services/post-question');
+const { Question } = require('../../../db/model-handler');
 const { questionEntry, question, questionResponse, user } = require('../../entities/question-test-entity');
+const postQuestion = require('../../../domains/question/services/post-question');
 
 describe('Post Question Service', () => {
   before('Setting up stubs', () => {

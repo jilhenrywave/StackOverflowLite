@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
-const getMulitpleFormatter = require('../../middlewares/get-multiple.formatter');
 const { validEntry } = require('../test-cases/get-multiple-test-cases');
+const getMulitpleFormatter = require('../../middlewares/get-multiple.formatter');
 
 describe('Get Multiple Formatter', () => {
   it('should format object appropriately', () => {

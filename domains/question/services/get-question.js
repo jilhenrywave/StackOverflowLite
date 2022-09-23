@@ -1,7 +1,7 @@
 const { RequestError } = require('../../../util/error-handlers');
+const { Question } = require('../../../db/model-handler');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const User = require('../../user/models/User');
-const Question = require('../models/Question');
 
 /**
  * Retrives a question from the database using id

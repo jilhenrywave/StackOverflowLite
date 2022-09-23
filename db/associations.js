@@ -1,5 +1,5 @@
 const { Answer } = require('./model-handler');
-const Question = require('../domains/question/models/Question');
+const { Question } = require('./model-handler');
 const Token = require('../domains/user/models/Token');
 const User = require('../domains/user/models/User');
 

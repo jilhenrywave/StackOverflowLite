@@ -2,9 +2,9 @@
 /* eslint-disable no-undef */
 const sandbox = require('sinon').createSandbox();
 const { expect } = require('chai');
+const { Question } = require('../../../db/model-handler');
 const { validEntry, serviceArgs, serviceArgsEOP } = require('../../test-cases/get-multiple-test-cases');
 const { questions } = require('../../entities/question-test-entity');
-const Question = require('../../../domains/question/models/Question');
 const getPaginatedQuestions = require('../../../domains/question/services/get-questions');
 
 describe('Get Questions Service', () => {

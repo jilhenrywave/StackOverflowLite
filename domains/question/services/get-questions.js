@@ -1,12 +1,12 @@
 const sequelize = require('sequelize');
 const User = require('../../user/models/User');
 const { Answer } = require('../../../db/model-handler');
+const { Question } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
+const { SORT_TYPE } = require('../../../util/constants');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const Question = require('../models/Question');
 const pageInfoHelper = require('../../../util/page-info-helper');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
-const { SORT_TYPE } = require('../../../util/constants');
 
 /**
  * Creates where query parameter

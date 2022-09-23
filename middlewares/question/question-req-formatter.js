@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-const postQuestionFormatter = require('../../domains/question/formatters/post-question.formatter');
+const postQuestionFormatter = require('../../formatters/question/post-question.formatter');
 const idParamAuthUserFormatter = require('../idParamAuthUser.formatter');
 const getMulitpleFormatter = require('../get-multiple.formatter');
 const { formattedRequestHandler } = require('../../util/request-handler');

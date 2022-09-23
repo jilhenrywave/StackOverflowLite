@@ -1,7 +1,7 @@
 const { ERROR_MESSAGE } = require('../../../util/constants');
 const { RequestError } = require('../../../util/error-handlers');
+const { Question } = require('../../../db/model-handler');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
-const Question = require('../models/Question');
 const getQuestion = require('./get-question');
 
 /**

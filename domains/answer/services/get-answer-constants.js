@@ -1,5 +1,5 @@
+const { Question } = require('../../../db/model-handler');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
-const Question = require('../../question/models/Question');
 const User = require('../../user/models/User');
 // const Vote = require('../models/Vote');
 
