@@ -5,6 +5,7 @@ const { RequestError, ServerError } = require('../../../util/error-handlers');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const sequelize = require('../../../db/sequelize');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
+
 /**
  * Publishes vote by an increase vote count in answer table
  * @param {string} id
@@ -40,8 +41,65 @@ const registerVoteEntry = async (id, userId, transaction, type) => {
   const foundVote = await query.execFindOne();
 
   if (foundVote && foundVote.type === type) throw new RequestError(403, ERROR_MESSAGE.duplicateEntry);
-  else if (foundVote) await query.execUpdate(Vote, { type });
+  else if (foundVote) await query.execUpdate({ type });
   else await Vote.create({ answerId: id, userId, type });
+};
+
+/**
+ * Removes vote entry in votes table
+ * @param {string} id
+ * @param {string} userId
+ * @param {object} transaction
+ * @param {strng} type
+ */
+const removeVoteEntry = async (id, userId, transaction, type) => {
+  const query = new QueryBuilder()
+    .setModel(Vote)
+    .setWhere({ answerId: id, userId, type })
+    .setTransaction(transaction)
+    .build();
+
+  const affectedRows = await query.execDestroy();
+
+  if (affectedRows < 1) throw new RequestError(403, ERROR_MESSAGE.voteError);
+};
+
+/**
+ * Handles registering vote and updating answer table
+ * @param {string} id
+ * @param {string} userId
+ * @param {object} transaction
+ * @param {strng} type
+ */
+const castVote = async (id, userId, transaction, type) => {
+  await registerVoteEntry(id, userId, transaction, type);
+
+  if (type === VOTE_TYPE.up) {
+    await vote(id, transaction, 1);
+  } else if (type === VOTE_TYPE.down) {
+    await vote(id, transaction, -1);
+  } else {
+    throw new ServerError();
+  }
+};
+
+/**
+ * Handles removing vote and updating answer table
+ * @param {string} id
+ * @param {string} userId
+ * @param {object} transaction
+ * @param {strng} type
+ */
+const removeVote = async (id, userId, transaction, type) => {
+  await removeVoteEntry(id, userId, transaction, type);
+
+  if (type === VOTE_TYPE.up) {
+    await vote(id, transaction, -1);
+  } else if (type === VOTE_TYPE.down) {
+    await vote(id, transaction, 1);
+  } else {
+    throw new ServerError();
+  }
 };
 
 /**
@@ -49,18 +107,11 @@ const registerVoteEntry = async (id, userId, transaction, type) => {
  * @param {object} voteEntry : {id, userId, type}
  * @returns empty object or error
  */
-const voteAnswer = async ({ id = '', userId = '', type = VOTE_TYPE.up }) => {
+const voteAnswer = async ({ id = '', userId = '', type = VOTE_TYPE.up, remove = false }) => {
   const transaction = await sequelize.transaction();
   try {
-    await registerVoteEntry(id, userId, transaction, type);
-
-    if (type === VOTE_TYPE.up) {
-      await vote(id, transaction, 1);
-    } else if (type === VOTE_TYPE.down) {
-      await vote(id, transaction, -1);
-    } else {
-      throw new ServerError();
-    }
+    if (remove) await removeVote(id, userId, transaction, type);
+    else await castVote(id, userId, transaction, type);
 
     await transaction.commit();
 

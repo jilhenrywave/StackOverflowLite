@@ -15,7 +15,6 @@ const getQuestion = async (id) => {
       .setModel(Question)
       .setAttributes(['id', 'title', 'body'])
       .setInclude([includeUser, includeAnswer])
-      .setRaw(true)
       .setNest(true)
       .build();
 

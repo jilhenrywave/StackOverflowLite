@@ -15,7 +15,6 @@ const getAnswer = async (id) => {
     .setModel(Answer)
     .setAttributes(['id', 'body', 'votes', 'questionId'])
     .setInclude([includeUser, includeQuestion])
-    .setRaw(true)
     .setNest(true)
     .setSubQuery(false)
     .build();

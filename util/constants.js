@@ -25,6 +25,7 @@ const ERROR_MESSAGE = {
   invalidVoteType: 'Invalid query field - type. Accepted values are UP_VOTE or DOWN_VOTE',
   invalidIDParam: 'The parameter field - ID, is not recognised',
   invalidDownVote: 'User already down',
+  voteError: 'User is yet to vote',
 };
 
 const SORT_TYPE = {

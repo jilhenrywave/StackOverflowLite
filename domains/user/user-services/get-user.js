@@ -18,7 +18,6 @@ const getUser = async (id) => {
     const query = new QueryBuilder()
       .setModel(User)
       .setAttributes(['id', 'name', 'email'])
-      .setRaw(true)
       .build();
 
     const user = await query.execFindByPk(id);
