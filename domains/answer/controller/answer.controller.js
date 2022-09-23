@@ -4,6 +4,7 @@ const getAnswersService = require('../services/get-answers');
 const acceptAnswerService = require('../services/accept-answer');
 const voteAnswerService = require('../services/vote-answer');
 const updateAnswerService = require('../services/update-answer');
+const deleteAnswerService = require('../services/delete-answer');
 
 const postAnswer = async (payload) => serviceResponseHandler(payload, postAnswerService, 201);
 
@@ -15,10 +16,13 @@ const voteAnswer = async (payload) => serviceResponseHandler(payload, voteAnswer
 
 const updateAnswer = async (payload) => serviceResponseHandler(payload, updateAnswerService, 200);
 
+const deleteAnswer = async (payload) => serviceResponseHandler(payload, deleteAnswerService, 204);
+
 module.exports = {
   postAnswer,
   getAnswers,
   acceptAnswer,
   voteAnswer,
   updateAnswer,
+  deleteAnswer,
 };

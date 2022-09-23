@@ -89,4 +89,14 @@ router.patch(
   },
 );
 
+router.delete(
+  '/answers/:id',
+  auth,
+  validator.idParamValidator,
+  formatter.idParamAuthUserFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.deleteAnswer);
+  },
+);
+
 module.exports = router;

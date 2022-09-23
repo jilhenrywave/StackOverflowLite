@@ -17,6 +17,8 @@ module.exports = {
             model: 'users',
             key: 'id',
           },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
         answer_id: {
           type: Sequelize.UUID,
@@ -25,6 +27,8 @@ module.exports = {
             model: 'answers',
             key: 'id',
           },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
         type: {
           type: Sequelize.STRING,
