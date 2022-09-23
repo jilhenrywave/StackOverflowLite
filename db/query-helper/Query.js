@@ -3,35 +3,17 @@ class Query {
     this.options = builderOptions;
   }
 
-  async execFindOne(model) {
-    const response = await model.findOne(this.options);
+  async execFindOne(model) { return model.findOne(this.options); }
 
-    return response;
-  }
+  async execFindByPk(model, primaryKey) { return model.findByPk(primaryKey, this.options); }
 
-  async execFindByPk(model, primaryKey) {
-    const response = await model.findByPk(primaryKey, this.options);
+  async execFindAndCountAll(model) { return model.findAndCountAll(this.options); }
 
-    return response;
-  }
+  async execUpdate(model, values) { return model.update(values, this.options); }
 
-  async execFindAndCountAll(model) {
-    const response = await model.findAndCountAll(this.options);
+  async execIncrement(model, value) { return model.increment(value, this.options); }
 
-    return response;
-  }
-
-  async execUpdate(model, values) {
-    const response = await model.update(values, this.options);
-
-    return response;
-  }
-
-  async execIncrement(model, value) {
-    const response = await model.increment(value, this.options);
-
-    return response;
-  }
+  async execCreate(model, value) { return model.create(value, this.options); }
 }
 
 module.exports = Query;

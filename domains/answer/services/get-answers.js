@@ -39,7 +39,7 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
 
     if (!rows) throw new RequestError(404, 'No answers found');
 
-    const pageInfo = pageInfoHelper.createPageInfo(count.length, start, limit);
+    const pageInfo = pageInfoHelper.createPageInfo(count, start, limit);
 
     return { ...pageInfo, answers: rows };
   } catch (e) {

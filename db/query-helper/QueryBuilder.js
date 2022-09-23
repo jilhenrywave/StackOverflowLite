@@ -3,17 +3,7 @@ const Query = require('./Query');
 
 class QueryBuilder {
   constructor() {
-    this.where = {};
-    this.attributes = null;
-    this.include = [];
-    this.raw = false;
-    this.nest = true;
-    this.subQuery = true;
-    this.group = ['id'];
     this.order = [];
-    this.offset = 0;
-    this.limit = 50;
-    this.transaction = null;
   }
 
   /** @param {object} value */
