@@ -13,9 +13,9 @@ const postQuestion = async ({ title = '', body = '', user }) => {
 
     const entry = { title, body, ownerId: user.id };
 
-    const query = new QueryBuilder().build();
+    const query = new QueryBuilder().setModel(Question).build();
 
-    const question = await query.execCreate(Question, entry);
+    const question = await query.execCreate(entry);
 
     if (!question) throw new Error();
 

@@ -14,10 +14,11 @@ const serviceErrorHandler = require('../../../util/service-handlers/services-err
  */
 const getAnswer = async (answerId) => {
   const findAnswerQuery = new QueryBuilder()
+    .setModel(Answer)
     .setAttributes(['id', 'questionId'])
     .build();
 
-  const answer = await findAnswerQuery.execFindByPk(Answer, answerId);
+  const answer = await findAnswerQuery.execFindByPk(answerId);
 
   if (!answer) throw new RequestError(400, ERROR_MESSAGE.invalidAnswerID);
 
@@ -34,12 +35,13 @@ const updateQuestion = async (id, answerId, ownerId, reject) => {
   const updateValue = { answerId };
 
   const updateQuestionQuery = new QueryBuilder()
+    .setModel(Question)
     .setWhere({ id, ownerId })
     .build();
 
   if (reject) updateValue.answerId = null;
 
-  const update = await updateQuestionQuery.execUpdate(Question, updateValue);
+  const update = await updateQuestionQuery.execUpdate(updateValue);
 
   if (update[0] < 1) throw new RequestError(422, ERROR_MESSAGE.updateError);
 

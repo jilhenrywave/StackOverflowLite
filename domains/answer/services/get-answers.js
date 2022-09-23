@@ -32,6 +32,7 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
     else where.ownerId = ownerId;
 
     const query = new QueryBuilder()
+      .setModel(Answer)
       .setWhere(where)
       .setAttributes(['id', 'body', 'votes', 'questionId'])
       .setInclude([includeUser, includeQuestion])
@@ -40,7 +41,7 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
       .setOrder(sortBy)
       .build();
 
-    const { count, rows } = await query.execFindAndCountAll(Answer);
+    const { count, rows } = await query.execFindAndCountAll();
 
     if (!count) throw new RequestError(404, 'No answers found');
 

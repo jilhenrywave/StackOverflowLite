@@ -13,11 +13,12 @@ const serviceErrorHandler = require('../../../util/service-handlers/services-err
  */
 const vote = async (id, transaction, votes) => {
   const query = new QueryBuilder()
+    .setModel(Answer)
     .setWhere({ id })
     .setTransaction(transaction)
     .build();
 
-  const affectedRows = await query.execIncrement(Answer, { votes });
+  const affectedRows = await query.execIncrement({ votes });
 
   if (affectedRows[1] < 1) throw new ServerError();
 };
@@ -31,11 +32,12 @@ const vote = async (id, transaction, votes) => {
  */
 const registerVoteEntry = async (id, userId, transaction, type) => {
   const query = new QueryBuilder()
+    .setModel(Vote)
     .setWhere({ answerId: id, userId })
     .setTransaction(transaction)
     .build();
 
-  const foundVote = await query.execFindOne(Vote);
+  const foundVote = await query.execFindOne();
 
   if (foundVote && foundVote.type === type) throw new RequestError(403, ERROR_MESSAGE.duplicateEntry);
   else if (foundVote) await query.execUpdate(Vote, { type });

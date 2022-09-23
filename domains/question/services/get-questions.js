@@ -1,6 +1,4 @@
 const sequelize = require('sequelize');
-const User = require('../../user/models/User');
-const { Answer } = require('../../../db/model-handler');
 const { Question } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
 const { SORT_TYPE } = require('../../../util/constants');
@@ -48,6 +46,7 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
     const sortBy = configSort(sort);
 
     const query = new QueryBuilder()
+      .setModel(Question)
       .setWhere(where)
       .setAttributes(attributes)
       .setInclude([includeUser, includeAnswer])
@@ -60,7 +59,7 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
       .setLimit(limit)
       .build();
 
-    const { count, rows } = await query.execFindAndCountAll(Question);
+    const { count, rows } = await query.execFindAndCountAll();
 
     if (count && count.length < 1) throw new RequestError(404, 'No questions found');
 

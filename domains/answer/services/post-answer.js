@@ -11,10 +11,11 @@ const postAnswer = async ({ answerBody = '', paramId = '', user }) => {
   try {
     if (!answerBody || !paramId) throw new Error();
 
-    const query = new QueryBuilder().build();
+    const query = new QueryBuilder()
+      .setModel(Answer)
+      .build();
 
     const answer = await query.execCreate(
-      Answer,
       {
         body: answerBody,
         questionId: paramId,

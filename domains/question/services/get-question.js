@@ -12,13 +12,14 @@ const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const getQuestion = async (id) => {
   try {
     const query = new QueryBuilder()
+      .setModel(Question)
       .setAttributes(['id', 'title', 'body'])
       .setInclude([includeUser, includeAnswer])
       .setRaw(true)
       .setNest(true)
       .build();
 
-    const question = await query.execFindByPk(Question, id);
+    const question = await query.execFindByPk(id);
 
     if (question && !question.id) throw new RequestError(404, 'No question found');
 

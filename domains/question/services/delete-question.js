@@ -15,10 +15,11 @@ const deleteQuestion = async ({ id = '', ownerId = '', all = false }) => {
     }
 
     const query = new QueryBuilder()
+      .setModel(Question)
       .setWhere(where)
       .build();
 
-    const response = await query.execDestroy(Question);
+    const response = await query.execDestroy();
 
     if (response < 1) throw new RequestError(422, ERROR_MESSAGE.deleteError);
 

@@ -12,6 +12,7 @@ const serviceErrorHandler = require('../../../util/service-handlers/services-err
  */
 const getAnswer = async (id) => {
   const query = new QueryBuilder()
+    .setModel(Answer)
     .setAttributes(['id', 'body', 'votes', 'questionId'])
     .setInclude([includeUser, includeQuestion])
     .setRaw(true)
@@ -19,7 +20,7 @@ const getAnswer = async (id) => {
     .setSubQuery(false)
     .build();
 
-  const answer = await query.execFindByPk(Answer, id);
+  const answer = await query.execFindByPk(id);
 
   if (!answer) throw new ServerError();
 
@@ -37,10 +38,11 @@ const updateAnswer = async ({ paramId = '', answerBody = '', user }) => {
     if (!paramId || !answerBody) throw new ServerError();
 
     const query = new QueryBuilder()
+      .setModel(Answer)
       .setWhere({ id: paramId, ownerId: user.id })
       .build();
 
-    const affectedRecords = await query.execUpdate(Answer, { body: answerBody });
+    const affectedRecords = await query.execUpdate({ body: answerBody });
 
     if (affectedRecords[0] < 1) throw new RequestError(422, ERROR_MESSAGE.updateError);
 

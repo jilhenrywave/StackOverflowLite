@@ -1,21 +1,23 @@
 class Query {
   constructor(builderOptions) {
+    this.model = builderOptions.model;
     this.options = builderOptions;
+    delete this.options.model;
   }
 
-  async execFindOne(model) { return model.findOne(this.options); }
+  async execFindOne() { return this.model.findOne(this.options); }
 
-  async execFindByPk(model, primaryKey) { return model.findByPk(primaryKey, this.options); }
+  async execFindByPk(primaryKey) { return this.model.findByPk(primaryKey, this.options); }
 
-  async execFindAndCountAll(model) { return model.findAndCountAll(this.options); }
+  async execFindAndCountAll() { return this.model.findAndCountAll(this.options); }
 
-  async execUpdate(model, values) { return model.update(values, this.options); }
+  async execUpdate(values) { return this.model.update(values, this.options); }
 
-  async execIncrement(model, value) { return model.increment(value, this.options); }
+  async execIncrement(value) { return this.model.increment(value, this.options); }
 
-  async execCreate(model, value) { return model.create(value, this.options); }
+  async execCreate(value) { return this.model.create(value, this.options); }
 
-  async execDestroy(model) { return model.destroy(this.options); }
+  async execDestroy() { return this.model.destroy(this.options); }
 }
 
 module.exports = Query;
