@@ -13,7 +13,7 @@ const getQuestion = async (id) => {
   try {
     const query = new QueryBuilder()
       .setModel(Question)
-      .setAttributes(['id', 'title', 'body'])
+      .setAttributes({ exclude: ['ownerId', 'answerId'] })
       .setInclude([includeUser, includeAnswer])
       .setNest(true)
       .build();

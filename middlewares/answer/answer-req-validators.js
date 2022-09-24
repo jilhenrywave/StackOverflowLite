@@ -1,5 +1,5 @@
 const { validationHandler } = require('../../util/request-handler');
-const { postCommentValidator } = require('../comment/comment-req-validator');
+const { postCommentValidator, getCommentsValidator } = require('../comment/comment-req-validator');
 const postAnswerValidator = require('../../validators/answer/post-answer.validator');
 const getMultipleValidator = require('../get-multiple.validator');
 const idParamValidator = require('../idParam.validator');
@@ -12,7 +12,7 @@ exports.postAnswerValidator = (req, res, next) => {
 };
 
 exports.getQuestionAnswersValidator = (req, res, next) => {
-  const request = { id: req.params.id, ...req.query };
+  const request = { ...req.query, id: req.params.id };
 
   validationHandler(request, res, next, getMultipleValidator);
 };
@@ -30,3 +30,4 @@ exports.voteAnswerValidator = (req, res, next) => {
 };
 
 exports.postCommentValidator = postCommentValidator;
+exports.getCommentsValidator = getCommentsValidator;

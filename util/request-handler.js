@@ -19,7 +19,7 @@ const validationHandler = (arg, res, next, validator) => {
     const validatorResponse = validator(arg);
 
     if (validatorResponse.errorMessages.length > 0) {
-      validatorResponse.errorMessage = 'Invalid Request Body Fields';
+      validatorResponse.errorMessage = 'Invalid Request Fields';
 
       return res.status(validatorResponse.code).send({ ...validatorResponse });
     }

@@ -34,7 +34,7 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
     const query = new QueryBuilder()
       .setModel(Answer)
       .setWhere(where)
-      .setAttributes(['id', 'body', 'votes', 'questionId'])
+      .setAttributes({ exclude: ['ownerId'] })
       .setInclude([includeUser, includeQuestion])
       .setOffset(start)
       .setNest(true)

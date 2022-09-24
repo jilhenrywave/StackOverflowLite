@@ -6,7 +6,7 @@ exports.includeUser = QueryBuilder.createIncludeObject(User, ['id', 'name'], 'ow
 
 exports.includeQuestion = QueryBuilder.createIncludeObject(Question, ['answerId'], 'question');
 
-const answerCount = QueryBuilder.createFn('COUNT', 'answers.question_id', 'ans_count');
+const answerCount = QueryBuilder.createFn('COUNT', 'answers.question_id', 'count');
 
 exports.includeAnswer = QueryBuilder.createIncludeObject(Answer, [answerCount], 'answers');
 

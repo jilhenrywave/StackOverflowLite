@@ -42,13 +42,12 @@ const configSort = (sort) => {
 const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort = [], search = '' }) => {
   try {
     const where = configWhere(ownerId, search);
-    const attributes = ['id', 'title', 'body'];
     const sortBy = configSort(sort);
 
     const query = new QueryBuilder()
       .setModel(Question)
       .setWhere(where)
-      .setAttributes(attributes)
+      .setAttributes({ exclude: ['ownerId', 'answerId'] })
       .setInclude([includeUser, includeAnswer])
       .setNest(true)
       .setSubQuery(false)

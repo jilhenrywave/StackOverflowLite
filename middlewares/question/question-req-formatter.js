@@ -19,7 +19,7 @@ exports.getQuestionsFormatter = (req, res, next) => {
 };
 
 exports.getUserQuestionsFormatter = (req, res, next) => {
-  const formattedQuery = getMulitpleFormatter({ ownerId: req.user.id, ...req.query });
+  const formattedQuery = getMulitpleFormatter({ ...req.query, ownerId: req.user.id });
 
   return formattedRequestHandler(req, res, next, formattedQuery);
 };

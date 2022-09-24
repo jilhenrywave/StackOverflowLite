@@ -5,10 +5,11 @@
  * @returns {object} formatted query object
  */
 
-const getMultipleFormatter = ({ ownerId, questionId = '', start = 0, limit = 50, sort = '', search = '' }) => {
+const getMultipleFormatter = ({ ownerId, questionId = '', answerId = '', start = 0, limit = 50, sort = '', search = '' }) => {
   const format = {
     ownerId,
     questionId,
+    answerId,
     start: Number(start),
     limit: Number(limit),
     search,

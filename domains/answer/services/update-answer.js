@@ -13,7 +13,7 @@ const serviceErrorHandler = require('../../../util/service-handlers/services-err
 const getAnswer = async (id) => {
   const query = new QueryBuilder()
     .setModel(Answer)
-    .setAttributes(['id', 'body', 'votes', 'questionId'])
+    .setAttributes({ exclude: ['ownerId'] })
     .setInclude([includeUser, includeQuestion])
     .setNest(true)
     .setSubQuery(false)
