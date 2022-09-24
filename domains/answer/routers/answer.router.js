@@ -1,9 +1,9 @@
 const express = require('express');
+const { responseHandler } = require('../../../util/request-handler');
+const controller = require('../controller/answer.controller');
 const validator = require('../../../middlewares/answer/answer-req-validators');
 const formatter = require('../../../middlewares/answer/answer-req-formatter');
 const auth = require('../../../middlewares/auth');
-const { responseHandler } = require('../../../util/request-handler');
-const controller = require('../controller/answer.controller');
 
 const router = express.Router();
 
