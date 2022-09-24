@@ -1,7 +1,4 @@
-const { Answer } = require('./model-handler');
-const { Question } = require('./model-handler');
-const { Token } = require('./model-handler');
-const { User } = require('./model-handler');
+const { Answer, Question, Token, User, Comment } = require('./model-handler');
 
 User.hasMany(Token, { foreignKey: 'userId' });
 Token.belongsTo(User, { foreignKey: 'userId' });
@@ -14,3 +11,6 @@ Answer.belongsTo(User, { foreignKey: 'ownerId', as: 'owner' });
 
 Question.hasMany(Answer, { foreignKey: 'questionId' });
 Answer.belongsTo(Question, { foreignKey: 'questionId' });
+
+User.hasMany(Comment, { foreignKey: 'ownerId' });
+Comment.belongsTo(User, { foreignKey: 'ownerId', as: 'owner' });

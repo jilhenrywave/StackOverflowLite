@@ -88,4 +88,14 @@ router.post(
     responseHandler(req.formattedBody, res, controller.postComment);
   },
 );
+
+router.get(
+  '/:id/comments',
+  auth,
+  validator.getCommentsValidator,
+  formatter.getCommentsFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.getComments);
+  },
+);
 module.exports = router;
