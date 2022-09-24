@@ -8,7 +8,7 @@ const auth = require('../../../middlewares/auth');
 const router = express.Router();
 
 router.patch(
-  '/:id',
+  '/:id/edit',
   auth,
   validator.postCommentValidator,
   formatter.postCommentFormatter,
