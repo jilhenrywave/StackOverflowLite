@@ -1,6 +1,7 @@
 const { formattedRequestHandler } = require('../../util/request-handler');
 const postCommentFormatter = require('../../formatters/comment/post-comment.formatter');
 const getMultipleFormatter = require('../get-multiple.formatter');
+const idParamAuthUserFormatter = require('../idParamAuthUser.formatter');
 
 exports.postCommentFormatter = (req, res, next) => {
   const request = { comment: req.body.comment, paramId: req.params.id };
@@ -15,3 +16,5 @@ exports.getCommentsFormatter = (req, res, next) => {
 
   return formattedRequestHandler(req, res, next, formattedBody);
 };
+
+exports.idParamAuthUserFormatter = idParamAuthUserFormatter;

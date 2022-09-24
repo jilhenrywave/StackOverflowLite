@@ -17,4 +17,14 @@ router.patch(
   },
 );
 
+router.delete(
+  '/:id',
+  auth,
+  validator.idParamValidator,
+  formatter.idParamAuthUserFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.deleteComment);
+  },
+);
+
 module.exports = router;
