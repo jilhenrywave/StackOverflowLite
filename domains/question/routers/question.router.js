@@ -8,7 +8,7 @@ const { responseHandler } = require('../../../util/request-handler');
 const router = express.Router();
 
 router.post(
-  '/questions',
+  '/',
   auth,
   validator.postQuestionValidator,
   formatter.postQuestionFormatter,
@@ -18,7 +18,7 @@ router.post(
 );
 
 router.get(
-  '/questions',
+  '/',
   auth,
   validator.getQuestionsValidator,
   formatter.getQuestionsFormatter,
@@ -28,7 +28,7 @@ router.get(
 );
 
 router.get(
-  '/questions/me',
+  '/me',
   auth,
   validator.getQuestionsValidator,
   formatter.getUserQuestionsFormatter,
@@ -38,7 +38,7 @@ router.get(
 );
 
 router.get(
-  '/questions/:id',
+  '/:id',
   auth,
   validator.idParamValidator,
   (req, res) => {
@@ -47,7 +47,7 @@ router.get(
 );
 
 router.patch(
-  '/questions/:id/edit',
+  '/:id/edit',
   auth,
   validator.updateQuestionValidator,
   formatter.postQuestionFormatter,
@@ -57,7 +57,7 @@ router.patch(
 );
 
 router.delete(
-  '/questions/:id',
+  '/:id',
   auth,
   validator.idParamValidator,
   formatter.idParamAuthUserFormatter,
@@ -67,12 +67,32 @@ router.delete(
 );
 
 router.delete(
-  '/questions/delete/all',
+  '/delete/all',
   auth,
   formatter.idParamAuthUserFormatter,
   (req, res) => {
     req.formattedBody.all = true;
     responseHandler(req.formattedBody, res, controller.deleteQuestion);
+  },
+);
+
+router.post(
+  '/:id/answers',
+  auth,
+  validator.postAnswerValidator,
+  formatter.postAnswerFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.postAnswer);
+  },
+);
+
+router.get(
+  '/:id/answers',
+  auth,
+  validator.getQuestionAnswersValidator,
+  formatter.getQuestionAnswersFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.getAnswers);
   },
 );
 

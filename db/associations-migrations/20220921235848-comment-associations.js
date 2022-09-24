@@ -1,7 +1,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn(
-      'questions',
+      'comments',
       'owner_id',
       {
         type: Sequelize.UUID,
@@ -16,30 +16,29 @@ module.exports = {
     );
 
     await queryInterface.addColumn(
-      'questions',
+      'comments',
       'answer_id',
       {
         type: Sequelize.UUID,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'answers',
           key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-
+        onDelete: 'CASCADE',
       },
     );
   },
 
   async down(queryInterface) {
     await queryInterface.removeColumn(
-      'questions',
+      'comments',
       'owner_id',
     );
 
     await queryInterface.removeColumn(
-      'questions',
+      'comments',
       'answer_id',
     );
   },
