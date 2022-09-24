@@ -48,7 +48,6 @@ const updateComment = async ({ paramId = '', commentBody = '', user }) => {
 
     return await getComment(paramId);
   } catch (e) {
-    console.log(e);
     return serviceErrorHandler(e);
   }
 };
