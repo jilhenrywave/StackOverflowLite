@@ -3,6 +3,7 @@ const Vote = require('./models/Vote');
 const Question = require('./models/Question');
 const User = require('./models/User');
 const Token = require('./models/Token');
+const Comment = require('./models/Comment');
 
 module.exports = {
   Answer,
@@ -10,4 +11,5 @@ module.exports = {
   Question,
   User,
   Token,
+  Comment,
 };

@@ -37,6 +37,7 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
       .setAttributes(['id', 'body', 'votes', 'questionId'])
       .setInclude([includeUser, includeQuestion])
       .setOffset(start)
+      .setNest(true)
       .setLimit(limit)
       .setOrder(sortBy)
       .build();

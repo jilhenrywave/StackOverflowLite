@@ -8,7 +8,7 @@ const { responseHandler } = require('../../../util/request-handler');
 const router = express.Router();
 
 router.post(
-  '/users',
+  '/',
   registerUserValidator,
   userProfileFormatter,
   (req, res) => {
@@ -17,7 +17,7 @@ router.post(
 );
 
 router.post(
-  '/users/login',
+  '/login',
   loginValidator,
   (req, res) => {
     responseHandler(req.body, res, controller.loginUser);
@@ -25,7 +25,7 @@ router.post(
 );
 
 router.post(
-  '/users/logout',
+  '/logout',
   auth,
   (req, res) => {
     responseHandler(req.user, res, controller.logoutUser);
@@ -33,7 +33,7 @@ router.post(
 );
 
 router.post(
-  '/users/logout/all',
+  '/logout/all',
   auth,
   (req, res) => {
     req.user.all = true;
@@ -42,7 +42,7 @@ router.post(
 );
 
 router.get(
-  '/users/me',
+  '/me',
   auth,
   (req, res) => {
     responseHandler(req.user, res, controller.getThisUser);
@@ -50,7 +50,7 @@ router.get(
 );
 
 router.get(
-  '/users',
+  '/',
   auth,
   (req, res) => {
     responseHandler(req.query.id, res, controller.getUser);
@@ -58,7 +58,7 @@ router.get(
 );
 
 router.patch(
-  '/users/me/edit',
+  '/me/edit',
   auth,
   updateUserValidator,
   userProfileFormatter,
@@ -69,7 +69,7 @@ router.patch(
 );
 
 router.delete(
-  '/users/me',
+  '/me',
   auth,
   (req, res) => {
     responseHandler(req.user, res, controller.deleteUser);

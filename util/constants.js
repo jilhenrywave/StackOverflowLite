@@ -26,6 +26,7 @@ const ERROR_MESSAGE = {
   invalidIDParam: 'The parameter field - ID, is not recognised',
   invalidDownVote: 'User already down',
   voteError: 'User is yet to vote',
+  invalidCommentBody: 'Comment body is missing',
 };
 
 const SORT_TYPE = {

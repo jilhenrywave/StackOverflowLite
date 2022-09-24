@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 const { formattedRequestHandler } = require('../../util/request-handler');
+const { postCommentFormatter } = require('../comment/comment-req-formatter');
 const getMulitpleFormatter = require('../get-multiple.formatter');
 const postAnswerFormatter = require('../../formatters/answer/post-answer.formatter');
 const idParamAuthUserFormatter = require('../idParamAuthUser.formatter');
@@ -32,3 +33,5 @@ exports.voteAnswerFormatter = (req, res, next) => {
 
   return formattedRequestHandler(req, res, next, formattedBody);
 };
+
+exports.postCommentFormatter = postCommentFormatter;

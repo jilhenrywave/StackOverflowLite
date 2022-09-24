@@ -1,34 +1,14 @@
 const express = require('express');
 const validator = require('../../../middlewares/answer/answer-req-validators');
-const formatter = require('../../../middlewares/answer/answer.req-formatter');
+const formatter = require('../../../middlewares/answer/answer-req-formatter');
 const auth = require('../../../middlewares/auth');
 const { responseHandler } = require('../../../util/request-handler');
 const controller = require('../controller/answer.controller');
 
 const router = express.Router();
 
-router.post(
-  '/questions/:id/answers',
-  auth,
-  validator.postAnswerValidator,
-  formatter.postAnswerFormatter,
-  (req, res) => {
-    responseHandler(req.formattedBody, res, controller.postAnswer);
-  },
-);
-
 router.get(
-  '/questions/:id/answers',
-  auth,
-  validator.getQuestionAnswersValidator,
-  formatter.getQuestionAnswersFormatter,
-  (req, res) => {
-    responseHandler(req.formattedBody, res, controller.getAnswers);
-  },
-);
-
-router.get(
-  '/answers',
+  '/me',
   auth,
   validator.getUserAnswersValidator,
   formatter.getUserAnswersFormatter,
@@ -38,7 +18,7 @@ router.get(
 );
 
 router.post(
-  '/answers/:id/accept',
+  '/:id/accept',
   auth,
   validator.idParamValidator,
   formatter.idParamAuthUserFormatter,
@@ -48,7 +28,7 @@ router.post(
 );
 
 router.post(
-  '/answers/:id/reject',
+  '/:id/reject',
   auth,
   validator.idParamValidator,
   formatter.idParamAuthUserFormatter,
@@ -59,7 +39,7 @@ router.post(
 );
 
 router.post(
-  '/answers/:id/vote',
+  '/:id/vote',
   auth,
   validator.voteAnswerValidator,
   formatter.voteAnswerFormatter,
@@ -69,7 +49,7 @@ router.post(
 );
 
 router.post(
-  '/answers/:id/vote/cancel',
+  '/:id/vote/cancel',
   auth,
   validator.voteAnswerValidator,
   formatter.voteAnswerFormatter,
@@ -80,7 +60,7 @@ router.post(
 );
 
 router.patch(
-  '/answers/:id/edit',
+  '/:id/edit',
   auth,
   validator.postAnswerValidator,
   formatter.postAnswerFormatter,
@@ -90,7 +70,7 @@ router.patch(
 );
 
 router.delete(
-  '/answers/:id',
+  '/:id',
   auth,
   validator.idParamValidator,
   formatter.idParamAuthUserFormatter,
@@ -99,4 +79,13 @@ router.delete(
   },
 );
 
+router.post(
+  '/:id/comments',
+  auth,
+  validator.postCommentValidator,
+  formatter.postCommentFormatter,
+  (req, res) => {
+    responseHandler(req.formattedBody, res, controller.postComment);
+  },
+);
 module.exports = router;

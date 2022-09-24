@@ -5,6 +5,7 @@ const getPaginatedQuestions = require('../services/get-questions');
 const getQuestionService = require('../services/get-question');
 const updateQuestionService = require('../services/update-question');
 const deleteQuestionService = require('../services/delete-question');
+const { postAnswer, getAnswers } = require('../../answer/controller/answer.controller');
 
 const postQuestion = async (payload) => serviceResponseHandler(payload, postQuestionService, 201);
 
@@ -22,4 +23,6 @@ module.exports = {
   getQuestion,
   updateQuestion,
   deleteQuestion,
+  postAnswer,
+  getAnswers,
 };

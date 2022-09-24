@@ -5,6 +5,7 @@ const acceptAnswerService = require('../services/accept-answer');
 const voteAnswerService = require('../services/vote-answer');
 const updateAnswerService = require('../services/update-answer');
 const deleteAnswerService = require('../services/delete-answer');
+const { postComment } = require('../../comment/controllers/comment.controller');
 
 const postAnswer = async (payload) => serviceResponseHandler(payload, postAnswerService, 201);
 
@@ -25,4 +26,5 @@ module.exports = {
   voteAnswer,
   updateAnswer,
   deleteAnswer,
+  postComment,
 };
