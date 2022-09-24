@@ -27,7 +27,6 @@ const getComments = async ({ answerId = '', start = 0, limit = 20 }) => {
 
     return { ...pageInfo, answers: rows };
   } catch (e) {
-    console.log(e);
     return serviceErrorHandler(e);
   }
 };
