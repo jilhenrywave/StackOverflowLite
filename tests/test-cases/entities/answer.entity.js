@@ -1,12 +1,12 @@
 /* eslint-disable implicit-arrow-linebreak */
-const { Answer } = require('../../../db/model-handler');
+const { Answer, Question } = require('../../../db/model-handler');
 const {
   includeUser,
   includeQuestion,
 } = require('../../../db/query-helper/include-query-constants');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const { getAnswerByOwnerId, getAnswerByQuestionId } = require('../services/answer-service-tc');
-const { answerId, questionId, answer } = require('../test-constants');
+const { answerId, questionId, answer, ownerId } = require('../test-constants');
 const { owner } = require('./user.entity');
 
 const answerModel = {
@@ -62,6 +62,29 @@ const findAllOwnerIdArgs = findAllArgs({ ownerId: getAnswerByOwnerId.ownerId }, 
 const { questionId: questId, start, limit, sort } = getAnswerByQuestionId;
 const findAllQuestionIdArgs = findAllArgs({ questionId: questId }, start, limit, sort);
 
+const findByPkArgs = new QueryBuilder()
+  .setModel(Answer)
+  .setAttributes(['id', 'questionId'])
+  .build().options;
+
+const updateQuestionAnswer = new QueryBuilder()
+  .setModel(Question)
+  .setWhere({
+    id: questionId,
+    ownerId,
+  })
+  .build().options;
+
+const deleteArgs = new QueryBuilder()
+  .setModel(Answer)
+  .setWhere({ id: answerId, ownerId })
+  .build().options;
+
+const updateArgs = new QueryBuilder()
+  .setModel(Answer)
+  .setWhere({ id: answerId, ownerId })
+  .build().options;
+
 module.exports = {
   answerModel,
   answerResponse,
@@ -69,4 +92,8 @@ module.exports = {
   createArgs,
   findAllOwnerIdArgs,
   findAllQuestionIdArgs,
+  findByPkArgs,
+  updateQuestionAnswer,
+  deleteArgs,
+  updateArgs,
 };
