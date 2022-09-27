@@ -1,19 +1,13 @@
 /* eslint-disable no-console */
 const express = require('express');
+const v1Router = require('./versions/v1.router');
 require('./db/sequelize');
 require('./db/associations');
-const userRouter = require('./domains/user/routers/user.router');
-const questionRouter = require('./domains/question/routers/question.router');
-const answerRouter = require('./domains/answer/routers/answer.router');
-const commentRouter = require('./domains/comment/routers/comment.router');
 
 const app = express();
 
 app.use(express.json());
-app.use('/users', userRouter);
-app.use('/answers', answerRouter);
-app.use('/questions', questionRouter);
-app.use('/comments', commentRouter);
+app.use('/api/v1', v1Router);
 
 app.all('*', (_req, res) => {
   res.send('StackoverflowLite Project API');
