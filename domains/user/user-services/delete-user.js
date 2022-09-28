@@ -11,14 +11,11 @@ const servicesErrorHandler = require('../../../util/service-handlers/services-er
  */
 const deleteUser = async ({ id }) => {
   try {
-    const query = new QueryBuilder()
-      .setModel(User)
-      .setWhere({ id })
-      .build();
+    const query = new QueryBuilder().setModel(User).setWhere({ id }).build();
 
     const numberOfAffectedRow = await query.execDestroy();
 
-    if (numberOfAffectedRow[0] < 1) throw new RequestError(422, ERROR_MESSAGE.deleteError);
+    if (numberOfAffectedRow < 1) throw new RequestError(422, ERROR_MESSAGE.deleteError);
 
     return {};
   } catch (e) {
