@@ -2,7 +2,7 @@ const { SORT_TYPES } = require('../../util/constants');
 
 // Id Fields
 const id = 'ac9c4590-ce71-416f-99bd-687d7060d437';
-const ownerId = 'bc9c4510-ce71-416g-99bd-687d7060d437';
+const ownerId = '78a52b96-fc04-43a0-bdd5-e127fcd451ce';
 const questionId = 'qq9c4510-ce71-416g-99bd-687d7160f437';
 const answerId = 'kc9c4510-ce71-416g-99bd-687d7160f437';
 const commentId = 'zk9c4510-ce71-416g-99bd-687d7160f437';
@@ -12,6 +12,7 @@ const name = 'some-name';
 const email = 'henry@jil.com';
 const password = 'pass5766word';
 const hashedPassword = '$2b$12$4ppInOwfW6YD5iqd0Z6bl.6X0m.7YBRrJOTK99kmkIpFXPoEhoQlq';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc4YTUyYjk2LWZjMDQtNDNhMC1iZGQ1LWUxMjdmY2Q0NTFjZSIsImlhdCI6MTY2NDAyOTc5OSwiZXhwIjoxNjY1NzU3Nzk5fQ.mk8kmYlWByGbf8z5NaQ_xfGWp_BkDJyLSm_peLZcVm0';
 
 // Comment Field
 const comment = 'some-comment';
@@ -41,6 +42,7 @@ module.exports = {
   email,
   password,
   hashedPassword,
+  token,
   answer,
   comment,
   title,
