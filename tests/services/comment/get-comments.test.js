@@ -53,13 +53,13 @@ describe('Get Comments Service', () => {
     const response = await getComments(getCommentsValid);
 
     expect(response.totalCount).to.eql(comments.length);
-    expect(response.answers[0]).to.eql(comments[0]);
+    expect(response.comments[0]).to.eql(comments[0]);
   });
 
   it('should call database with queries', async () => {
     const response = await getComments(getCommentsWithQueries);
 
     expect(response.totalCount).to.eql(1);
-    expect(response.answers[0]).to.eql(comments[0]);
+    expect(response.comments[0]).to.eql(comments[0]);
   });
 });
