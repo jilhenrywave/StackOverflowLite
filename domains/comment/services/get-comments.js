@@ -25,7 +25,7 @@ const getComments = async ({ answerId = '', start = 0, limit = 20 }) => {
 
     const pageInfo = pageInfoHelper.createPageInfo(count, start, limit);
 
-    return { ...pageInfo, answers: rows };
+    return { ...pageInfo, comments: rows };
   } catch (e) {
     return serviceErrorHandler(e);
   }

@@ -20,7 +20,7 @@ const getQuestion = async (id) => {
 
     const question = await query.execFindByPk(id);
 
-    if (question && !question.id) throw new RequestError(404, 'No question found');
+    if (!question || !question.id) throw new RequestError(404, 'No question found');
 
     return question;
   } catch (e) {
