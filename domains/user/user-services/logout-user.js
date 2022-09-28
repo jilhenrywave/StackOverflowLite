@@ -1,5 +1,6 @@
 const removeToken = require('../token-services/remove-token');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
+const { RequestError } = require('../../../util/error-handlers');
 
 /**
  * Removes token from database. If all is specified, all tokens are removed
@@ -9,8 +10,11 @@ const serviceErrorHandler = require('../../../util/service-handlers/services-err
 
 const logoutUser = async ({ id = '', token = '', all = false }) => {
   try {
-    if (all) await removeToken(token, id);
-    else await removeToken(token);
+    const affectedRecords = all ? await removeToken(token, id) : await removeToken(token);
+
+    if (affectedRecords < 1) {
+      throw new RequestError(422, 'Could not complete request at this time.');
+    }
 
     return { message: 'User successfully logged out' };
   } catch (e) {
