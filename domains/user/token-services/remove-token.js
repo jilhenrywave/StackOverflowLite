@@ -28,7 +28,6 @@ const removeToken = async (token, userId) => {
 
     return numOfRemovedRecords;
   } catch (e) {
-    console.log(e);
     throw new ServerError();
   }
 };
