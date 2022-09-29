@@ -15,7 +15,7 @@ const {
 
 chai.use(chaiHttp);
 
-describe('Answer Endpoints', () => {
+describe('Comment Endpoints', () => {
   before('Setting Stubs', () => {
     sandbox.stub(User, 'findByPk').withArgs(id, getUserTokenOptions).returns(userAndToken);
     sandbox.stub(Comment, 'destroy').returns(1);
@@ -49,7 +49,7 @@ describe('Answer Endpoints', () => {
 
     expect(response).to.have.status(200);
     expect(response.body.comments).to.have.lengthOf(comments.length);
-    expect(response.body).to.have.keys(['totalCount', 'previous', 'next', 'comments']);
+    expect(response.body).to.have.keys(['totalCount', 'count', 'comments']);
   });
 
   it('should update a comment', async () => {

@@ -1,36 +1,38 @@
+const { link } = require('./test-constants');
+
 const pageInfoWithoutPrevious = {
-  input: { recordCount: 10, start: 0, limit: 5 },
+  input: { recordCount: 10, page: 1, limit: 5, link: `${link}?limit=${5}` },
   output: {
     totalCount: 10,
-    previous: null,
-    next: { start: 5, limit: 5 },
+    previous: undefined,
+    next: `${link}?limit=${5}&page=${2}`,
   },
 };
 
 const pageInfoWithPrevious = {
-  input: { recordCount: 20, start: 4, limit: 6 },
+  input: { recordCount: 20, page: 2, limit: 6, link: `${link}?limit=${6}` },
   output: {
     totalCount: 20,
-    previous: { start: 0, limit: 4 },
-    next: { start: 10, limit: 6 },
+    previous: `${link}?limit=${6}&page=${1}`,
+    next: `${link}?limit=${6}&page=${3}`,
   },
 };
 
 const pageInfoWithNext = {
-  input: { recordCount: 15, start: 4, limit: 4 },
+  input: { recordCount: 15, page: 3, limit: 4, link: `${link}?limit=${4}` },
   output: {
     totalCount: 15,
-    previous: { start: 1, limit: 4 },
-    next: { start: 8, limit: 4 },
+    previous: `${link}?limit=${4}&page=${2}`,
+    next: `${link}?limit=${4}&page=${4}`,
   },
 };
 
 const pageInfoWithOutNext = {
-  input: { recordCount: 5, start: 2, limit: 3 },
+  input: { recordCount: 5, page: 2, limit: 3, link: `${link}?limit=${3}` },
   output: {
     totalCount: 5,
-    previous: { start: 0, limit: 2 },
-    next: null,
+    previous: `${link}?limit=${3}&page=${1}`,
+    next: undefined,
   },
 };
 

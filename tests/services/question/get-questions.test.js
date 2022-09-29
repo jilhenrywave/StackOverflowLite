@@ -54,28 +54,28 @@ describe('Get Questions Service', () => {
   it('should get questions when there is a valid Id', async () => {
     const response = await getPaginatedQuestions(getQuestionsValidIdArg);
 
-    expect(response.totalCount).to.eql(countOwner.length);
+    expect(response.count).to.eql(questions.length);
     expect(response.questions[0]).to.eql(questionResponse);
   });
 
   it('should get questions when there is no id and there is a search', async () => {
     const response = await getPaginatedQuestions(getQuestionsSearchArg);
 
-    expect(response.totalCount).to.eql(countSearch.length);
+    expect(response.count).to.eql(questions.length);
     expect(response.questions[0]).to.eql(questionResponse);
   });
 
   it('should get questions when sort is by answer count', async () => {
     const response = await getPaginatedQuestions(getQuestionsSortByAnswerArgs);
 
-    expect(response.totalCount).to.eql(countAnswerSort.length);
+    expect(response.count).to.eql(questions.length);
     expect(response.questions[0]).to.eql(questionResponse);
   });
 
   it('should get questions when sort is not by answer count', async () => {
     const response = await getPaginatedQuestions(getQuestionsSortOtherArgs);
 
-    expect(response.totalCount).to.eql(countOtherSort.length);
+    expect(response.count).to.eql(questions.length);
     expect(response.questions[0]).to.eql(questionResponse);
   });
 

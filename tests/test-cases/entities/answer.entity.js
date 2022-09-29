@@ -45,22 +45,24 @@ const createArgs = {
   ownerId: owner.id,
 };
 
-const findAllArgs = (where, start, limit, sort) =>
-  new QueryBuilder()
+const findAllArgs = (where, page, limit, sort) => {
+  const offset = (page - 1) * limit;
+  return new QueryBuilder()
     .setModel(Answer)
     .setWhere(where)
     .setAttributes({ exclude: ['ownerId'] })
     .setInclude([includeUser, includeQuestion])
-    .setOffset(start)
+    .setOffset(offset)
     .setNest(true)
     .setLimit(limit)
     .setOrder(sort)
     .build().options;
+};
 
 const findAllOwnerIdArgs = findAllArgs({ ownerId: getAnswerByOwnerId.ownerId }, 0, 50, []);
 
-const { questionId: questId, start, limit, sort } = getAnswerByQuestionId;
-const findAllQuestionIdArgs = findAllArgs({ questionId: questId }, start, limit, sort);
+const { questionId: questId, page, limit, sort } = getAnswerByQuestionId;
+const findAllQuestionIdArgs = findAllArgs({ questionId: questId }, page, limit, sort);
 
 const findByPkArgs = new QueryBuilder()
   .setModel(Answer)

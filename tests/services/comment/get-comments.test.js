@@ -4,10 +4,10 @@ const { expect } = require('chai');
 const { Comment } = require('../../../db/model-handler');
 const getComments = require('../../../domains/comment/services/get-comments');
 const {
-  getCommentNoStartLimitArgs,
+  getCommentNoPageLimitArgs,
   comments,
   getCommentEmpty,
-  getCommentStartLimitArgs,
+  getCommentPageLimitArgs,
 } = require('../../test-cases/entities/comment.entity');
 const {
   getCommentsNoId,
@@ -21,9 +21,9 @@ describe('Get Comments Service', () => {
   before('Setting Stubs', () => {
     const getStub = sandbox.stub(Comment, 'findAndCountAll');
 
-    getStub.withArgs(getCommentNoStartLimitArgs).returns({ count: 5, rows: comments });
+    getStub.withArgs(getCommentNoPageLimitArgs).returns({ count: 5, rows: comments });
     getStub.withArgs(getCommentEmpty).returns({ count: 0, rows: [] });
-    getStub.withArgs(getCommentStartLimitArgs).returns({ count: 1, rows: [comments[0]] });
+    getStub.withArgs(getCommentPageLimitArgs).returns({ count: 1, rows: [comments[0]] });
     getStub.returns({ count: 0, rows: [] });
   });
 
@@ -52,14 +52,14 @@ describe('Get Comments Service', () => {
   it('should return response object if args are valid', async () => {
     const response = await getComments(getCommentsValid);
 
-    expect(response.totalCount).to.eql(comments.length);
+    expect(response.count).to.eql(comments.length);
     expect(response.comments[0]).to.eql(comments[0]);
   });
 
   it('should call database with queries', async () => {
     const response = await getComments(getCommentsWithQueries);
 
-    expect(response.totalCount).to.eql(1);
+    expect(response.count).to.eql(1);
     expect(response.comments[0]).to.eql(comments[0]);
   });
 });

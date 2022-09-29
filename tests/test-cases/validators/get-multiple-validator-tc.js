@@ -1,16 +1,16 @@
-const { id, start, limit, sortTitle, sortAnswer, sortVote } = require('../test-constants');
+const { id, page, limit, sortTitle, sortAnswer, sortVote } = require('../test-constants');
 
-const invalidId = { id: 'some-id', start, limit, sort: sortVote };
-const invalidStart = { id, start: 'ab', limit, sort: sortAnswer };
-const invalidLimit = { id, start, limit: 'limit3', sort: sortTitle };
-const invalidSort = { id, start, limit, sort: 'some-sort' };
+const invalidId = { id: 'some-id', page, limit, sort: sortVote };
+const invalidpage = { id, page: 'ab', limit, sort: sortAnswer };
+const invalidLimit = { id, page, limit: 'limit3', sort: sortTitle };
+const invalidSort = { id, page, limit, sort: 'some-sort' };
 
 const validCase1 = { id, sort: sortTitle };
-const validCase2 = { start, limit };
+const validCase2 = { page, limit };
 
 exports.invalidArguments = {
   invalidId,
-  invalidStart,
+  invalidpage,
   invalidLimit,
   invalidSort,
 };

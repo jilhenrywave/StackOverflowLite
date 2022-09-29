@@ -41,16 +41,16 @@ describe('Get Answers Service', () => {
   it('should get answers by questionId if present', async () => {
     const response = await getAnswers(getAnswerByQuestionId);
 
-    expect(response).to.have.keys(['totalCount', 'previous', 'next', 'answers']);
-    expect(response.totalCount).to.eql(answerResponses.length);
+    expect(response).to.have.keys(['count', 'answers']);
+    expect(response.count).to.eql(answerResponses.length);
     expect(response.answers).to.have.lengthOf(answerResponses.length);
   });
 
   it('should get answers by ownerId if questionId is not present', async () => {
     const response = await getAnswers(getAnswerByOwnerId);
 
-    expect(response).to.have.keys(['totalCount', 'previous', 'next', 'answers']);
-    expect(response.totalCount).to.eql(1);
+    expect(response).to.have.keys(['count', 'answers']);
+    expect(response.count).to.eql(1);
     expect(response.answers).to.have.lengthOf(1);
   });
 

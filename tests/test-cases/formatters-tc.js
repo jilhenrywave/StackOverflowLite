@@ -14,8 +14,9 @@ const {
   answerId,
   search,
   sortAnswer,
-  start,
+  page,
   limit,
+  link,
 } = require('./test-constants');
 
 const user = {
@@ -35,8 +36,9 @@ exports.multipleFormatterTC = {
     ownerId,
     questionId,
     answerId,
-    start,
+    page,
     limit,
+    link,
     search,
     sort: sortAnswer,
   },
@@ -44,8 +46,9 @@ exports.multipleFormatterTC = {
     ownerId,
     questionId,
     answerId,
-    start: Number(start),
+    page: Number(page),
     limit: Number(limit),
+    link,
     search,
     sort: sortAnswer.toUpperCase().split('_'),
   },

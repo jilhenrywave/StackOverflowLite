@@ -44,7 +44,7 @@ const getQuestionOptions = new QueryBuilder()
   .setNest(true)
   .build().options;
 
-const getArgs = (where, start = 0, limit = 50, sort = []) =>
+const getArgs = (where, page = 1, limit = 50, sort = []) =>
   new QueryBuilder()
     .setModel(Question)
     .setWhere(where)
@@ -54,17 +54,17 @@ const getArgs = (where, start = 0, limit = 50, sort = []) =>
     .setSubQuery(false)
     .setGroup(['Question.id'])
     .setOrder(sort)
-    .setOffset(start)
+    .setOffset((page - 1) * limit)
     .setLimit(limit)
     .build().options;
 
 const getQuestionsWithSearch = getArgs({ title: { [sequelize.Op.like]: `%${'search'}%` } });
 const getQuestionsWithOwnerId = getArgs({ ownerId });
-const getQuestionsSortAnswers = getArgs({}, 0, 50, [
+const getQuestionsSortAnswers = getArgs({}, 1, 50, [
   QueryBuilder.createFnOnly('count', 'answers.question_id'),
   'ASC',
 ]);
-const getQuestionsSortOther = getArgs({}, 0, 50, [SORT_TYPE.title, 'DESC']);
+const getQuestionsSortOther = getArgs({}, 1, 50, [SORT_TYPE.title, 'DESC']);
 
 const postOptions = new QueryBuilder().setModel(Question).build().options;
 const postQuestionValidArgs = { title, body, ownerId };

@@ -8,8 +8,8 @@ const invalidUser = { answerBody: answer, paramId: questionId, user };
 
 const validEntry = { answerBody: answer, paramId: questionId, user: owner };
 
-const getAnswerMissingParams = { start: 2, limit: 3 };
-const getAnswerByQuestionId = { questionId, start: 4, limit: 6, sort: ['VOTES', 'ASC'] };
+const getAnswerMissingParams = { page: 2, limit: 3 };
+const getAnswerByQuestionId = { questionId, page: 4, limit: 6, sort: ['VOTES', 'ASC'] };
 const getAnswerByOwnerId = { ownerId: owner.id };
 
 const acceptAnswerInvalidAnswerId = { id: 'some-fake-id', ownerId: owner.id };

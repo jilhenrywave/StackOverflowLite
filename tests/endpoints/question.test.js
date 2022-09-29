@@ -51,7 +51,7 @@ describe('Question Endpoints', () => {
 
     expect(response).to.have.status(200);
     expect(response.body.questions).to.have.lengthOf(questions.length);
-    expect(response.body).to.have.keys(['totalCount', 'previous', 'next', 'questions']);
+    expect(response.body).to.have.keys(['totalCount', 'count', 'questions']);
   });
 
   it('should get this user questions', async () => {
@@ -63,7 +63,7 @@ describe('Question Endpoints', () => {
 
     expect(response).to.have.status(200);
     expect(response.body.questions).to.have.lengthOf(questions.length);
-    expect(response.body).to.have.keys(['totalCount', 'previous', 'next', 'questions']);
+    expect(response.body).to.have.keys(['totalCount', 'count', 'questions']);
   });
 
   it('should get a question', async () => {

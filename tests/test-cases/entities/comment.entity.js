@@ -35,19 +35,19 @@ const deleteArgs = new QueryBuilder()
   .setWhere({ id: commentId, ownerId })
   .build().options;
 
-const getArgs = (ansId, start, limit) =>
+const getArgs = (ansId, page, limit) =>
   new QueryBuilder()
     .setModel(Comment)
     .setAttributes({ exclude: ['ownerId'] })
     .setWhere({ answerId: ansId })
     .setInclude([includeUser])
     .setNest(true)
-    .setOffset(start)
+    .setOffset((page - 1) * limit)
     .setLimit(limit)
     .build().options;
 
-const getCommentNoStartLimitArgs = getArgs(answerId, 0, 20);
-const getCommentStartLimitArgs = getArgs(answerId, 2, 3);
+const getCommentNoPageLimitArgs = getArgs(answerId, 0, 20);
+const getCommentPageLimitArgs = getArgs(answerId, 2, 3);
 const getCommentEmpty = getArgs('empty-id', 2, 3);
 
 const createArgs = (ansId, userId) => ({
@@ -73,8 +73,8 @@ module.exports = {
   comments,
   commentResponse,
   deleteArgs,
-  getCommentNoStartLimitArgs,
-  getCommentStartLimitArgs,
+  getCommentNoPageLimitArgs,
+  getCommentPageLimitArgs,
   getCommentEmpty,
   createOptionsArgs,
   createInvalidUserArgs,

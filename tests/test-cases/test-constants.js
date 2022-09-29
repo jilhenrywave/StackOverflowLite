@@ -25,12 +25,14 @@ const title = 'some-title';
 const body = 'some-body';
 
 // Get Query Fields
-const start = '2';
+const page = '2';
 const limit = '3';
 const search = 'some-search';
 const sortTitle = SORT_TYPES[0];
 const sortAnswer = SORT_TYPES[2];
 const sortVote = SORT_TYPES[5];
+
+const link = 'http://myapp.com/';
 
 module.exports = {
   id,
@@ -47,10 +49,11 @@ module.exports = {
   comment,
   title,
   body,
-  start,
+  page,
   limit,
   search,
   sortTitle,
   sortAnswer,
   sortVote,
+  link,
 };
