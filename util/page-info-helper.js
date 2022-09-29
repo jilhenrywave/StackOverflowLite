@@ -1,44 +1,67 @@
 /**
- * Calculates the start and limit of previous page
+ * Formats request link with updated page and limit query field
+ * @param {string} field
+ * @param {string} value
+ * @param {string} link
+ * @returns {string}
+ */
+const updateLink = (field, value, link) => {
+  const url = new URL(decodeURIComponent(link));
+
+  const searchParam = url.searchParams;
+
+  searchParam.set(field, value);
+
+  url.search = searchParam.toString();
+
+  return url.toString();
+};
+/**
+ * Calculates the page and limit of previous page
  * @param {number} recordCount
- * @param {number} start
+ * @param {number} page
  * @param {number} limit
  * @returns {object}
  */
-const calculatePrevious = (start, limit) => {
-  if (start === 0) return null;
+const calculatePrevious = (page, link) => {
+  const prevPage = page - 1;
+  if (prevPage <= 0) return undefined;
 
-  const diffStart = start - limit + 1;
-  const prevStart = diffStart < 1 ? 0 : diffStart;
-  const prevLimit = limit + (start - limit);
-  return { start: prevStart, limit: prevLimit };
+  const updatedPage = updateLink('page', prevPage, link);
+
+  return updatedPage;
 };
 
 /**
- * Calculates the start and limit of next page
+ * Calculates the page and limit of next page
  * @param {number} recordCount
- * @param {number} start
+ * @param {number} page
  * @param {number} limit
  * @returns {object}
  */
-const calculateNext = (recordCount, start, limit) => {
-  const nextStart = start + limit;
+const calculateNext = (recordCount, page, limit, link) => {
+  const nextPage = page + 1;
+  const offset = (page - 1) * limit;
 
-  if (nextStart >= recordCount) return null;
-  const diffLimit = nextStart + limit;
-  const nextLimit = diffLimit > recordCount ? recordCount - nextStart : limit;
-  return { start: nextStart, limit: nextLimit };
+  if (offset + limit >= recordCount || limit >= recordCount) return undefined;
+
+  const updatedPage = updateLink('page', nextPage, link);
+
+  return updatedPage;
 };
 
 /**
- * Determines the next start and limit for subsequent query
+ * Determines the next page and limit for subsequent query
  * @param {number} recordCount : total number of records matching query
- * @param {number} start : offset of current query
+ * @param {number} page : offset of current query
  * @param {number} limit : number of records to be returned of current query
  * @returns {object} pageInfo{ totalCount, previous , next }
  */
-exports.createPageInfo = (recordCount, start, limit) => {
-  const previous = calculatePrevious(start, limit);
-  const next = calculateNext(recordCount, start, limit);
+exports.createPageInfo = (recordCount, page, limit, link) => {
+  if (!link) return undefined;
+
+  const previous = calculatePrevious(page, link);
+  const next = calculateNext(recordCount, page, limit, link);
+
   return { totalCount: recordCount, previous, next };
 };

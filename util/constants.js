@@ -18,7 +18,7 @@ const ERROR_MESSAGE = {
   deleteError: 'No records deleted. User may not be authorised. Please check request and try again later',
   invalidAnswerBody: 'Answer body is missing.',
   invalidQuerySort: 'Invalid value for query field - sort. Accepted values are TITLE_ASC, TITLE_DESC, ANSWER_ASC or ANSWER_DESC',
-  invalidQueryStart: 'Query field, start, is not a number',
+  invalidQueryPageNumber: 'Query field, page, is not a number',
   invalidQueryLimit: 'Query field, limit, is not a number',
   incorrectID: 'Encountered an unrecognized ID.',
   invalidAnswerID: 'Answer ID is not recognised or is missing',

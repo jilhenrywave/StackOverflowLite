@@ -5,14 +5,24 @@
  * @returns {object} formatted query object
  */
 
-const getMultipleFormatter = ({ ownerId, questionId = '', answerId = '', start = 0, limit = 50, sort = '', search = '' }) => {
+const getMultipleFormatter = ({
+  ownerId,
+  questionId = '',
+  answerId = '',
+  page = 1,
+  limit = 50,
+  sort = '',
+  search = '',
+  link = '',
+}) => {
   const format = {
     ownerId,
     questionId,
     answerId,
-    start: Number(start),
+    page: Number(page),
     limit: Number(limit),
     search,
+    link,
   };
   if (sort) format.sort = sort.toUpperCase().split('_');
 

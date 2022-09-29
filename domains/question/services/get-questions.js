@@ -27,7 +27,7 @@ const configWhere = (ownerId, search) => {
 const configSort = (sort) => {
   const sortBy = sort;
 
-  if ((sort[0] === SORT_TYPE.answer.toUpperCase())) {
+  if (sort[0] === SORT_TYPE.answer.toUpperCase()) {
     sortBy[0] = QueryBuilder.createFnOnly('count', 'answers.question_id');
   }
 
@@ -36,13 +36,21 @@ const configSort = (sort) => {
 
 /**
  * Retrieves questions from database in pages
- * @param {object} query : Parameters include ownerId, start, limit and sort
+ * @param {object} query : Parameters include ownerId, page, limit and sort
  * @returns {object} paginated result
  */
-const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort = [], search = '' }) => {
+const getPaginatedQuestions = async ({
+  ownerId = '',
+  page = 1,
+  limit = 50,
+  sort = [],
+  search = '',
+  link = '',
+}) => {
   try {
     const where = configWhere(ownerId, search);
     const sortBy = configSort(sort);
+    const offset = (page - 1) * limit;
 
     const query = new QueryBuilder()
       .setModel(Question)
@@ -53,7 +61,7 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
       .setSubQuery(false)
       .setGroup(['Question.id'])
       .setOrder(sortBy)
-      .setOffset(start)
+      .setOffset(offset)
       .setLimit(limit)
       .build();
 
@@ -61,9 +69,9 @@ const getPaginatedQuestions = async ({ ownerId = '', start = 0, limit = 50, sort
 
     if (count && count.length < 1) throw new RequestError(404, 'No questions found');
 
-    const pageInfo = pageInfoHelper.createPageInfo(count.length, start, limit);
+    const pageInfo = pageInfoHelper.createPageInfo(count.length, page, limit, link);
 
-    return { ...pageInfo, questions: rows };
+    return { count: rows.length, ...pageInfo, questions: rows };
   } catch (e) {
     return serviceErrorHandler(e);
   }
