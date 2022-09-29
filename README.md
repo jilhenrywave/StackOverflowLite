@@ -75,6 +75,7 @@ curl --location --request POST 'localhost:3000/api/v1/users/' \
     "password": "124756"
 }
 ```
+
 #### Response
 ```
 HTTP/1.1 201 Created
