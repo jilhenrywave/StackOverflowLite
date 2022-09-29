@@ -1,7 +1,10 @@
 const { Answer } = require('../../../db/model-handler');
 const { RequestError } = require('../../../util/error-handlers');
 const { SORT_TYPE } = require('../../../util/constants');
-const { includeUser, includeQuestion } = require('../../../db/query-helper/include-query-constants');
+const {
+  includeUser,
+  includeQuestion,
+} = require('../../../db/query-helper/include-query-constants');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 const pageInfoHelper = require('../../../util/page-info-helper');
@@ -21,12 +24,21 @@ const configSort = (sort) => {
  * @param {object} query
  * @returns {object}
  */
-const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50, sort = [] }) => {
+const getAnswers = async ({
+  questionId = '',
+  ownerId = '',
+  page = 0,
+  limit = 50,
+  sort = [],
+  link,
+}) => {
   try {
     if (!questionId && !ownerId) throw new Error();
 
     const where = {};
     const sortBy = configSort(sort);
+
+    const offset = (page - 1) * limit;
 
     if (questionId) where.questionId = questionId;
     else where.ownerId = ownerId;
@@ -36,7 +48,7 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
       .setWhere(where)
       .setAttributes({ exclude: ['ownerId'] })
       .setInclude([includeUser, includeQuestion])
-      .setOffset(start)
+      .setOffset(offset)
       .setNest(true)
       .setLimit(limit)
       .setOrder(sortBy)
@@ -46,9 +58,9 @@ const getAnswers = async ({ questionId = '', ownerId = '', start = 0, limit = 50
 
     if (!count) throw new RequestError(404, 'No answers found');
 
-    const pageInfo = pageInfoHelper.createPageInfo(count, start, limit);
+    const pageInfo = pageInfoHelper.createPageInfo(count, page, limit, link);
 
-    return { ...pageInfo, answers: rows };
+    return { count: rows.length, ...pageInfo, answers: rows };
   } catch (e) {
     return serviceErrorHandler(e);
   }

@@ -3,12 +3,12 @@ const { ERROR_MESSAGE, SORT_TYPES } = require('../util/constants');
 const { ValidationError } = require('../util/error-handlers');
 const { isValidID, isNumber, isValidValue } = require('../util/field-validators');
 
-const getMultipleValidator = ({ id = '', start = 0, limit = 0, sort = '' }) => {
+const getMultipleValidator = ({ id = '', page = 0, limit = 0, sort = '' }) => {
   const validatorError = new ValidationError();
 
   if (id && !isValidID(id)) validatorError.addErrorMessage(ERROR_MESSAGE.incorrectID);
 
-  if (start && !isNumber(start)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidQueryStart);
+  if (page && !isNumber(page)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidQueryPageNumber);
 
   if (limit && !isNumber(limit)) validatorError.addErrorMessage(ERROR_MESSAGE.invalidQueryLimit);
 

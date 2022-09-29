@@ -5,9 +5,11 @@ const { RequestError } = require('../../../util/error-handlers');
 const pageInfoHelper = require('../../../util/page-info-helper');
 const serviceErrorHandler = require('../../../util/service-handlers/services-error-handler');
 
-const getComments = async ({ answerId = '', start = 0, limit = 20 }) => {
+const getComments = async ({ answerId = '', page = 0, limit = 20, link = '' }) => {
   try {
     if (!answerId) throw new Error();
+
+    const offset = (page - 1) * limit;
 
     const query = new QueryBuilder()
       .setModel(Comment)
@@ -15,7 +17,7 @@ const getComments = async ({ answerId = '', start = 0, limit = 20 }) => {
       .setWhere({ answerId })
       .setInclude([includeUser])
       .setNest(true)
-      .setOffset(start)
+      .setOffset(offset)
       .setLimit(limit)
       .build();
 
@@ -23,9 +25,9 @@ const getComments = async ({ answerId = '', start = 0, limit = 20 }) => {
 
     if (!count) throw new RequestError(404, 'No comments found');
 
-    const pageInfo = pageInfoHelper.createPageInfo(count, start, limit);
+    const pageInfo = pageInfoHelper.createPageInfo(count, page, limit, link);
 
-    return { ...pageInfo, comments: rows };
+    return { count: rows.length, ...pageInfo, comments: rows };
   } catch (e) {
     return serviceErrorHandler(e);
   }
