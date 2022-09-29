@@ -13,6 +13,6 @@ app.all('*', (_req, res) => {
   res.send('StackoverflowLite Project API');
 });
 
-app.listen(process.env.PORT, () => {
+module.exports = app.listen(process.env.PORT, () => {
   console.log('Server started...');
 });

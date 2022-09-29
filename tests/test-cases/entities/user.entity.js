@@ -7,6 +7,7 @@ const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
 
 const user = { id, name, email };
 const userWithToken = { user, token };
+const userAndToken = { id, name, email, tokens: { token } };
 const userWithPassword = { id, name, email, password: hashedPassword };
 const owner = { id: ownerId, name, email };
 
@@ -48,6 +49,7 @@ module.exports = {
   user,
   owner,
   userWithToken,
+  userAndToken,
   userWithPassword,
   deleteUserOptions,
   getUserTokenOptions,
