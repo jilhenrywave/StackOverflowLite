@@ -1,5 +1,6 @@
-const { questionId, answer, answerId, ownerId } = require('../test-constants');
+const { questionId, answer, answerId, ownerId, id } = require('../test-constants');
 const { owner, user } = require('../entities/user.entity');
+const { VOTE_TYPE } = require('../../../util/constants');
 
 const missingBody = { paramId: questionId, user: owner };
 const missingParamId = { answerBody: answer, user: owner };
@@ -25,6 +26,48 @@ const updateAnswerNoBody = { paramId: answerId, user: owner };
 const updateAnswerInvalidOwner = { paramId: answerId, answerBody: answer, user };
 const updateAnswerValidArgs = { paramId: answerId, answerBody: answer, user: owner };
 
+const voteAnswerDuplicateVotesArgs = {
+  id: answerId,
+  userId: id,
+  type: VOTE_TYPE.down,
+  remove: false,
+};
+
+const voteAnswerInvalidId = {
+  id: 'some-id',
+  userId: id,
+  type: VOTE_TYPE.down,
+  remove: false,
+};
+
+const voteAnswerInvalidUser = {
+  id: answerId,
+  userId: 'some-user-od',
+  type: VOTE_TYPE.down,
+  remove: false,
+};
+
+const voteAnswerValid = {
+  id: answerId,
+  userId: id,
+  type: VOTE_TYPE.up,
+  remove: false,
+};
+
+const voteAnswerRemoveError = {
+  id: answerId,
+  userId: 'some-id',
+  type: VOTE_TYPE.up,
+  remove: true,
+};
+
+const voteAnswerRemove = {
+  id: answerId,
+  userId: id,
+  type: VOTE_TYPE.down,
+  remove: true,
+};
+
 module.exports = {
   missingBody,
   missingParamId,
@@ -44,4 +87,10 @@ module.exports = {
   updateAnswerNoBody,
   updateAnswerInvalidOwner,
   updateAnswerValidArgs,
+  voteAnswerDuplicateVotesArgs,
+  voteAnswerInvalidId,
+  voteAnswerInvalidUser,
+  voteAnswerValid,
+  voteAnswerRemoveError,
+  voteAnswerRemove,
 };

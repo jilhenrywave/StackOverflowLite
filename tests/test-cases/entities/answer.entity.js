@@ -1,13 +1,14 @@
 /* eslint-disable implicit-arrow-linebreak */
-const { Answer, Question } = require('../../../db/model-handler');
+const { Answer, Question, Vote } = require('../../../db/model-handler');
 const {
   includeUser,
   includeQuestion,
 } = require('../../../db/query-helper/include-query-constants');
 const QueryBuilder = require('../../../db/query-helper/QueryBuilder');
+const { VOTE_TYPE } = require('../../../util/constants');
 const { getAnswerByOwnerId, getAnswerByQuestionId } = require('../services/answer-service-tc');
 const { answerId, questionId, answer, ownerId } = require('../test-constants');
-const { owner } = require('./user.entity');
+const { owner, user } = require('./user.entity');
 
 const answerModel = {
   id: answerId,
@@ -87,6 +88,23 @@ const updateArgs = new QueryBuilder()
   .setWhere({ id: answerId, ownerId })
   .build().options;
 
+const voteResponseDown = { answerId, userId: id, type: VOTE_TYPE.down };
+const voteResponseUp = { answerId, userId: id, type: VOTE_TYPE.up };
+
+const transaction = { commit() {}, rollback() {} };
+
+const registerVoteArgs = new QueryBuilder()
+  .setModel(Vote)
+  .setWhere({ answerId, userId: user.id })
+  .setTransaction(transaction)
+  .build().options;
+
+const deleteVoteArgs = new QueryBuilder()
+  .setModel(Vote)
+  .setWhere({ answerId, userId: user.id, type: VOTE_TYPE.down })
+  .setTransaction(transaction)
+  .build().options;
+
 module.exports = {
   answerModel,
   answerResponse,
@@ -98,4 +116,9 @@ module.exports = {
   updateQuestionAnswer,
   deleteArgs,
   updateArgs,
+  registerVoteArgs,
+  deleteVoteArgs,
+  voteResponseDown,
+  voteResponseUp,
+  transaction,
 };

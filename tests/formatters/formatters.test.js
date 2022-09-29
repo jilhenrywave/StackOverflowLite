@@ -10,14 +10,14 @@ const {
   postQuestionFormatterTC,
   question,
   userProfileFormatterTC,
-} = require('./test-cases/formatters-tc');
-const getMultipleFormatter = require('../middlewares/get-multiple.formatter');
-const postAnswerFormatter = require('../formatters/answer/post-answer.formatter');
-const voteAnswerFormatter = require('../formatters/answer/vote-answer.formatter');
-const postCommentFormatter = require('../formatters/comment/post-comment.formatter');
-const postQuestionFormatter = require('../formatters/question/post-question.formatter');
-const userProfileFormatter = require('../formatters/user/user-profile.formatter');
-const { password, hashedPassword } = require('./test-cases/test-constants');
+} = require('../test-cases/formatters-tc');
+const getMultipleFormatter = require('../../middlewares/get-multiple.formatter');
+const postAnswerFormatter = require('../../formatters/answer/post-answer.formatter');
+const voteAnswerFormatter = require('../../formatters/answer/vote-answer.formatter');
+const postCommentFormatter = require('../../formatters/comment/post-comment.formatter');
+const postQuestionFormatter = require('../../formatters/question/post-question.formatter');
+const userProfileFormatter = require('../../formatters/user/user-profile.formatter');
+const { password, hashedPassword } = require('../test-cases/test-constants');
 
 /* eslint-disable no-undef */
 describe('Formatters', () => {

@@ -19,6 +19,7 @@ const getUserTokenOptions = new QueryBuilder()
   .setWhere({ token })
   .setInclude([includeToken])
   .setNest(true)
+  .setRaw(true)
   .build().options;
 
 const getUserOptions = new QueryBuilder()
