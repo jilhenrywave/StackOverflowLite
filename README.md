@@ -59,8 +59,9 @@ The web-api has a base path `/api/v1`. There are 4 main routes of endpoints as l
 
 ## Users
 ### Register User
+Create a new user on the application. This returns the new user details and a token.
 #### Request
-`POST /users`
+` POST /users `
 ``` 
 curl --location --request POST 'localhost:3000/api/v1/users/' \
 --header 'Content-Type: application/json' \
@@ -96,6 +97,7 @@ Content-Length: 295
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Login User
+Authenticate a user into the application. This returns the authenticated user and a token.
 #### Request
 `POST /users/login`
 ``` 
@@ -135,6 +137,7 @@ Content-Length: 295
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Logout User
+Logs user instance out of the system.
 #### Request
 `POST /users/logout`
 ``` 
@@ -158,6 +161,7 @@ Content-Length: 42
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Logout All User
+Logs out all user instance from the application. User will need to login again to access the application.
 #### Request
 `POST /users/logout/all`
 ``` 
@@ -181,6 +185,7 @@ Content-Length: 42
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Get This User
+Get the information of the logged in user.
 #### Request
 `GET /users/me`
 ``` 
@@ -209,8 +214,9 @@ Content-Length: 295
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Get User
+Get the information of a user. The endpoint is queried using an id.
 #### Request
-`GET /users?id=228a5f5c-7179-4312-b928-7da746f9c8c9`
+`GET /users?id=userId`
 ``` 
 curl --location --request GET 'localhost:3000/api/v1/users?id=228a5f5c-7179-4312-b928-7da746f9c8c9' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyOGE1ZjVjLTcxNzktNDMxMi1iOTI4LTdkYTc0NmY5YzhjOSIsImlhdCI6MTY2NDQ4MDY3MCwiZXhwIjoxNjY2MjA4NjcwfQ._dAZnjQBhQ3N1Z2Fk5TEgRXSqD7eR7w53z9cD21c8mk'
@@ -234,7 +240,7 @@ Content-Length: 88
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Update User
-User can edit name, email and password only
+User can edit name, email and password only. Each update is validated to ensure there is no conflict.
 #### Request
 `PATCH /users/me/edit`
 ``` 
@@ -270,6 +276,7 @@ Content-Length: 89
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Delete User
+Remove user from the system. This invalidates all user tokens.
 #### Request
 `DELETE /users/me`
 ``` 
@@ -289,6 +296,7 @@ Content-Type: application/json
 
 ## Questions
 ### Post Question
+Create a new question.
 #### Request
 `POST /questions`
 ``` 
@@ -378,7 +386,14 @@ Content-Length: 942
 
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
-### Get Logged-in User
+### Get Logged-in User Questions
+Retrieves all the questions of the logged-in user. It supports pagination and the following queries;
+
+- `page=1`
+- `limit=2`
+- `sort=title_asc|title_desc|answer_asc|answer_desc`
+- `search=some-title`
+
 #### Request
 `GET /questions/me`
 ``` 
@@ -419,8 +434,9 @@ Content-Length: 305
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Get Question
+Retrieve a single question by id.
 #### Request
-`GET questions/771624ff-d37c-4768-a6da-2098ae819846`
+`GET questions/:questionId`
 ``` 
 curl --location --request GET 'localhost:3000/api/v1/questions/771624ff-d37c-4768-a6da-2098ae819846' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBkYzc1YTc3LWFmMGYtNDhjMy05ZmRjLTA5OTJhODVkYWRlZSIsImlhdCI6MTY2NDQ4MTM2NSwiZXhwIjoxNjY2MjA5MzY1fQ.CvIMUenD9nNWZSfsqpTIFl05mfypNvFAzsScQFWV_20' 
@@ -453,8 +469,9 @@ Content-Length: 256
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Update Question
+Update a user question. This endpoint validates the user to enusre they have edit rights.
 #### Request
-`PATCH /questions/f0d11212-ae90-4c3b-9e59-6e7680d9379c/edit`
+`PATCH /questions/:questionId/edit`
 ``` 
 curl --location --request PATCH 'localhost:3000/api/v1/questions/f0d11212-ae90-4c3b-9e59-6e7680d9379c/edit' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBkYzc1YTc3LWFmMGYtNDhjMy05ZmRjLTA5OTJhODVkYWRlZSIsImlhdCI6MTY2NDQ4MTM2NSwiZXhwIjoxNjY2MjA5MzY1fQ.CvIMUenD9nNWZSfsqpTIFl05mfypNvFAzsScQFWV_20' \
@@ -497,8 +514,9 @@ Content-Length: 270
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Delete Question
+Remove a question from the system. All answers and comments are removed as well.
 #### Request
-`DELETE /questions/f0d11212-ae90-4c3b-9e59-6e7680d9379c`
+`DELETE /questions/:questionId
 ``` 
 curl --location --request DELETE 'localhost:3000/api/v1/questions/f0d11212-ae90-4c3b-9e59-6e7680d9379c' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBkYzc1YTc3LWFmMGYtNDhjMy05ZmRjLTA5OTJhODVkYWRlZSIsImlhdCI6MTY2NDQ4MTM2NSwiZXhwIjoxNjY2MjA5MzY1fQ.CvIMUenD9nNWZSfsqpTIFl05mfypNvFAzsScQFWV_20' 
@@ -515,6 +533,7 @@ Content-Type: application/json
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Delete All Questions
+Remove all the questions of a user. All answers and comments are removed as well.
 #### Request
 `DELETE /questions/delete/all`
 ``` 
@@ -534,8 +553,9 @@ Content-Type: application/json
 
 ## Answers
 ### Post Answer
+Create an answer for a question.
 #### Request
-`POST /questions/4b5e7ef2-7f72-4b00-8d26-32a0266dd735/answers`
+`POST /questions/:questionId/answers`
 ``` 
 curl --location --request POST 'localhost:3000/api/v1/questions/4b5e7ef2-7f72-4b00-8d26-32a0266dd735/answers' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU' \
@@ -574,14 +594,14 @@ Content-Length: 295
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Get Logged-in User Answers
-It supports the folllowing queries;
+It supports pagination and the following queries;
 
 - `page=1`
 - `limit=2`
 - `sort=votes_asc|votes_desc`
 
 #### Request
-`GET /answers/me`
+` GET /answers/me `
 ``` 
 curl --location --request GET 'localhost:3000/api/v1/answers/me?limit=3&page=2' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU' 
@@ -623,14 +643,14 @@ Content-Length: 295
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Get Answers to a Question
-It supports the folllowing queries;
+It supports pagination and the following queries;
 
-- `page=1`
-- `limit=2`
-- `sort=votes_asc|votes_desc`
+- ` page=1 `
+- ` limit=2 `
+- ` sort=votes_asc|votes_desc `
 
 #### Request
-`GET /questions/4b5e7ef2-7f72-4b00-8d26-32a0266dd735/answers`
+` GET /questions/:questionId/answers `
 ``` 
 curl --location --request GET 'localhost:3000/api/v1/questions/4b5e7ef2-7f72-4b00-8d26-32a0266dd735/answers?limit=5' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU'
@@ -671,8 +691,9 @@ Content-Length: 295
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Accept/Reject Answer
+Accept or reject an accepted answer to a question. Only the owner of the question can perform this action.
 #### Request
-`POST /answers/65966a1a-a7c9-4bca-beb1-699d0308262f/accept|reject`
+`POST /answers/:answerId/accept|reject`
 ``` 
 curl --location --request POST 'localhost:3000/api/v1/answers/65966a1a-a7c9-4bca-beb1-699d0308262f/accept' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU' 
@@ -693,8 +714,10 @@ It supports the following queries;
 
 - `type=down_vote|up_vote`
 
+**Users are not allowed to vote twice**
+
 #### Request
-`POST /answers/65966a1a-a7c9-4bca-beb1-699d0308262f/vote?type=down_vote`
+`POST /answers/:answerId/vote?type=down_vote`
 ``` 
 curl --location --request POST 'localhost:3000/api/v1/answers/65966a1a-a7c9-4bca-beb1-699d0308262f/vote?type=down_vote' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU'
@@ -715,8 +738,10 @@ It supports the following queries;
 
 - `type=down_vote|up_vote`
 
+**The user must have casted a vote to be able to remove it.**
+
 #### Request
-`POST /answers/65966a1a-a7c9-4bca-beb1-699d0308262f/vote/reject?type=down_vote`
+`POST /answers/:answerId/vote/reject?type=down_vote`
 ``` 
 curl --location --request POST 'localhost:3000/api/v1/answers/65966a1a-a7c9-4bca-beb1-699d0308262f/vote/reject?type=down_vote' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU'
@@ -733,8 +758,9 @@ Content-Type: application/json
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Update Answer
+Update the answer of a question
 #### Request
-`PATCH answers/65966a1a-a7c9-4bca-beb1-699d0308262f/edit`
+`PATCH /answers/:answerId/edit`
 ``` 
 curl --location --request PATCH 'localhost:3000/api/v1/answers/65966a1a-a7c9-4bca-beb1-699d0308262f/edit' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU' \
@@ -778,8 +804,9 @@ Content-Length: 295
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Delete Answer
+Remove an answer from the system. This removes all comments as well.
 #### Request
-`DELETE /answers/65966a1a-a7c9-4bca-beb1-699d0308262f`
+`DELETE /answers/:answerId`
 ``` 
 curl --location --request DELETE 'localhost:3000/api/v1/answers/65966a1a-a7c9-4bca-beb1-699d0308262f' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU' 
@@ -796,8 +823,9 @@ Content-Type: application/json
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Post Comment
+Post a comment to an answer
 #### Request
-`POST /answers/5607f413-510d-4b20-8a3a-0f79f62b1da7/comments`
+`POST /answers/:answerId/comments`
 ``` 
 curl --location --request POST 'localhost:3000/api/v1/answers/5607f413-510d-4b20-8a3a-0f79f62b1da7/comments' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU' \
@@ -835,13 +863,13 @@ Content-Length: 295
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Get Comments of an Answer
-It supports the following queries;
+It supports pagination and the following queries;
 
 - `page=1`
 - `limit=3`
 
 #### Request
-`GET /answers/5607f413-510d-4b20-8a3a-0f79f62b1da7/comments`
+`GET /answers/:answerId/comments`
 ``` 
 curl --location --request GET 'localhost:3000/api/v1/answers/5607f413-510d-4b20-8a3a-0f79f62b1da7/comments?limit=3' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU' \
@@ -879,8 +907,9 @@ Content-Length: 295
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Update a Comment
+Update a comment. The comment must belong to the logged in user
 #### Request
-`PATCH /comments/09027f96-69f8-4386-9caf-c86312dd0065/edit`
+`PATCH /comments/:commentId/edit`
 ``` 
 curl --location --request PATCH 'localhost:3000/api/v1/comments/09027f96-69f8-4386-9caf-c86312dd0065/edit' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU' \
@@ -920,8 +949,9 @@ Content-Length: 295
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
 
 ### Delete a Comment
+Remove a comment from the application.
 #### Request
-`DELETE /comments/09027f96-69f8-4386-9caf-c86312dd0065`
+`DELETE /comments/:commentId`
 ``` 
 curl --location --request DELETE 'localhost:3000/api/v1/comments/09027f96-69f8-4386-9caf-c86312dd0065' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU'
@@ -936,3 +966,6 @@ Content-Type: application/json
 ```
 
 [back to the top](https://github.com/jilhenrywave/StackOverflowLite#stackoverflowlite) :point_up_2:
+
+# License
+All code is licensed under Flutterwave
