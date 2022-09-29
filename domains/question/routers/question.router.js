@@ -19,7 +19,6 @@ router.post(
 
 router.get(
   '/',
-  auth,
   validator.getQuestionsValidator,
   formatter.getQuestionsFormatter,
   (req, res) => {
@@ -39,7 +38,6 @@ router.get(
 
 router.get(
   '/:id',
-  auth,
   validator.idParamValidator,
   (req, res) => {
     responseHandler(req.params.id, res, controller.getQuestion);
@@ -88,7 +86,6 @@ router.post(
 
 router.get(
   '/:id/answers',
-  auth,
   validator.getQuestionAnswersValidator,
   formatter.getQuestionAnswersFormatter,
   (req, res) => {
