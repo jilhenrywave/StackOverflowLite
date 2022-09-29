@@ -350,8 +350,7 @@ It supports the following queries;
 #### Request
 `GET /questions`
 ``` 
-curl --location --request GET 'localhost:3000/api/v1/questions?page=2&limit=3' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBkYzc1YTc3LWFmMGYtNDhjMy05ZmRjLTA5OTJhODVkYWRlZSIsImlhdCI6MTY2NDQ4MTM2NSwiZXhwIjoxNjY2MjA5MzY1fQ.CvIMUenD9nNWZSfsqpTIFl05mfypNvFAzsScQFWV_20'
+curl --location --request GET 'localhost:3000/api/v1/questions?page=2&limit=3'
 ```
 #### Response
 ```
@@ -439,8 +438,7 @@ Retrieve a single question by id.
 #### Request
 `GET questions/:questionId`
 ``` 
-curl --location --request GET 'localhost:3000/api/v1/questions/771624ff-d37c-4768-a6da-2098ae819846' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBkYzc1YTc3LWFmMGYtNDhjMy05ZmRjLTA5OTJhODVkYWRlZSIsImlhdCI6MTY2NDQ4MTM2NSwiZXhwIjoxNjY2MjA5MzY1fQ.CvIMUenD9nNWZSfsqpTIFl05mfypNvFAzsScQFWV_20' 
+curl --location --request GET 'localhost:3000/api/v1/questions/771624ff-d37c-4768-a6da-2098ae819846'
 ```
 #### Response
 ```
@@ -653,8 +651,7 @@ It supports pagination and the following queries;
 #### Request
 ` GET /questions/:questionId/answers `
 ``` 
-curl --location --request GET 'localhost:3000/api/v1/questions/4b5e7ef2-7f72-4b00-8d26-32a0266dd735/answers?limit=5' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU'
+curl --location --request GET 'localhost:3000/api/v1/questions/4b5e7ef2-7f72-4b00-8d26-32a0266dd735/answers?limit=5'
 ```
 #### Response
 ```
@@ -872,9 +869,7 @@ It supports pagination and the following queries;
 #### Request
 `GET /answers/:answerId/comments`
 ``` 
-curl --location --request GET 'localhost:3000/api/v1/answers/5607f413-510d-4b20-8a3a-0f79f62b1da7/comments?limit=3' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUxZmQzZGIyLTM4NjctNDZkYS05OTE3LTQ2YTI5NDcxZDdmOSIsImlhdCI6MTY2NDQ4Mjk4MiwiZXhwIjoxNjY2MjEwOTgyfQ.P8WTYmeok6X0Yj9Wsv2xz5PI5ugQeuDdcQOXgzU-YTU' \
---data-raw '' 
+curl --location --request GET 'localhost:3000/api/v1/answers/5607f413-510d-4b20-8a3a-0f79f62b1da7/comments?limit=3'
 ```
 #### Response
 ```
