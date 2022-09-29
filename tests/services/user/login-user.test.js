@@ -3,7 +3,11 @@ const { expect } = require('chai');
 const sandbox = require('sinon').createSandbox();
 const bcrypt = require('bcrypt');
 const { User, Token } = require('../../../db/model-handler');
-const { findOneOptions, userWithPassword, userWithToken } = require('../../test-cases/entities/user.entity');
+const {
+  findOneOptions,
+  userWithPassword,
+  userWithToken,
+} = require('../../test-cases/entities/user.entity');
 const { password, hashedPassword, token } = require('../../test-cases/test-constants');
 const loginUser = require('../../../domains/user/user-services/login-user');
 const {
@@ -18,7 +22,7 @@ describe('Login User Service', () => {
     const bcryptStub = sandbox.stub(bcrypt, 'compare');
     const registerTokenStub = sandbox.stub(Token, 'create');
 
-    findOneStub.withArgs(findOneOptions).returns(userWithPassword);
+    findOneStub.withArgs(findOneOptions).returns({ ...userWithPassword, password: hashedPassword });
     bcryptStub.withArgs(password, hashedPassword).returns(true);
     registerTokenStub.returns({ token });
   });
