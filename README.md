@@ -20,6 +20,7 @@ This project is the web-API application written in Javascript using Node.js and 
   DB_NAME=DB_NAME
   DB_USERNAME=DB_USERNAME
   DB_PASSWORD=DB_PASSWORD
+  DB_HOST=DB_HOST
   JWT_KEY=JWT_SECRET_KEY
   ```
 - Run Migrations
