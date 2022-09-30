@@ -59,7 +59,7 @@ const getPaginatedQuestions = async ({
       .setInclude([includeUser, includeAnswer])
       .setNest(true)
       .setSubQuery(false)
-      .setGroup(['Question.id'])
+      .setGroup(['question.id'])
       .setOrder(sortBy)
       .setOffset(offset)
       .setLimit(limit)
