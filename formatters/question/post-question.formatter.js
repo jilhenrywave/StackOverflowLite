@@ -9,7 +9,7 @@ const postQuestionFormatter = (question, user) => {
   const { id = '', title = '', body = '' } = question;
 
   if (id) formattedBody.id = id;
-  if (title) formattedBody.title = title;
+  if (title) formattedBody.title = title.substring(0, 25);
   if (body) formattedBody.body = body;
 
   formattedBody.user = user;

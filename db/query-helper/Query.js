@@ -1,16 +1,11 @@
 /* eslint-disable implicit-arrow-linebreak */
 const CircuitBreaker = require('opossum');
-const { ServerError } = require('../../util/error-handlers');
 
 // Creates and executes circuit breaker
 const execCircuitBreaker = (execFunc) => {
   const breaker = new CircuitBreaker(execFunc, {
     timeout: 7000,
     resetTimeout: 15000,
-  });
-
-  breaker.fallback(() => {
-    throw new ServerError(503, 'Service is currently unavailable. Try again later');
   });
 
   return breaker
