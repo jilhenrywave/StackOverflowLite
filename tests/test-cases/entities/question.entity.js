@@ -52,7 +52,7 @@ const getArgs = (where, page = 1, limit = 50, sort = []) =>
     .setInclude([includeUser, includeAnswer])
     .setNest(true)
     .setSubQuery(false)
-    .setGroup(['Question.id'])
+    .setGroup(['question.id'])
     .setOrder(sort)
     .setOffset((page - 1) * limit)
     .setLimit(limit)
