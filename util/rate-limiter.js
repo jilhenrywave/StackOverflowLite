@@ -12,6 +12,7 @@ const rateLimiter = (max) => rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: new RequestError(429, 'You have made too many request, try again later'),
+  keyGenerator: (request, _response) => `${request.iq}-${request.path}`,
 });
 
 exports.updateDeleteUserRequestLimiter = rateLimiter(5);
