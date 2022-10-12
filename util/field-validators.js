@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 const validator = require('validator');
 
-exports.isTextValid = (value) => validator.isLength(value, { min: 1, max: 150 });
+exports.isTextValid = (value) => validator.isLength(value.trim(), { min: 1, max: 150 });
 
 exports.isNumber = (value) => validator.isNumeric(value);
 

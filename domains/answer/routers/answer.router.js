@@ -4,11 +4,13 @@ const controller = require('../controller/answer.controller');
 const validator = require('../../../middlewares/answer/answer-req-validators');
 const formatter = require('../../../middlewares/answer/answer-req-formatter');
 const auth = require('../../../middlewares/auth');
+const { getRequestLimiter, postRequestLimiter, updateDeleteRequestLimiter } = require('../../../util/rate-limiter');
 
 const router = express.Router();
 
 router.get(
   '/me',
+  getRequestLimiter,
   auth,
   validator.getUserAnswersValidator,
   formatter.getUserAnswersFormatter,
@@ -19,6 +21,7 @@ router.get(
 
 router.post(
   '/:id/accept',
+  postRequestLimiter,
   auth,
   validator.idParamValidator,
   formatter.idParamAuthUserFormatter,
@@ -29,6 +32,7 @@ router.post(
 
 router.post(
   '/:id/reject',
+  postRequestLimiter,
   auth,
   validator.idParamValidator,
   formatter.idParamAuthUserFormatter,
@@ -40,6 +44,7 @@ router.post(
 
 router.post(
   '/:id/vote',
+  postRequestLimiter,
   auth,
   validator.voteAnswerValidator,
   formatter.voteAnswerFormatter,
@@ -50,6 +55,7 @@ router.post(
 
 router.post(
   '/:id/vote/cancel',
+  postRequestLimiter,
   auth,
   validator.voteAnswerValidator,
   formatter.voteAnswerFormatter,
@@ -61,6 +67,7 @@ router.post(
 
 router.patch(
   '/:id/edit',
+  updateDeleteRequestLimiter,
   auth,
   validator.postAnswerValidator,
   formatter.postAnswerFormatter,
@@ -71,6 +78,7 @@ router.patch(
 
 router.delete(
   '/:id',
+  updateDeleteRequestLimiter,
   auth,
   validator.idParamValidator,
   formatter.idParamAuthUserFormatter,
@@ -81,6 +89,7 @@ router.delete(
 
 router.post(
   '/:id/comments',
+  postRequestLimiter,
   auth,
   validator.postCommentValidator,
   formatter.postCommentFormatter,
@@ -91,6 +100,7 @@ router.post(
 
 router.get(
   '/:id/comments',
+  getRequestLimiter,
   validator.getCommentsValidator,
   formatter.getCommentsFormatter,
   (req, res) => {
