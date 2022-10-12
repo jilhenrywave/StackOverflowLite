@@ -20,7 +20,7 @@ const ERROR_MESSAGE = {
   invalidQuerySort: 'Invalid value for query field - sort. Accepted values are TITLE_ASC, TITLE_DESC, ANSWER_ASC or ANSWER_DESC',
   invalidQueryPageNumber: 'Query field, page, is not a number',
   invalidQueryLimit: 'Query field, limit, is not a number',
-  incorrectID: 'Encountered an unrecognized ID.',
+  incorrectID: 'ID is not valid',
   invalidAnswerID: 'Answer ID is not recognised or is missing',
   invalidVoteType: 'Invalid query field - type. Accepted values are UP_VOTE or DOWN_VOTE',
   invalidIDParam: 'The parameter field - ID, is not recognised',
