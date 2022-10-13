@@ -24,12 +24,15 @@ module.exports = async ({ name = '', email = '', password = '' }) => {
   try {
     const formattedBody = {};
 
-    if (name) formattedBody.name = name;
+    if (name) formattedBody.name = name.substring(0, 25);
     if (email) formattedBody.email = email;
     if (password) formattedBody.password = await passwordFormatter(password);
 
     return formattedBody;
   } catch (e) {
-    return new ServerError(500, 'Unable to complete requests at this time, please try again later.');
+    return new ServerError(
+      500,
+      'Unable to complete requests at this time, please try again later.',
+    );
   }
 };

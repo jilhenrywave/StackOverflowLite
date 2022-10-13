@@ -4,11 +4,13 @@ const controller = require('../controllers/comment.controller');
 const formatter = require('../../../middlewares/comment/comment-req-formatter');
 const validator = require('../../../middlewares/comment/comment-req-validator');
 const auth = require('../../../middlewares/auth');
+const { updateDeleteRequestLimiter } = require('../../../util/rate-limiter');
 
 const router = express.Router();
 
 router.patch(
   '/:id/edit',
+  updateDeleteRequestLimiter,
   auth,
   validator.postCommentValidator,
   formatter.postCommentFormatter,
@@ -19,6 +21,7 @@ router.patch(
 
 router.delete(
   '/:id',
+  updateDeleteRequestLimiter,
   auth,
   validator.idParamValidator,
   formatter.idParamAuthUserFormatter,

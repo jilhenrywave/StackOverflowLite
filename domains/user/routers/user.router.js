@@ -4,11 +4,13 @@ const auth = require('../../../middlewares/auth');
 const { userProfileFormatter } = require('../../../middlewares/user/user-req-formatters');
 const { registerUserValidator, loginValidator, updateUserValidator } = require('../../../middlewares/user/user-req-validators');
 const { responseHandler } = require('../../../util/request-handler');
+const { postRequestLimiter, getRequestLimiter, updateDeleteUserRequestLimiter } = require('../../../util/rate-limiter');
 
 const router = express.Router();
 
 router.post(
   '/',
+  postRequestLimiter,
   registerUserValidator,
   userProfileFormatter,
   (req, res) => {
@@ -18,6 +20,7 @@ router.post(
 
 router.post(
   '/login',
+  postRequestLimiter,
   loginValidator,
   (req, res) => {
     responseHandler(req.body, res, controller.loginUser);
@@ -26,6 +29,7 @@ router.post(
 
 router.post(
   '/logout',
+  postRequestLimiter,
   auth,
   (req, res) => {
     responseHandler(req.user, res, controller.logoutUser);
@@ -34,6 +38,7 @@ router.post(
 
 router.post(
   '/logout/all',
+  postRequestLimiter,
   auth,
   (req, res) => {
     req.user.all = true;
@@ -43,6 +48,7 @@ router.post(
 
 router.get(
   '/me',
+  getRequestLimiter,
   auth,
   (req, res) => {
     responseHandler(req.user, res, controller.getThisUser);
@@ -51,6 +57,7 @@ router.get(
 
 router.get(
   '/',
+  getRequestLimiter,
   auth,
   (req, res) => {
     responseHandler(req.query.id, res, controller.getUser);
@@ -59,6 +66,7 @@ router.get(
 
 router.patch(
   '/me/edit',
+  updateDeleteUserRequestLimiter,
   auth,
   updateUserValidator,
   userProfileFormatter,
@@ -70,6 +78,7 @@ router.patch(
 
 router.delete(
   '/me',
+  updateDeleteUserRequestLimiter,
   auth,
   (req, res) => {
     responseHandler(req.user, res, controller.deleteUser);
